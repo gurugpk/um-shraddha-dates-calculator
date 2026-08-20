@@ -76,7 +76,10 @@ fun ResultsScreen(
                 .verticalScroll(scrollState),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(2.dp))
+
+            // Dedicated Top Banner
+            com.shraddhacalendar.ui.components.TopDedicationBanner()
 
             // Person & Death Summary Card
             Card(

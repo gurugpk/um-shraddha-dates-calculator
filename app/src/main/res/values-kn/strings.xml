@@ -61,6 +61,8 @@
     <string name="about_description">ಯು.ಎಂ. ಶ್ರಾದ್ಧ ದಿನಾಂಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಶ್ರೀಉತ್ತರಾದಿಮಠ ಪಂಚಾಂಗ ಮತ್ತು ಮಾಧ್ವ ಸ್ಮೃತಿಮುಕ್ತಾವಳಿ ಸಂಪ್ರದಾಯದಂತೆ ಮಾಸಿಕ ಮತ್ತು ಸಾಂವತ್ಸರಿಕ ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳನ್ನು ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡುತ್ತದೆ.</string>
     <string name="version_label">ಆವೃತ್ತಿ</string>
     <string name="developed_by">ಅಭಿವೃದ್ಧಿ ಮತ್ತು ನಿರ್ವಹಣೆ: ಗುರುರಾಜ್ ಕುಲಕರ್ಣಿ</string>
+    <string name="dedicated_to_father">ಪೂಜ್ಯ ತಂದೆಯವರಾದ ದಿವಂಗತ ಶ್ರೀ ಪ್ರಾಣೇಶ ಕುಲಕರ್ಣಿ ಅವರ ಪವಿತ್ರ ಸ್ಮರಣೆಯಲ್ಲಿ ಸಮರ್ಪಿತ</string>
+    <string name="dedicated_to_matha">ಶ್ರೀ ಹರಿ-ವಾಯುಗುರುಗಳು ಹಾಗೂ ಶ್ರೀ ೧೦೮ ಉತ್ತರಾದಿ ಮಠ ಪರಂಪರೆಯ ಸೇವೆಗಾಗಿ ಸಮರ್ಪಿತ.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">ಕ್ಯಾಲೆಂಡರ್ ಪ್ರವೇಶಾವಕಾಶ ಅಗತ್ಯವಿದೆ</string>

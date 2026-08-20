@@ -61,6 +61,8 @@
     <string name="about_description">UM Shraddha Dates Calculator calculates Masika and Yearly Shraddha dates strictly according to Sri Uttaradi Math Panchanga rules and Madhwa Smriti Muktavali tradition.</string>
     <string name="version_label">Version</string>
     <string name="developed_by">Developed and Managed by Gururaj Kulkarni</string>
+    <string name="dedicated_to_father">Dedicated in loving memory of my beloved father Late Sri Pranesh Kulkarni</string>
+    <string name="dedicated_to_matha">Dedicated to the service of Sri Hari, Vayu, and Sri 108 Uttaradi Math Parampara.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">Calendar Access Required</string>

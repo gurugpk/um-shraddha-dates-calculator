@@ -53,8 +53,11 @@ fun SettingsScreen(
                 .padding(padding)
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Dedicated Top Banner
+            com.shraddhacalendar.ui.components.TopDedicationBanner()
+
             // 1. Language Selection Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -243,12 +246,31 @@ fun SettingsScreen(
                             .padding(vertical = 12.dp, horizontal = 14.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = stringResource(R.string.developed_by),
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = PrimarySaffronDark
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.developed_by),
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimarySaffronDark,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            Text(
+                                text = "🌸 " + stringResource(R.string.dedicated_to_father) + " 🌸",
+                                style = MaterialTheme.typography.bodySmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = TextPrimary,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            Text(
+                                text = stringResource(R.string.dedicated_to_matha),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = TextSecondary,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                        }
                     }
                 }
             }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.shraddhacalendar.R
 import com.shraddhacalendar.core.models.PersonDeathRecord
 import com.shraddhacalendar.data.local.RecentSearchItem
+import com.shraddhacalendar.ui.components.TopDedicationBanner
 import com.shraddhacalendar.ui.theme.*
 import java.time.format.DateTimeFormatter
 
@@ -64,138 +65,148 @@ fun RecentsScreen(
         },
         containerColor = BackgroundWarm
     ) { padding ->
-        if (recentSearches.isEmpty()) {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(24.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(horizontal = 20.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
+            // Dedicated Top Banner
+            TopDedicationBanner()
+
+            if (recentSearches.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(24.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.History,
+                            contentDescription = null,
+                            tint = TextTertiary,
+                            modifier = Modifier.size(64.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.recents_empty),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = TextSecondary
+                        )
+                        Text(
+                            text = stringResource(R.string.recents_empty_sub),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = TextTertiary
+                        )
+                    }
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.History,
-                        contentDescription = null,
-                        tint = TextTertiary,
-                        modifier = Modifier.size(64.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.recents_empty),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = TextSecondary
-                    )
-                    Text(
-                        text = stringResource(R.string.recents_empty_sub),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextTertiary
-                    )
-                }
-            }
-        } else {
-            LazyColumn(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(horizontal = 20.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(recentSearches, key = { it.id }) { item ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(16.dp))
-                            .clickable {
-                                val person = PersonDeathRecord(
-                                    name = item.personName,
-                                    deathDate = item.deathDate,
-                                    deathTime = item.deathTime,
-                                    location = item.location
-                                )
-                                onSelectRecent(person)
-                            },
-                        shape = RoundedCornerShape(16.dp),
-                        colors = CardDefaults.cardColors(containerColor = SurfaceCard),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-                    ) {
-                        Row(
+                    items(recentSearches, key = { it.id }) { item ->
+                        Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                                .clip(RoundedCornerShape(16.dp))
+                                .clickable {
+                                    val person = PersonDeathRecord(
+                                        name = item.personName,
+                                        deathDate = item.deathDate,
+                                        deathTime = item.deathTime,
+                                        location = item.location
+                                    )
+                                    onSelectRecent(person)
+                                },
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(containerColor = SurfaceCard),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                         ) {
                             Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(14.dp),
-                                modifier = Modifier.weight(1f)
+                                horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(44.dp)
-                                        .clip(RoundedCornerShape(12.dp))
-                                        .background(PrimarySaffron.copy(alpha = 0.12f)),
-                                    contentAlignment = Alignment.Center
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+                                    modifier = Modifier.weight(1f)
                                 ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(44.dp)
+                                            .clip(RoundedCornerShape(12.dp))
+                                            .background(PrimarySaffron.copy(alpha = 0.12f)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Person,
+                                            contentDescription = null,
+                                            tint = PrimarySaffronDark,
+                                            modifier = Modifier.size(24.dp)
+                                        )
+                                    }
+
+                                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        Text(
+                                            text = item.personName,
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = TextPrimary
+                                        )
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.AccessTime,
+                                                contentDescription = null,
+                                                tint = TextTertiary,
+                                                modifier = Modifier.size(14.dp)
+                                            )
+                                            Text(
+                                                text = "${item.deathDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))} at ${item.deathTime.format(DateTimeFormatter.ofPattern("hh:mm a"))}",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = TextSecondary
+                                            )
+                                        }
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.LocationOn,
+                                                contentDescription = null,
+                                                tint = TextTertiary,
+                                                modifier = Modifier.size(14.dp)
+                                            )
+                                            Text(
+                                                text = item.location.displayName,
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = TextTertiary
+                                            )
+                                        }
+                                    }
+                                }
+
+                                IconButton(onClick = { onDeleteRecent(item.id) }) {
                                     Icon(
-                                        imageVector = Icons.Default.Person,
-                                        contentDescription = null,
-                                        tint = PrimarySaffronDark,
-                                        modifier = Modifier.size(24.dp)
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = stringResource(R.string.delete),
+                                        tint = TextTertiary
                                     )
                                 }
-
-                                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                    Text(
-                                        text = item.personName,
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = TextPrimary
-                                    )
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.AccessTime,
-                                            contentDescription = null,
-                                            tint = TextTertiary,
-                                            modifier = Modifier.size(14.dp)
-                                        )
-                                        Text(
-                                            text = "${item.deathDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))} at ${item.deathTime.format(DateTimeFormatter.ofPattern("hh:mm a"))}",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = TextSecondary
-                                        )
-                                    }
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.LocationOn,
-                                            contentDescription = null,
-                                            tint = TextTertiary,
-                                            modifier = Modifier.size(14.dp)
-                                        )
-                                        Text(
-                                            text = item.location.displayName,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = TextTertiary
-                                        )
-                                    }
-                                }
-                            }
-
-                            IconButton(onClick = { onDeleteRecent(item.id) }) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = stringResource(R.string.delete),
-                                    tint = TextTertiary
-                                )
                             }
                         }
                     }

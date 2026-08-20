@@ -61,6 +61,8 @@
     <string name="about_description">యు.ఎం. శ్రాద్ధ దినాంక గణకం శ్రీఉత్తరాదిమఠ పంచాంగం మరియు మాధ్వ స్మృతిముక్తావళి సాంప్రదాయం ప్రకారం శ్రాద్ధ దినాంకాలను లెక్కిస్తుంది.</string>
     <string name="version_label">వెర్షన్</string>
     <string name="developed_by">రూపకల్పన మరియు నిర్వహణ: గురురాజ్ కులకర్ణి</string>
+    <string name="dedicated_to_father">పూజ్య తండ్రిగారైన దివంగత శ్రీ ప్రాణేశ కులకర్ణి వారి పవిత్ర స్మృతిలో సమర్పితం</string>
+    <string name="dedicated_to_matha">శ్రీ హరి-వాయుగురువులు మరియు శ్రీ 108 ఉత్తరాది మఠం పరంపర సేవలో సమర్పితం.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">క్యాలెండర్ అనుమతి అవసరం</string>

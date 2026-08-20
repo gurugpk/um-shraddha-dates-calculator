@@ -73,9 +73,12 @@ fun InputScreen(
                 .padding(padding)
                 .padding(horizontal = 20.dp)
                 .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(2.dp))
+
+            // Dedicated Top Banner
+            com.shraddhacalendar.ui.components.TopDedicationBanner()
 
             // Main Input Card
             Card(
@@ -285,20 +288,6 @@ fun InputScreen(
                         )
                     }
                 }
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.developed_by),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = TextTertiary,
-                    fontWeight = FontWeight.Medium
-                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
