@@ -325,4 +325,108 @@ object PanchangaLocalizer {
             else -> name
         }
     }
+
+    fun localizePersonName(name: String, language: AppLanguage): String {
+        return IndicTransliterator.transliterate(name, language)
+    }
+
+    fun localizeLocation(location: String, language: AppLanguage): String {
+        return IndicTransliterator.transliterate(location, language)
+    }
+
+    fun localizeSamvatsara(samvatsara: String, language: AppLanguage): String {
+        val clean = samvatsara.trim()
+        val baseName = when (language) {
+            AppLanguage.ENGLISH -> clean
+            AppLanguage.KANNADA -> SAMVATSARA_KN[clean] ?: IndicTransliterator.transliterate(clean, language)
+            AppLanguage.SANSKRIT -> SAMVATSARA_SA[clean] ?: IndicTransliterator.transliterate(clean, language)
+            AppLanguage.TELUGU -> SAMVATSARA_TE[clean] ?: IndicTransliterator.transliterate(clean, language)
+            AppLanguage.TAMIL -> SAMVATSARA_TA[clean] ?: IndicTransliterator.transliterate(clean, language)
+        }
+
+        val suffix = when (language) {
+            AppLanguage.ENGLISH -> "Nama Samvatsara"
+            AppLanguage.KANNADA -> "ನಾಮ ಸಂವತ್ಸರ"
+            AppLanguage.SANSKRIT -> "नामसंवत्सरः"
+            AppLanguage.TELUGU -> "నామ సంవత్సరం"
+            AppLanguage.TAMIL -> "நாம ஸம்வத்ஸரம்"
+        }
+
+        return "$baseName $suffix"
+    }
+
+    fun localizeFullPanchanga(tithi: PanchangaTithi, language: AppLanguage): String {
+        val samvatsara = localizeSamvatsara(tithi.samvatsara, language)
+        val masa = localizeMasa(tithi.masa, tithi.isAdhikaMasa, language)
+        val paksha = localizePaksha(tithi.tithi.paksha, language)
+        val tithiName = localizeTithi(tithi.tithi, language)
+
+        return when (language) {
+            AppLanguage.ENGLISH -> "$samvatsara, $masa, $paksha, $tithiName"
+            AppLanguage.KANNADA -> "$samvatsara, $masa, $paksha, $tithiName"
+            AppLanguage.SANSKRIT -> "$samvatsara, $masa, $paksha, $tithiName"
+            AppLanguage.TELUGU -> "$samvatsara, $masa, $paksha, $tithiName"
+            AppLanguage.TAMIL -> "$samvatsara, $masa, $paksha $tithiName"
+        }
+    }
+
+    private val SAMVATSARA_KN = mapOf(
+        "Prabhava" to "ಪ್ರಭವ", "Vibhava" to "ವಿಭವ", "Shukla" to "ಶುಕ್ಲ", "Pramoda" to "ಪ್ರಮೋದ", "Prajotpatti" to "ಪ್ರಜೋತ್ಪತ್ತಿ",
+        "Angirasa" to "ಆಂಗೀರಸ", "Shrimukha" to "ಶ್ರೀಮುಖ", "Bhava" to "ಭಾವ", "Yuva" to "ಯುವ", "Dhatru" to "ಧಾತು",
+        "Ishvara" to "ಈಶ್ವರ", "Bahudhanya" to "ಬಹುಧಾನ್ಯ", "Pramathi" to "ಪ್ರಮಾಥಿ", "Vikrama" to "ವಿಕ್ರಮ", "Vrisha" to "ವೃಷ",
+        "Chitrabhanu" to "ಚಿತ್ರಭಾನು", "Svabhanu" to "ಸ್ವಭಾನು", "Tarana" to "ತಾರಣ", "Parthiva" to "ಪಾರ್ಥಿವ", "Vyaya" to "ವ್ಯಯ",
+        "Sarvajit" to "ಸರ್ವಜಿತ್", "Sarvadhari" to "ಸರ್ವಧಾರಿ", "Virodhi" to "ವಿರೋಧಿ", "Vikruti" to "ವಿಕೃತಿ", "Khara" to "ಖರ",
+        "Nandana" to "ನಂದನ", "Vijaya" to "ವಿಜಯ", "Jaya" to "ಜಯ", "Manmatha" to "ಮನ್ಮಥ", "Durmukha" to "ದುರ್ಮುಖ",
+        "Hevilambi" to "ಹೇವಿಳಂಬಿ", "Vilambi" to "ವಿಳಂಬಿ", "Vikari" to "ವಿಕಾರಿ", "Sharvari" to "ಶಾರ್ವರಿ", "Plava" to "ಪ್ಲವ",
+        "Shubhakrit" to "ಶುಭಕೃತ್", "Shobhakrit" to "ಶೋಭಕೃತ್", "Krodhi" to "ಕ್ರೋಧಿ", "Vishvavasu" to "ವಿಶ್ವಾವಸು", "Parabhava" to "ಪರಾಭವ",
+        "Plavanga" to "ಪ್ಲವಂಗ", "Kilaka" to "ಕೀಲಕ", "Saumya" to "ಸೌಮ್ಯ", "Sadharana" to "ಸಾಧಾರಣ", "Virodhikrit" to "ವಿರೋಧಿಕೃತ್",
+        "Paridhavi" to "ಪರಿಧಾವಿ", "Pramadicha" to "ಪ್ರಮಾದೀಚ", "Ananda" to "ಆನಂದ", "Rakshasa" to "ರಾಕ್ಷಸ", "Nala" to "ನಳ",
+        "Pingala" to "ಪಿಂಗಲ", "Kalayukti" to "ಕಾಲಯುಕ್ತಿ", "Siddharthi" to "ಸಿದ್ಧಾರ್ಥಿ", "Raudra" to "ರೌದ್ರ", "Durmati" to "ದುರ್ಮತಿ",
+        "Dundubhi" to "ದುಂದುಭಿ", "Rudhirodgari" to "ರುಧಿರೋದಾಗಾರಿ", "Raktakshi" to "ರಕ್ತಾಕ್ಷಿ", "Krodhana" to "ಕ್ರೋಧನ", "Kshaya" to "ಕ್ಷಯ"
+    )
+
+    private val SAMVATSARA_SA = mapOf(
+        "Prabhava" to "प्रभवः", "Vibhava" to "विभवः", "Shukla" to "शुक्लः", "Pramoda" to "प्रमोदः", "Prajotpatti" to "प्रजोत्पत्तिः",
+        "Angirasa" to "आङ्गीरसः", "Shrimukha" to "श्रीमुखः", "Bhava" to "भावः", "Yuva" to "युवः", "Dhatru" to "धाता",
+        "Ishvara" to "ईश्वरः", "Bahudhanya" to "बहुधान्यः", "Pramathi" to "प्रमाथी", "Vikrama" to "विक्रमः", "Vrisha" to "वृषः",
+        "Chitrabhanu" to "चित्रभानुः", "Svabhanu" to "स्वभानुः", "Tarana" to "तारणः", "Parthiva" to "पार्थिवः", "Vyaya" to "व्ययः",
+        "Sarvajit" to "सर्वजित्", "Sarvadhari" to "सर्वधारी", "Virodhi" to "विरोधी", "Vikruti" to "विकृतिः", "Khara" to "खरः",
+        "Nandana" to "नन्दनः", "Vijaya" to "विजयः", "Jaya" to "जयः", "Manmatha" to "मन्मथः", "Durmukha" to "दुर्मुखः",
+        "Hevilambi" to "हेविलम्बी", "Vilambi" to "विलम्बी", "Vikari" to "विकारी", "Sharvari" to "शार्वरी", "Plava" to "प्लवः",
+        "Shubhakrit" to "शुभकृत्", "Shobhakrit" to "शोभकृत्", "Krodhi" to "क्रोधी", "Vishvavasu" to "विश्वावसुः", "Parabhava" to "पराभवः",
+        "Plavanga" to "प्लवङ्गः", "Kilaka" to "कीलकः", "Saumya" to "सौम्यः", "Sadharana" to "साधारणः", "Virodhikrit" to "विरोधकृत्",
+        "Paridhavi" to "परिधावी", "Pramadicha" to "प्रमादीचः", "Ananda" to "आनन्दः", "Rakshasa" to "राक्षसः", "Nala" to "नलः",
+        "Pingala" to "पिङ्गलः", "Kalayukti" to "कालयुक्तिः", "Siddharthi" to "सिद्धार्थी", "Raudra" to "रौद्रः", "Durmati" to "दुर्मतिः",
+        "Dundubhi" to "दुन्दुभिः", "Rudhirodgari" to "रुधिरोद्गारी", "Raktakshi" to "रक्ताक्षी", "Krodhana" to "क्रोधनः", "Kshaya" to "क्षयः"
+    )
+
+    private val SAMVATSARA_TE = mapOf(
+        "Prabhava" to "ప్రభవ", "Vibhava" to "విభవ", "Shukla" to "శుక్ల", "Pramoda" to "ప్రమోద", "Prajotpatti" to "ప్రజోత్పత్తి",
+        "Angirasa" to "ఆంగీరస", "Shrimukha" to "శ్రీముఖ", "Bhava" to "భావ", "Yuva" to "యువ", "Dhatru" to "ధాత",
+        "Ishvara" to "ఈశ్వర", "Bahudhanya" to "బహుధాన్య", "Pramathi" to "ప్రమాథి", "Vikrama" to "విక్రమ", "Vrisha" to "వృష",
+        "Chitrabhanu" to "చిత్రభాను", "Svabhanu" to "స్వభాను", "Tarana" to "తారణ", "Parthiva" to "పార్థివ", "Vyaya" to "వ్యయ",
+        "Sarvajit" to "సర్వజిత్", "Sarvadhari" to "సర్వధారి", "Virodhi" to "విరోధి", "Vikruti" to "వికృతి", "Khara" to "ఖర",
+        "Nandana" to "నందన", "Vijaya" to "విజయ", "Jaya" to "జయ", "Manmatha" to "మన్మథ", "Durmukha" to "దుర్ముఖ",
+        "Hevilambi" to "హేవిలంబి", "Vilambi" to "విలంబి", "Vikari" to "వికారి", "Sharvari" to "శార్వరి", "Plava" to "ప్లవ",
+        "Shubhakrit" to "శుభకృత్", "Shobhakrit" to "శోభకృత్", "Krodhi" to "క్రోధి", "Vishvavasu" to "విశ్వావసు", "Parabhava" to "పరాభవ",
+        "Plavanga" to "ప్లవంగ", "Kilaka" to "కీలక", "Saumya" to "సౌమ్య", "Sadharana" to "సాధారణ", "Virodhikrit" to "విరోధికృత్",
+        "Paridhavi" to "పరిధావి", "Pramadicha" to "ప్రమాదీచ", "Ananda" to "ఆనంద", "Rakshasa" to "రాక్షస", "Nala" to "నల",
+        "Pingala" to "పింగల", "Kalayukti" to "కాలయుక్తి", "Siddharthi" to "సిద్ధార్థి", "Raudra" to "రౌద్ర", "Durmati" to "దుర్మతి",
+        "Dundubhi" to "దుందుభి", "Rudhirodgari" to "రుధిరోద్గారి", "Raktakshi" to "రక్తాక్షి", "Krodhana" to "క్రోధన", "Kshaya" to "క్షయ"
+    )
+
+    private val SAMVATSARA_TA = mapOf(
+        "Prabhava" to "ப்ரபவ", "Vibhava" to "விபவ", "Shukla" to "சுக்ல", "Pramoda" to "ப்ரமோத", "Prajotpatti" to "ப்ரஜோத்பத்தி",
+        "Angirasa" to "ஆங்கீரஸ", "Shrimukha" to "ஸ்ரீமுக", "Bhava" to "பாவ", "Yuva" to "யுவ", "Dhatru" to "தாது",
+        "Ishvara" to "ஈஸ்வர", "Bahudhanya" to "பஹுதான்ய", "Pramathi" to "ப்ரமாதி", "Vikrama" to "விக்ரம", "Vrisha" to "வ்ருஷ",
+        "Chitrabhanu" to "சித்ரபானு", "Svabhanu" to "ஸ்வபானு", "Tarana" to "தாரண", "Parthiva" to "பார்த்திவ", "Vyaya" to "வ்யய",
+        "Sarvajit" to "ஸர்வஜித்", "Sarvadhari" to "ஸர்வதாரி", "Virodhi" to "விரோதி", "Vikruti" to "விக்ருதி", "Khara" to "கர",
+        "Nandana" to "நந்தன", "Vijaya" to "விஜய", "Jaya" to "ஜய", "Manmatha" to "மன்மத", "Durmukha" to "துர்முக",
+        "Hevilambi" to "ஹேவிளம்பி", "Vilambi" to "விளம்பி", "Vikari" to "விகாரி", "Sharvari" to "சார்வரி", "Plava" to "ப்ளவ",
+        "Shubhakrit" to "சுபக்ருத்", "Shobhakrit" to "சோபக்ருத்", "Krodhi" to "க்ரோதி", "Vishvavasu" to "விஸ்வாவஸு", "Parabhava" to "பராபவ",
+        "Plavanga" to "ப்ளவங்க", "Kilaka" to "கீலக", "Saumya" to "ஸௌம்ய", "Sadharana" to "ஸாதாரண", "Virodhikrit" to "விரோதிக்ருத்",
+        "Paridhavi" to "பரிதாவி", "Pramadicha" to "ப்ரமாதீச", "Ananda" to "ஆனந்த", "Rakshasa" to "ராக்ஷஸ", "Nala" to "நள",
+        "Pingala" to "பிங்கல", "Kalayukti" to "காலயுக்தி", "Siddharthi" to "ஸித்தார்த்தி", "Raudra" to "ரௌத்ர", "Durmati" to "துர்மதி",
+        "Dundubhi" to "துந்துபி", "Rudhirodgari" to "ருதிரோத்காரி", "Raktakshi" to "ரக்தாக்ஷி", "Krodhana" to "க்ரோதன", "Kshaya" to "க்ஷய"
+    )
 }

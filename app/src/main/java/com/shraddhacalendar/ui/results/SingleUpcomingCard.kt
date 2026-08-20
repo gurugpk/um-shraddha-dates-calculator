@@ -126,8 +126,8 @@ fun SingleUpcomingCard(
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 PanchangaRow(stringResource(R.string.tithi), "$localizedTithi ($localizedPaksha)")
                 PanchangaRow(stringResource(R.string.masa), localizedMasa)
-                PanchangaRow(stringResource(R.string.samvatsara), "${event.tithi.samvatsara} Nama Samvatsara")
-                PanchangaRow(stringResource(R.string.location_label), locationName)
+                PanchangaRow(stringResource(R.string.samvatsara), PanchangaLocalizer.localizeSamvatsara(event.tithi.samvatsara, language))
+                PanchangaRow(stringResource(R.string.location_label), PanchangaLocalizer.localizeLocation(locationName, language))
                 PanchangaRow(stringResource(R.string.aparahna_window), "${event.kalaDetails.aparahnaStart} - ${event.kalaDetails.aparahnaEnd}")
             }
 

@@ -4,8 +4,21 @@
     
     <!-- Navigation -->
     <string name="nav_calculator">गणकम्</string>
-    <string name="nav_recents">पूर्ववृत्तम्</string>
-    <string name="nav_settings">व्यवस्था</string>
+    <string name="nav_saved">संरक्षिताः</string>
+    <string name="nav_recents">नूतनानि</string>
+    <string name="nav_settings">विन्यासाः</string>
+    
+    <!-- Saved Profiles Screen -->
+    <string name="saved_title">संरक्षित-श्राद्ध-विवरणानि</string>
+    <string name="saved_empty">न किमपि संरक्षितम्</string>
+    <string name="saved_empty_desc">कुटुम्बसदस्यानां श्राद्धविवरणानि दूरवाण्यां शाश्वततया संरक्ष्य यथेच्छं पश्यन्तु।</string>
+    <string name="save_profile_btn">संरक्षयतु</string>
+    <string name="saved_badge">शाश्वतं संरक्षितम्</string>
+    <string name="save_profile_subtitle">दूरवाण्यां शाश्वतं संरक्षयतु</string>
+    <string name="saved_profile_subtitle">संरक्षितभागे उपलब्धम्</string>
+    <string name="calendar_sync_subtitle">दिनद्वयं पूर्वं दिनमेकं पूर्वं च स्मरणम्</string>
+    <string name="remove_saved_btn">निष्कासयतु</string>
+    <string name="open_profile">श्राद्धदिनानि पश्यतु</string>
     
     <!-- Input Screen -->
     <string name="person_name_label">मृतव्यक्तिनाम</string>
@@ -67,6 +80,20 @@
     <string name="export_pdf">पि.डि.एफ् अवतरणं / प्रेषणम्</string>
     <string name="pdf_generating">पि.डि.एफ् सज्जायते...</string>
     <string name="pdf_share_title">श्राद्धपञ्चाङ्ग-पि.डि.एफ् प्रेषयतु</string>
+    <string name="hari_vayu_footer">॥ श्रीहरिः सर्वोत्तमः • वायुर्जीवोत्तमः ॥</string>
+    
+    <!-- App Notification Strings -->
+    <string name="notif_channel_name">श्राद्धदिनस्मारकाणि</string>
+    <string name="notif_channel_desc">श्राद्धदिनात् दिनद्वयात् एकदिनात् च पूर्वं स्मारकाणि</string>
+    <string name="notif_upcoming_title">आगामिश्राद्धम्</string>
+    <string name="notif_reminder_title">श्राद्धस्मारकम्</string>
+    <string name="notif_2days_body">%1$s — %2$s दिनद्वयानन्तरम् अस्ति, %3$s दिनाङ्के।</string>
+    <string name="notif_1day_body">%1$s — %2$s श्वः अस्ति, %3$s दिनाङ्के।</string>
+    <string name="notifications_section">सूचनाव्यवस्था</string>
+    <string name="app_notifications_label">आँप्-स्मारकम्</string>
+    <string name="app_notifications_desc">आँप्-माध्यमेन पूर्वस्मारकं प्राप्नुवन्तु (दिनद्वयात् एकदिनात् च पूर्वं प्रातः ८:०० वादने)</string>
+    <string name="notification_permission_required">सूचनानुमतिः आवश्यकी</string>
+    <string name="notification_permission_desc">श्राद्धस्मारकाणि यथाकालं प्रेषयितुम् अनुमतिं ददातु।</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">कैलेण्डर् अनुमतिः आवश्यकी</string>

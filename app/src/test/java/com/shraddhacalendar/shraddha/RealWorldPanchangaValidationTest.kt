@@ -113,4 +113,38 @@ class RealWorldPanchangaValidationTest {
         assertEquals(1, resultsM.size)
         assertEquals("Mantralayam", resultsM.first().city)
     }
+
+    @Test
+    fun testShakuntalaCase() {
+        val deathDate = LocalDate.of(2020, 8, 17)
+        val deathTime = LocalTime.of(8, 0)
+        val person = PersonDeathRecord(
+            name = "Shakuntala",
+            deathDate = deathDate,
+            deathTime = deathTime,
+            location = bengaluru
+        )
+
+        val result = ShraddhaCalculator.calculate(person, currentDate = LocalDate.of(2026, 8, 20))
+        println("=== SHAKUNTALA CASE TRACE ===")
+        println("Death Record: ${result.personRecord.name}, Date: ${result.personRecord.deathDate} at ${result.personRecord.deathTime}")
+        println("Death Mruta Tithi: ${result.mrutaTithi.samvatsara}, ${result.mrutaTithi.masaDisplayName}, ${result.mrutaTithi.tithi.paksha} ${result.mrutaTithi.tithi.name} (Tithi #${result.mrutaTithi.tithi.number})")
+
+        for (section in result.yearlySections) {
+            println("--- Year ${section.yearIndex} (${section.yearTitle}) ---")
+            for (event in section.events) {
+                println("Event: ${event.traditionalName} | Date: ${event.gregorianDate} (${event.dayOfWeek}) | Aparahna: ${event.kalaDetails.aparahnaStart} - ${event.kalaDetails.aparahnaEnd} | Tithi: ${event.tithi.masaDisplayName} ${event.tithi.tithi.paksha} ${event.tithi.tithi.name} (#${event.tithi.tithi.number}) | Trace: ${event.explanation}")
+            }
+        }
+
+        assertEquals("Sharvari", result.mrutaTithi.samvatsara)
+        assertEquals(LunarMonth.SHRAVANA, result.mrutaTithi.masa)
+        assertEquals(Paksha.KRISHNA, result.mrutaTithi.tithi.paksha)
+        assertEquals("Trayodashi", result.mrutaTithi.tithi.name)
+
+        assertTrue(result.isDeathOlderThanOneYear)
+        assertNotNull(result.nextUpcomingShraddha)
+        assertEquals(LocalDate.of(2026, 9, 8), result.nextUpcomingShraddha!!.gregorianDate)
+        assertEquals("Tuesday", result.nextUpcomingShraddha!!.dayOfWeek)
+    }
 }

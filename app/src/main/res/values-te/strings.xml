@@ -4,9 +4,22 @@
     
     <!-- Navigation -->
     <string name="nav_calculator">గణకం</string>
+    <string name="nav_saved">భద్రపరిచినవి</string>
     <string name="nav_recents">ఇటీవలివి</string>
     <string name="nav_settings">సెట్టింగ్స్</string>
     
+    <!-- Saved Profiles Screen -->
+    <string name="saved_title">భద్రపరిచిన శ్రాద్ధ వివరాలు</string>
+    <string name="saved_empty">ఇంకా ఏ శ్రాద్ధాలూ భద్రపరచలేదు</string>
+    <string name="saved_empty_desc">మీ కుటుంబ సభ్యుల శ్రాద్ధ వివరాలను మీ ఫోన్‌లో శాశ్వతంగా భద్రపరచుకుని ఎప్పుడైనా సులభంగా చూడండి.</string>
+    <string name="save_profile_btn">భద్రపరచండి</string>
+    <string name="saved_badge">శాశ్వతంగా భద్రపరచబడింది</string>
+    <string name="save_profile_subtitle">ఫోన్‌లో శాశ్వతంగా భద్రపరచండి</string>
+    <string name="saved_profile_subtitle">భద్రపరిచిన విభాగంలో అందుబాటులో ఉంది</string>
+    <string name="calendar_sync_subtitle">2 రోజుల ముందు &amp; 1 రోజు ముందు జ్ఞాపిక</string>
+    <string name="remove_saved_btn">తొలగించండి</string>
+    <string name="open_profile">శ్రాద్ధ దినాలను చూడండి</string>
+
     <!-- Input Screen -->
     <string name="person_name_label">వ్యక్తి పేరు</string>
     <string name="person_name_hint">ఉదా: శ్రీ ప్రాణేశ కులకర్ణి</string>
@@ -67,6 +80,20 @@
     <string name="export_pdf">పి.డి.ఎఫ్ డౌన్‌లోడ్ / షేర్ చేయండి</string>
     <string name="pdf_generating">పి.డి.ఎఫ్ సిద్ధమవుతోంది...</string>
     <string name="pdf_share_title">శ్రాద్ధ క్యాలెండర్ పి.డి.ఎఫ్ షేర్ చేయండి</string>
+    <string name="hari_vayu_footer">॥ శ్రీ హరిః సర్వోత్తమః • వాయుః జీవోత్తమః ॥</string>
+    
+    <!-- App Notification Strings -->
+    <string name="notif_channel_name">శ్రాద్ధ దిన రిమైండర్లు</string>
+    <string name="notif_channel_desc">శ్రాద్ధానికి 2 రోజులు మరియు 1 రోజు ముందుగా నోటిఫికేషన్లు</string>
+    <string name="notif_upcoming_title">రాబోయే శ్రాద్ధం</string>
+    <string name="notif_reminder_title">శ్రాద్ధ రిమైండర్</string>
+    <string name="notif_2days_body">%1$s — %2$s మరో 2 రోజుల్లో ఉంది, %3$s తేదీన.</string>
+    <string name="notif_1day_body">%1$s — %2$s రేపు ఉంది, %3$s తేదీన.</string>
+    <string name="notifications_section">నోటిఫికేషన్లు</string>
+    <string name="app_notifications_label">యాప్ రిమైండర్లు</string>
+    <string name="app_notifications_desc">యాప్ ద్వారా ముందస్తు రిమైండర్లు పొందండి (2 రోజులు మరియు 1 రోజు ముందుగా ఉదయం 8:00 గంటలకు)</string>
+    <string name="notification_permission_required">నోటిఫికేషన్ అనుమతి అవసరం</string>
+    <string name="notification_permission_desc">సమయానికి శ్రాద్ధ రిమైండర్లు పంపడానికి అనుమతించండి.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">క్యాలెండర్ అనుమతి అవసరం</string>

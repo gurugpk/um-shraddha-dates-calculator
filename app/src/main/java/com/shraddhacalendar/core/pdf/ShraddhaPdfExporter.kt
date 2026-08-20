@@ -126,12 +126,59 @@ object ShraddhaPdfExporter {
         var currentY = MARGIN
 
         fun drawPageHeader() {
-            // 1. Opening Invocation Header
-            val invocation = "🕉️ " + context.getString(R.string.invocation_header) + " 🕉️"
-            canvas.drawText(invocation, PAGE_WIDTH / 2f, currentY + 12f, invocationPaint)
-            currentY += 24f
+            // 1. Top Dedication Banner Box (Matching Application Top Banner)
+            val bannerRect = RectF(MARGIN, currentY, PAGE_WIDTH - MARGIN, currentY + 76f)
+            val bannerBgPaint = Paint().apply {
+                color = surfaceCardBg
+                style = Paint.Style.FILL
+            }
+            val bannerBorderPaint = Paint().apply {
+                color = cardBorderColor
+                style = Paint.Style.STROKE
+                strokeWidth = 1f
+            }
+            canvas.drawRoundRect(bannerRect, 8f, 8f, bannerBgPaint)
+            canvas.drawRoundRect(bannerRect, 8f, 8f, bannerBorderPaint)
 
-            // 2. Title & Subtitle
+            var bannerY = currentY + 14f
+
+            // Devotional Invocation
+            val invocation = "🕉️ " + context.getString(R.string.invocation_header) + " 🕉️"
+            canvas.drawText(invocation, PAGE_WIDTH / 2f, bannerY, invocationPaint)
+            bannerY += 7f
+
+            // Subtle divider inside banner
+            val bannerLinePaint = Paint().apply {
+                color = Color.argb(60, 201, 107, 26)
+                strokeWidth = 0.8f
+            }
+            canvas.drawLine(MARGIN + 60f, bannerY, PAGE_WIDTH - MARGIN - 60f, bannerY, bannerLinePaint)
+            bannerY += 13f
+
+            // Step 1: Dedication to Sri Hari, Sri Vayu, and Uttaradi Math Parampara
+            val dedService = context.getString(R.string.dedication_service)
+            canvas.drawText(dedService, PAGE_WIDTH / 2f, bannerY, dedicationTextPaint)
+            bannerY += 14f
+
+            // Step 2: In Loving Memory of Father
+            val dedFather = "🌸 " + context.getString(R.string.dedication_father) + " 🌸"
+            val dedFatherPaint = TextPaint().apply {
+                color = textPrimary
+                textSize = 9.5f
+                isFakeBoldText = true
+                isAntiAlias = true
+                textAlign = Paint.Align.CENTER
+            }
+            canvas.drawText(dedFather, PAGE_WIDTH / 2f, bannerY, dedFatherPaint)
+            bannerY += 14f
+
+            // Step 3: Developed and managed by Gururaj Kulkarni
+            val developedBy = context.getString(R.string.developed_by)
+            canvas.drawText(developedBy, PAGE_WIDTH / 2f, bannerY, dedicationBoldPaint)
+
+            currentY += 86f
+
+            // 2. Application Title & Subtitle
             val appTitle = context.getString(R.string.app_name)
             val appSubtitle = context.getString(R.string.app_subtitle)
             canvas.drawText(appTitle, PAGE_WIDTH / 2f, currentY + 12f, titlePaint)
@@ -139,7 +186,7 @@ object ShraddhaPdfExporter {
             canvas.drawText(appSubtitle, PAGE_WIDTH / 2f, currentY + 8f, subtitlePaint)
             currentY += 14f
 
-            // Saffron Divider line
+            // Saffron Divider line below title
             val linePaint = Paint().apply {
                 color = primarySaffron
                 strokeWidth = 1.5f
@@ -170,18 +217,47 @@ object ShraddhaPdfExporter {
         var cardY = currentY + 14f
 
         val person = result.personRecord
-        canvas.drawText("Name: ${person.name}", col1X, cardY, tableCellBoldPaint)
-        canvas.drawText("Location: ${person.location.displayName}", col2X, cardY, tableCellPaint)
+        val localizedPersonName = PanchangaLocalizer.localizePersonName(person.name, language)
+        val localizedLocation = PanchangaLocalizer.localizeLocation(person.location.displayName, language)
+        val fullPanchanga = PanchangaLocalizer.localizeFullPanchanga(result.mrutaTithi, language)
+
+        val nameLabel = when (language) {
+            AppLanguage.KANNADA -> "ಹೆಸರು"
+            AppLanguage.SANSKRIT -> "नाम"
+            AppLanguage.TELUGU -> "పేరు"
+            AppLanguage.TAMIL -> "பெயர்"
+            AppLanguage.ENGLISH -> "Name"
+        }
+        val locLabel = when (language) {
+            AppLanguage.KANNADA -> "ಸ್ಥಳ"
+            AppLanguage.SANSKRIT -> "स्थानम्"
+            AppLanguage.TELUGU -> "స్థలము"
+            AppLanguage.TAMIL -> "இடம்"
+            AppLanguage.ENGLISH -> "Location"
+        }
+        val deathLabel = when (language) {
+            AppLanguage.KANNADA -> "ಮೃತ್ಯು ದಿನಾಂಕ"
+            AppLanguage.SANSKRIT -> "मृत्युदिनम्"
+            AppLanguage.TELUGU -> "మరణ దినము"
+            AppLanguage.TAMIL -> "இறப்பு"
+            AppLanguage.ENGLISH -> "Death"
+        }
+        val tithiLabel = when (language) {
+            AppLanguage.KANNADA -> "ತಿಥಿ"
+            AppLanguage.SANSKRIT -> "तिथिः"
+            AppLanguage.TELUGU -> "తిథి"
+            AppLanguage.TAMIL -> "திதி"
+            AppLanguage.ENGLISH -> "Tithi"
+        }
+
+        canvas.drawText("$nameLabel: $localizedPersonName", col1X, cardY, tableCellBoldPaint)
+        canvas.drawText("$locLabel: $localizedLocation", col2X, cardY, tableCellPaint)
         cardY += 14f
 
         val deathDateFormatted = person.deathDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
         val deathTimeFormatted = person.deathTime.format(DateTimeFormatter.ofPattern("hh:mm a"))
-        canvas.drawText("Death: $deathDateFormatted ($deathTimeFormatted)", col1X, cardY, tableCellPaint)
-
-        val masaName = PanchangaLocalizer.localizeMasa(result.mrutaTithi.masa, result.mrutaTithi.isAdhikaMasa, language)
-        val pakshaName = PanchangaLocalizer.localizePaksha(result.mrutaTithi.tithi.paksha, language)
-        val tithiName = PanchangaLocalizer.localizeTithi(result.mrutaTithi.tithi, language)
-        canvas.drawText("Tithi: ${result.mrutaTithi.samvatsara}, $masaName, $pakshaName, $tithiName", col2X, cardY, tableCellPaint)
+        canvas.drawText("$deathLabel: $deathDateFormatted ($deathTimeFormatted)", col1X, cardY, tableCellPaint)
+        canvas.drawText("$tithiLabel: $fullPanchanga", col2X, cardY, tableCellPaint)
 
         currentY += 78f
 
@@ -189,6 +265,13 @@ object ShraddhaPdfExporter {
         fun ensureSpace(neededHeight: Float) {
             if (currentY + neededHeight > PAGE_HEIGHT - MARGIN - 30f) {
                 // Draw footer for current page
+                val hariVayu = context.getString(R.string.hari_vayu_footer)
+                canvas.drawText(
+                    hariVayu,
+                    PAGE_WIDTH / 2f,
+                    PAGE_HEIGHT - MARGIN - 4f,
+                    dedicationBoldPaint
+                )
                 canvas.drawText(
                     "— Page $currentPageNum —",
                     PAGE_WIDTH / 2f,
@@ -284,52 +367,14 @@ object ShraddhaPdfExporter {
             currentY += 12f
         }
 
-        // --- FINAL DEDICATION SECTION (At the end of the report) ---
-        ensureSpace(95f)
-        currentY += 4f
-
-        val dedBoxRect = RectF(MARGIN, currentY, PAGE_WIDTH - MARGIN, currentY + 84f)
-        val dedBgPaint = Paint().apply {
-            color = surfaceCardBg
-            style = Paint.Style.FILL
-        }
-        val dedBorderPaint = Paint().apply {
-            color = primarySaffron
-            style = Paint.Style.STROKE
-            strokeWidth = 1.2f
-        }
-        canvas.drawRoundRect(dedBoxRect, 10f, 10f, dedBgPaint)
-        canvas.drawRoundRect(dedBoxRect, 10f, 10f, dedBorderPaint)
-
-        var dedY = currentY + 16f
-
-        // Opening Invocation inside final card
-        val dedInv = "🕉️ " + context.getString(R.string.invocation_header) + " 🕉️"
-        canvas.drawText(dedInv, PAGE_WIDTH / 2f, dedY, dedicationBoldPaint)
-        dedY += 16f
-
-        // 1. Dedication to Sri Hari, Sri Vayu and Uttaradi Math Parampara
-        val ded1 = context.getString(R.string.dedication_service)
-        canvas.drawText(ded1, PAGE_WIDTH / 2f, dedY, dedicationTextPaint)
-        dedY += 16f
-
-        // 2. Dedication in memory of father
-        val ded2 = "🌸 " + context.getString(R.string.dedication_father) + " 🌸"
-        val dedFatherPaint = TextPaint().apply {
-            color = textPrimary
-            textSize = 10f
-            isFakeBoldText = true
-            isAntiAlias = true
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText(ded2, PAGE_WIDTH / 2f, dedY, dedFatherPaint)
-        dedY += 16f
-
-        // 3. Developer attribution
-        val ded3 = context.getString(R.string.developed_by)
-        canvas.drawText(ded3, PAGE_WIDTH / 2f, dedY, dedicationBoldPaint)
-
-        // Draw last page footer
+        // --- CLOSING DEVOTIONAL FOOTER (Hari Sarvottama Vayu Jeevottama) ---
+        val hariVayuClosing = context.getString(R.string.hari_vayu_footer)
+        canvas.drawText(
+            hariVayuClosing,
+            PAGE_WIDTH / 2f,
+            PAGE_HEIGHT - MARGIN - 4f,
+            dedicationBoldPaint
+        )
         canvas.drawText(
             "— Page $currentPageNum —",
             PAGE_WIDTH / 2f,

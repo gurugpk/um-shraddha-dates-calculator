@@ -4,8 +4,21 @@
     
     <!-- Navigation -->
     <string name="nav_calculator">Calculator</string>
+    <string name="nav_saved">Saved</string>
     <string name="nav_recents">Recents</string>
     <string name="nav_settings">Settings</string>
+    
+    <!-- Saved Profiles Screen -->
+    <string name="saved_title">Saved Shraddha Profiles</string>
+    <string name="saved_empty">No Saved Profiles Yet</string>
+    <string name="saved_empty_desc">Save your family members\' Shraddha profiles permanently on your phone to easily access calculations and dates anytime.</string>
+    <string name="save_profile_btn">Save Profile</string>
+    <string name="saved_badge">Saved Permanently</string>
+    <string name="save_profile_subtitle">Save permanently to phone memory</string>
+    <string name="saved_profile_subtitle">Stored permanently in Saved tab</string>
+    <string name="calendar_sync_subtitle">2-day &amp; 1-day advance reminders</string>
+    <string name="remove_saved_btn">Remove</string>
+    <string name="open_profile">Open Shraddha Dates</string>
     
     <!-- Input Screen -->
     <string name="person_name_label">Person Name</string>
@@ -67,6 +80,20 @@
     <string name="export_pdf">Export / Share PDF</string>
     <string name="pdf_generating">Generating print-ready PDF...</string>
     <string name="pdf_share_title">Share Shraddha Calendar PDF</string>
+    <string name="hari_vayu_footer">॥ Śrī Hariḥ Sarvottamaḥ • Vāyuḥ Jīvottamaḥ ॥</string>
+    
+    <!-- App Notification Strings -->
+    <string name="notif_channel_name">Shraddha Ceremony Reminders</string>
+    <string name="notif_channel_desc">Timely notifications 2 days and 1 day before Shraddha ceremonies</string>
+    <string name="notif_upcoming_title">Upcoming Shraddha</string>
+    <string name="notif_reminder_title">Shraddha Reminder</string>
+    <string name="notif_2days_body">%1$s — %2$s is in 2 days, on %3$s.</string>
+    <string name="notif_1day_body">%1$s — %2$s is tomorrow, %3$s.</string>
+    <string name="notifications_section">App Notifications</string>
+    <string name="app_notifications_label">Advance Reminders</string>
+    <string name="app_notifications_desc">Receive reminders directly on your phone 2 days and 1 day before at 08:00 AM</string>
+    <string name="notification_permission_required">Notification Permission Required</string>
+    <string name="notification_permission_desc">Allow UM Shraddha Dates Calculator to send timely reminders 2 days and 1 day before each ceremony.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">Calendar Access Required</string>

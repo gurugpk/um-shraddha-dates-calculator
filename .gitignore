@@ -12,3 +12,7 @@ app/build/
 local.properties
 *.apk
 *.aab
+release/*.apk
+release/*.aab
+release/*.zip
+!release/WHATSAPP_ANNOUNCEMENT_ALL_LANGUAGES.txt

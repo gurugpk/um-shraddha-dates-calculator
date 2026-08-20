@@ -27,6 +27,10 @@ import com.shraddhacalendar.ui.components.ExpandableYearSection
 import com.shraddhacalendar.ui.theme.*
 import java.time.format.DateTimeFormatter
 
+import androidx.compose.foundation.clickable
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResultsScreen(
@@ -34,6 +38,8 @@ fun ResultsScreen(
     language: AppLanguage = AppLanguage.ENGLISH,
     isCalendarActive: (String) -> Boolean = { false },
     isAllCalendarActive: Boolean = false,
+    isSaved: Boolean = false,
+    onToggleSave: () -> Unit = {},
     onToggleIndividualCalendar: (String, Boolean, ShraddhaEvent) -> Unit = { _, _, _ -> },
     onToggleAllCalendar: (Boolean) -> Unit = {},
     onBackClick: () -> Unit,
@@ -61,6 +67,15 @@ fun ResultsScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.close))
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onToggleSave) {
+                        Icon(
+                            imageVector = if (isSaved) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                            contentDescription = stringResource(R.string.save_profile_btn),
+                            tint = PrimarySaffronDark
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = SurfaceCard)
@@ -106,7 +121,7 @@ fun ResultsScreen(
                         )
                         Column {
                             Text(
-                                text = person.name,
+                                text = PanchangaLocalizer.localizePersonName(person.name, language),
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = TextPrimary
@@ -137,13 +152,13 @@ fun ResultsScreen(
                                 color = PrimarySaffronDark
                             )
                             Text(
-                                text = "${result.mrutaTithi.samvatsara} Nama Samvatsara, $localizedMasa, $localizedPaksha $localizedTithi",
+                                text = PanchangaLocalizer.localizeFullPanchanga(result.mrutaTithi, language),
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.SemiBold,
                                 color = TextPrimary
                             )
                             Text(
-                                text = "${stringResource(R.string.location_label)}: $locationName",
+                                text = "${stringResource(R.string.location_label)}: ${PanchangaLocalizer.localizeLocation(locationName, language)}",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = TextSecondary
                             )
@@ -152,11 +167,20 @@ fun ResultsScreen(
                 }
             }
 
-            // Global "Add All to Calendar" Master Card
+            // 1. Permanent Save Profile Card (Symmetrical Master Toggle Card)
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .clickable { onToggleSave() },
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = PrimarySaffron.copy(alpha = 0.08f)),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isSaved) PrimarySaffron.copy(alpha = 0.12f) else PrimarySaffron.copy(alpha = 0.05f)
+                ),
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    if (isSaved) PrimarySaffronDark.copy(alpha = 0.6f) else PrimarySaffron.copy(alpha = 0.2f)
+                ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
             ) {
                 Row(
@@ -168,15 +192,96 @@ fun ResultsScreen(
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.CalendarMonth,
-                            contentDescription = null,
-                            tint = PrimarySaffronDark
+                        Box(
+                            modifier = Modifier
+                                .size(38.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(if (isSaved) PrimarySaffron.copy(alpha = 0.2f) else SurfaceCard),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = if (isSaved) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                                contentDescription = null,
+                                tint = PrimarySaffronDark,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text(
+                                text = if (isSaved) stringResource(R.string.saved_badge) else stringResource(R.string.save_profile_btn),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = TextPrimary
+                            )
+                            Text(
+                                text = if (isSaved) stringResource(R.string.saved_profile_subtitle) else stringResource(R.string.save_profile_subtitle),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = TextSecondary
+                            )
+                        }
+                    }
+
+                    Switch(
+                        checked = isSaved,
+                        onCheckedChange = { onToggleSave() },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = SurfaceCard,
+                            checkedTrackColor = PrimarySaffron,
+                            uncheckedThumbColor = TextTertiary,
+                            uncheckedTrackColor = SurfaceCardVariant
                         )
-                        Column {
+                    )
+                }
+            }
+
+            // 2. Global "Add All to Calendar" Master Card
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .clickable { onToggleAllCalendar(!isAllCalendarActive) },
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isAllCalendarActive) PrimarySaffron.copy(alpha = 0.12f) else PrimarySaffron.copy(alpha = 0.05f)
+                ),
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    if (isAllCalendarActive) PrimarySaffronDark.copy(alpha = 0.6f) else PrimarySaffron.copy(alpha = 0.2f)
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 14.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(38.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(if (isAllCalendarActive) PrimarySaffron.copy(alpha = 0.2f) else SurfaceCard),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CalendarMonth,
+                                contentDescription = null,
+                                tint = PrimarySaffronDark,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                             Text(
                                 text = stringResource(R.string.add_all_to_calendar),
                                 style = MaterialTheme.typography.bodyLarge,
@@ -184,7 +289,7 @@ fun ResultsScreen(
                                 color = TextPrimary
                             )
                             Text(
-                                text = "2-day & 1-day reminders",
+                                text = stringResource(R.string.calendar_sync_subtitle),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = TextSecondary
                             )

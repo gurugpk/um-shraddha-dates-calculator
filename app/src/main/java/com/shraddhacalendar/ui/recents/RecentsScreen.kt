@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun RecentsScreen(
     recentSearches: List<RecentSearchItem>,
+    currentLanguage: com.shraddhacalendar.core.localization.AppLanguage = com.shraddhacalendar.core.localization.AppLanguage.ENGLISH,
     onSelectRecent: (PersonDeathRecord) -> Unit,
     onDeleteRecent: (Long) -> Unit,
     onClearAll: () -> Unit,
@@ -160,7 +161,7 @@ fun RecentsScreen(
 
                                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                         Text(
-                                            text = item.personName,
+                                            text = com.shraddhacalendar.core.localization.PanchangaLocalizer.localizePersonName(item.personName, currentLanguage),
                                             style = MaterialTheme.typography.titleMedium,
                                             fontWeight = FontWeight.Bold,
                                             color = TextPrimary
@@ -192,7 +193,7 @@ fun RecentsScreen(
                                                 modifier = Modifier.size(14.dp)
                                             )
                                             Text(
-                                                text = item.location.displayName,
+                                                text = com.shraddhacalendar.core.localization.PanchangaLocalizer.localizeLocation(item.location.displayName, currentLanguage),
                                                 style = MaterialTheme.typography.bodySmall,
                                                 color = TextTertiary
                                             )

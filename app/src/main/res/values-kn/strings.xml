@@ -4,8 +4,21 @@
     
     <!-- Navigation -->
     <string name="nav_calculator">ಕ್ಯಾಲ್ಕುಲೇಟರ್</string>
+    <string name="nav_saved">ಸಂಗ್ರಹಿತ</string>
     <string name="nav_recents">ಇತ್ತೀಚಿನವು</string>
     <string name="nav_settings">ಸೆಟ್ಟಿಂಗ್ಸ್</string>
+    
+    <!-- Saved Profiles Screen -->
+    <string name="saved_title">ಸಂಗ್ರಹಿತ ಶ್ರಾದ್ಧ ವಿವರಗಳು</string>
+    <string name="saved_empty">ಇನ್ನೂ ಯಾವುದೇ ಶ್ರಾದ್ಧಗಳನ್ನು ಸಂಗ್ರಹಿಸಿಲ್ಲ</string>
+    <string name="saved_empty_desc">ನಿಮ್ಮ ಕುಟುಂಬದ ಸದಸ್ಯರ ಶ್ರಾದ್ಧ ವಿವರಗಳನ್ನು ನಿಮ್ಮ ಮೊಬೈಲ್‌ನಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಿ ಸುಲಭವಾಗಿ ವೀಕ್ಷಿಸಿ.</string>
+    <string name="save_profile_btn">ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸಿ</string>
+    <string name="saved_badge">ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</string>
+    <string name="save_profile_subtitle">ಮೊಬೈಲ್‌ನಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಿ</string>
+    <string name="saved_profile_subtitle">ಸಂಗ್ರಹಿತ ವಿಭಾಗದಲ್ಲಿ ಲಭ್ಯವಿದೆ</string>
+    <string name="calendar_sync_subtitle">೨ ದಿನ ಮತ್ತು ೧ ದಿನ ಮುಂಚಿತ ಜ್ಞಾಪನೆ</string>
+    <string name="remove_saved_btn">ತೆಗೆದುಹಾಕಿ</string>
+    <string name="open_profile">ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
     
     <!-- Input Screen -->
     <string name="person_name_label">ವ್ಯಕ್ತಿಯ ಹೆಸರು</string>
@@ -67,6 +80,20 @@
     <string name="export_pdf">ಪಿ.ಡಿ.ಎಫ್ ಡೌನ್‌ಲೋಡ್ / ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="pdf_generating">ಪಿ.ಡಿ.ಎಫ್ ಸಿದ್ಧವಾಗುತ್ತಿದೆ...</string>
     <string name="pdf_share_title">ಶ್ರಾದ್ಧ ಕ್ಯಾಲೆಂಡರ್ ಪಿ.ಡಿ.ಎಫ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="hari_vayu_footer">॥ ಶ್ರೀ ಹರಿಃ ಸರ್ವೋತ್ತಮಃ • ವಾಯುಃ ಜೀವೋತ್ತಮಃ ॥</string>
+    
+    <!-- App Notification Strings -->
+    <string name="notif_channel_name">ಶ್ರಾದ್ಧ ದಿನ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="notif_channel_desc">ಶ್ರಾದ್ಧಕ್ಕಿಂತ ೨ ದಿನ ಮತ್ತು ೧ ದಿನ ಮುಂಚಿತವಾಗಿ ಜ್ಞಾಪನೆ ಸಂದೇಶಗಳು</string>
+    <string name="notif_upcoming_title">ಮುಂಬರುವ ಶ್ರಾದ್ಧ</string>
+    <string name="notif_reminder_title">ಶ್ರಾದ್ಧ ಜ್ಞಾಪನೆ</string>
+    <string name="notif_2days_body">%1$s — %2$s ಇನ್ನೂ ೨ ದಿನಗಳಲ್ಲಿದೆ, %3$s ರಂದು.</string>
+    <string name="notif_1day_body">%1$s — %2$s ನಾಳೆ ಇದೆ, %3$s ರಂದು.</string>
+    <string name="notifications_section">ಅಧಿಸೂಚನೆಗಳು (Notifications)</string>
+    <string name="app_notifications_label">ಆ್ಯಪ್ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="app_notifications_desc">ಆ್ಯಪ್ ಮೂಲಕ ಮುಂಚಿತವಾಗಿ ಜ್ಞಾಪನೆ ಪಡೆಯಿರಿ (೨ ದಿನ ಮತ್ತು ೧ ದಿನ ಮುಂಚಿತವಾಗಿ ಬೆಳಿಗ್ಗೆ ೮:೦೦ ಗಂಟೆಗೆ)</string>
+    <string name="notification_permission_required">ಅಧಿಸೂಚನೆ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ</string>
+    <string name="notification_permission_desc">ಶ್ರಾದ್ಧ ಜ್ಞಾಪನೆಗಳನ್ನು ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಕಳುಹಿಸಲು ಅನುಮತಿ ನೀಡಿ.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">ಕ್ಯಾಲೆಂಡರ್ ಪ್ರವೇಶಾವಕಾಶ ಅಗತ್ಯವಿದೆ</string>

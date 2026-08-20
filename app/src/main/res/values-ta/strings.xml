@@ -4,8 +4,21 @@
     
     <!-- Navigation -->
     <string name="nav_calculator">கால்குலேட்டர்</string>
+    <string name="nav_saved">சேமித்தவை</string>
     <string name="nav_recents">சமீபத்தியவை</string>
     <string name="nav_settings">அமைப்புகள்</string>
+    
+    <!-- Saved Profiles Screen -->
+    <string name="saved_title">சேமிக்கப்பட்ட ஷ்ராத்த விவரங்கள்</string>
+    <string name="saved_empty">சேமிக்கப்பட்டவை எதுவும் இல்லை</string>
+    <string name="saved_empty_desc">உங்கள் குடும்பத்தினரின் ஷ்ராத்த விவரங்களை உங்கள் மொபைலில் நிரந்தரமாகச் சேமித்து எப்போது வேண்டுமானாலும் பார்க்கலாம்.</string>
+    <string name="save_profile_btn">விவரங்களைச் சேமிக்கவும்</string>
+    <string name="saved_badge">நிரந்தரமாக சேமிக்கப்பட்டது</string>
+    <string name="save_profile_subtitle">மொபைலில் நிரந்தரமாகச் சேமிக்கவும்</string>
+    <string name="saved_profile_subtitle">சேமித்தவை பிரிவில் கிடைக்கிறது</string>
+    <string name="calendar_sync_subtitle">2 நாட்கள் &amp; 1 நாள் முன் நினைவூட்டல்</string>
+    <string name="remove_saved_btn">நீக்கவும்</string>
+    <string name="open_profile">ஷ்ராத்த தேதிகளைக் காண்க</string>
     
     <!-- Input Screen -->
     <string name="person_name_label">நபரின் பெயர்</string>
@@ -67,6 +80,20 @@
     <string name="export_pdf">பி.டி.எஃப் பதிவிறக்கம் / பகிரவும்</string>
     <string name="pdf_generating">பி.டி.எஃப் தயாராகிறது...</string>
     <string name="pdf_share_title">ஷ்ராத்த காலண்டர் பி.டி.எஃப் பகிரவும்</string>
+    <string name="hari_vayu_footer">॥ ஸ்ரீ ஹரிஃ ஸர்வோத்தமஃ • வாயுஃ ஜீவோத்தமஃ ॥</string>
+    
+    <!-- App Notification Strings -->
+    <string name="notif_channel_name">ஷ்ராத்த தின நினைவூட்டல்கள்</string>
+    <string name="notif_channel_desc">ஷ்ராத்த தேதிக்கு 2 நாட்கள் மற்றும் 1 நாள் முன்பே அறிவிப்புகள்</string>
+    <string name="notif_upcoming_title">வரவிருக்கும் ஷ்ராத்தம்</string>
+    <string name="notif_reminder_title">ஷ்ராத்த நினைவூட்டல்</string>
+    <string name="notif_2days_body">%1$s — %2$s இன்னும் 2 நாட்களில் உள்ளது, %3$s அன்று.</string>
+    <string name="notif_1day_body">%1$s — %2$s நாளை உள்ளது, %3$s அன்று.</string>
+    <string name="notifications_section">அறிவிப்புகள்</string>
+    <string name="app_notifications_label">ஆப் நினைவூட்டல்கள்</string>
+    <string name="app_notifications_desc">ஆப் மூலம் முன்கூட்டியே நினைவூட்டல்களைப் பெறுங்கள் (2 நாட்கள் மற்றும் 1 நாள் முன்பு காலை 8:00 மணிக்கு)</string>
+    <string name="notification_permission_required">அறிவிப்பு அனுமதி தேவை</string>
+    <string name="notification_permission_desc">சரியான நேரத்தில் ஷ்ராத்த நினைவூட்டல்களை அனுப்ப அனுமதி வழங்கவும்.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">கேலண்டர் அனுமதி தேவை</string>
