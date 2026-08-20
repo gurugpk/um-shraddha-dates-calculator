@@ -60,9 +60,13 @@
     <string name="about_section">आँप् विवरणम्</string>
     <string name="about_description">श्रीउत्तरादिमठपञ्चाङ्गानुसारेण माध्वस्मृतिमुक्तावलीपद्धत्या श्राद्धदिनानि यथार्थतया गण्यन्ते।</string>
     <string name="version_label">आवृत्तिः</string>
+    <string name="invocation_header">श्रीसत्यात्मतीर्थगुरुभ्यो नमः</string>
+    <string name="dedication_service">श्रीहरि-श्रीवायु-श्री १०८ उत्तरादिमठपरम्परायाः सेवायै समर्पितम्</string>
+    <string name="dedication_father">पूज्यपितृपादानां दिवङ्गतानां श्रीप्राणेशकुलकर्णीमहोदयानां पवित्रस्मृत्यर्थं समर्पितम्</string>
     <string name="developed_by">निर्माणं प्रबन्धनं च: गुरुराज कुलकर्णी</string>
-    <string name="dedicated_to_father">पूज्यपितृपादानां दिवङ्गतानां श्रीप्राणेशकुलकर्णीमहोदयानां पवित्रस्मृत्यर्थं समर्पितम्</string>
-    <string name="dedicated_to_matha">श्रीहरिवायुगुरूणां श्री १०८ उत्तरादिमठपरम्परायाश्च सेवायै समर्पितम्।</string>
+    <string name="export_pdf">पि.डि.एफ् अवतरणं / प्रेषणम्</string>
+    <string name="pdf_generating">पि.डि.एफ् सज्जायते...</string>
+    <string name="pdf_share_title">श्राद्धपञ्चाङ्ग-पि.डि.एफ् प्रेषयतु</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">कैलेण्डर् अनुमतिः आवश्यकी</string>

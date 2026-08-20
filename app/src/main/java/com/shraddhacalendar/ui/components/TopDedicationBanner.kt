@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,32 +34,47 @@ fun TopDedicationBanner(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(3.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            // Line 1: Developed and Managed by Gururaj Kulkarni
+            // Opening Devotional Invocation
             Text(
-                text = stringResource(R.string.developed_by),
-                style = MaterialTheme.typography.labelLarge.copy(fontSize = 13.sp),
+                text = "🕉️ " + stringResource(R.string.invocation_header) + " 🕉️",
+                style = MaterialTheme.typography.titleSmall.copy(fontSize = 13.5.sp),
                 fontWeight = FontWeight.Bold,
                 color = PrimarySaffronDark,
                 textAlign = TextAlign.Center
             )
 
-            // Line 2: Dedicated in loving memory of my beloved father Sri Pranesh Kulkarni
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
+                color = PrimarySaffron.copy(alpha = 0.25f),
+                thickness = 0.8.dp
+            )
+
+            // 1. Dedication to Sri Hari, Sri Vayu and Sri 108 Uttaradi Math Parampara
             Text(
-                text = "🌸 " + stringResource(R.string.dedicated_to_father) + " 🌸",
+                text = stringResource(R.string.dedication_service),
+                style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
+                fontWeight = FontWeight.Medium,
+                color = TextSecondary,
+                textAlign = TextAlign.Center
+            )
+
+            // 2. Dedication in memory of father Late Sri Pranesh Kulkarni
+            Text(
+                text = "🌸 " + stringResource(R.string.dedication_father) + " 🌸",
                 style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.5.sp),
                 fontWeight = FontWeight.SemiBold,
                 color = TextPrimary,
                 textAlign = TextAlign.Center
             )
 
-            // Line 3: Dedicated to the service of Sri Hari, Vayu, and Sri 108 Uttaradi Math Parampara
+            // 3. Developer attribution
             Text(
-                text = stringResource(R.string.dedicated_to_matha),
-                style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.5.sp),
-                fontWeight = FontWeight.Normal,
-                color = TextSecondary,
+                text = stringResource(R.string.developed_by),
+                style = MaterialTheme.typography.labelMedium.copy(fontSize = 11.sp),
+                fontWeight = FontWeight.Bold,
+                color = PrimarySaffronDark,
                 textAlign = TextAlign.Center
             )
         }

@@ -248,26 +248,38 @@ fun SettingsScreen(
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.developed_by),
+                                text = "🕉️ " + stringResource(R.string.invocation_header) + " 🕉️",
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = PrimarySaffronDark,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
+                                color = PrimarySaffron.copy(alpha = 0.25f),
+                                thickness = 0.8.dp
+                            )
                             Text(
-                                text = "🌸 " + stringResource(R.string.dedicated_to_father) + " 🌸",
+                                text = stringResource(R.string.dedication_service),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = TextSecondary,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            Text(
+                                text = "🌸 " + stringResource(R.string.dedication_father) + " 🌸",
                                 style = MaterialTheme.typography.bodySmall,
                                 fontWeight = FontWeight.SemiBold,
                                 color = TextPrimary,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                             Text(
-                                text = stringResource(R.string.dedicated_to_matha),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = TextSecondary,
+                                text = stringResource(R.string.developed_by),
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimarySaffronDark,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                         }

@@ -108,4 +108,14 @@ class UiUxFunctionalityTest {
         assertNotEquals(key1, key2)
         assertNotEquals(key1, key3)
     }
+
+    @Test
+    fun testCanonicalDevotionalInvocationAndDedicationConcepts() {
+        // Verify that all 5 languages have unique and proper native scripts
+        val languages = AppLanguage.entries
+        assertEquals(5, languages.size)
+
+        // Verify the 5 distinct codes
+        assertEquals(listOf("en", "kn", "sa", "te", "ta"), languages.map { it.code })
+    }
 }

@@ -60,9 +60,13 @@
     <string name="about_section">ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ</string>
     <string name="about_description">ಯು.ಎಂ. ಶ್ರಾದ್ಧ ದಿನಾಂಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಶ್ರೀಉತ್ತರಾದಿಮಠ ಪಂಚಾಂಗ ಮತ್ತು ಮಾಧ್ವ ಸ್ಮೃತಿಮುಕ್ತಾವಳಿ ಸಂಪ್ರದಾಯದಂತೆ ಮಾಸಿಕ ಮತ್ತು ಸಾಂವತ್ಸರಿಕ ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳನ್ನು ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡುತ್ತದೆ.</string>
     <string name="version_label">ಆವೃತ್ತಿ</string>
+    <string name="invocation_header">ಶ್ರೀ ಸತ್ಯಾತ್ಮತೀರ್ಥ ಗುರುಭ್ಯೋ ನಮಃ</string>
+    <string name="dedication_service">ಶ್ರೀ ಹರಿ, ಶ್ರೀ ವಾಯು ಮತ್ತು ಶ್ರೀ ೧೦೮ ಉತ್ತರಾದಿ ಮಠ ಪರಂಪರೆಯ ಸೇವೆಗಾಗಿ ಸಮರ್ಪಿತ</string>
+    <string name="dedication_father">ಪೂಜ್ಯ ತಂದೆಯವರಾದ ದಿವಂಗತ ಶ್ರೀ ಪ್ರಾಣೇಶ ಕುಲಕರ್ಣಿ ಅವರ ಪವಿತ್ರ ಸ್ಮರಣೆಯಲ್ಲಿ ಸಮರ್ಪಿತ</string>
     <string name="developed_by">ಅಭಿವೃದ್ಧಿ ಮತ್ತು ನಿರ್ವಹಣೆ: ಗುರುರಾಜ್ ಕುಲಕರ್ಣಿ</string>
-    <string name="dedicated_to_father">ಪೂಜ್ಯ ತಂದೆಯವರಾದ ದಿವಂಗತ ಶ್ರೀ ಪ್ರಾಣೇಶ ಕುಲಕರ್ಣಿ ಅವರ ಪವಿತ್ರ ಸ್ಮರಣೆಯಲ್ಲಿ ಸಮರ್ಪಿತ</string>
-    <string name="dedicated_to_matha">ಶ್ರೀ ಹರಿ-ವಾಯುಗುರುಗಳು ಹಾಗೂ ಶ್ರೀ ೧೦೮ ಉತ್ತರಾದಿ ಮಠ ಪರಂಪರೆಯ ಸೇವೆಗಾಗಿ ಸಮರ್ಪಿತ.</string>
+    <string name="export_pdf">ಪಿ.ಡಿ.ಎಫ್ ಡೌನ್‌ಲೋಡ್ / ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="pdf_generating">ಪಿ.ಡಿ.ಎಫ್ ಸಿದ್ಧವಾಗುತ್ತಿದೆ...</string>
+    <string name="pdf_share_title">ಶ್ರಾದ್ಧ ಕ್ಯಾಲೆಂಡರ್ ಪಿ.ಡಿ.ಎಫ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">ಕ್ಯಾಲೆಂಡರ್ ಪ್ರವೇಶಾವಕಾಶ ಅಗತ್ಯವಿದೆ</string>

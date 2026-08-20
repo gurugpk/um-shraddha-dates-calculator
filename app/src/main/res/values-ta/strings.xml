@@ -60,9 +60,13 @@
     <string name="about_section">பயன்பாட்டைப் பற்றி</string>
     <string name="about_description">ஸ்ரீஉத்தரதிமட பஞ்சாங்கம் மற்றும் மாத்வ ஸ்மிருதி முக்தாவளி விதிகளின்படி மாஸிக மற்றும் ஸாம்வத்ஸரிக ஷ்ராத்த தேதிகளைத் துல்லியமாகக் கணக்கிடுகிறது.</string>
     <string name="version_label">பதிப்பு</string>
+    <string name="invocation_header">ஸ்ரீ ஸத்யாத்மதீர்த்த குருப்யோ நமஃ</string>
+    <string name="dedication_service">ஸ்ரீ ஹரி, ஸ்ரீ வாயு மற்றும் ஸ்ரீ 108 உத்தரதி மட குருபரம்பரையின் சேவைக்காக அர்ப்பணிக்கப்பட்டது</string>
+    <string name="dedication_father">அன்பிற்குரிய தந்தை மறைந்த ஸ்ரீ பிராணேஷ் குல்கர்னி அவர்களின் புனித நினைவாக அர்ப்பணிக்கப்பட்டது</string>
     <string name="developed_by">உருவாக்கம் மற்றும் நிர்வாகம்: குருராஜ் குல்கர்னி</string>
-    <string name="dedicated_to_father">அன்பிற்குரிய தந்தை மறைந்த ஸ்ரீ பிராணேஷ் குல்கர்னி அவர்களின் புனித நினைவாக அர்ப்பணிக்கப்பட்டது</string>
-    <string name="dedicated_to_matha">ஸ்ரீ ஹரி, வாயு மற்றும் ஸ்ரீ 108 உத்தரதி மட குருபரம்பரையின் சேவைக்காக அர்ப்பணிக்கப்பட்டது.</string>
+    <string name="export_pdf">பி.டி.எஃப் பதிவிறக்கம் / பகிரவும்</string>
+    <string name="pdf_generating">பி.டி.எஃப் தயாராகிறது...</string>
+    <string name="pdf_share_title">ஷ்ராத்த காலண்டர் பி.டி.எஃப் பகிரவும்</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">கேலண்டர் அனுமதி தேவை</string>

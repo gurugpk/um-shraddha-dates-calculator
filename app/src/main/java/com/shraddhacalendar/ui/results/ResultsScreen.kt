@@ -10,7 +10,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -201,6 +201,84 @@ fun ResultsScreen(
                             uncheckedTrackColor = SurfaceCardVariant
                         )
                     )
+                }
+            }
+
+            // Export / Share Print-Ready PDF Button
+            val context = androidx.compose.ui.platform.LocalContext.current
+            val coroutineScope = androidx.compose.runtime.rememberCoroutineScope()
+            var isExportingPdf by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+
+            Button(
+                onClick = {
+                    if (!isExportingPdf) {
+                        isExportingPdf = true
+                        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).run {
+                            try {
+                                val pdfFile = com.shraddhacalendar.core.pdf.ShraddhaPdfExporter.generateAndSharePdf(
+                                    context = context,
+                                    result = result,
+                                    language = language
+                                )
+                                val shareUri = com.shraddhacalendar.core.pdf.ShraddhaPdfExporter.getShareUri(context, pdfFile)
+                                val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                                    type = "application/pdf"
+                                    putExtra(android.content.Intent.EXTRA_STREAM, shareUri)
+                                    putExtra(android.content.Intent.EXTRA_SUBJECT, "Shraddha Calendar - ${person.name}")
+                                    addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                }
+                                val chooser = android.content.Intent.createChooser(
+                                    shareIntent,
+                                    context.getString(R.string.pdf_share_title)
+                                ).apply {
+                                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                context.startActivity(chooser)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            } finally {
+                                isExportingPdf = false
+                            }
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = PrimarySaffronDark,
+                    contentColor = androidx.compose.ui.graphics.Color.White
+                ),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    if (isExportingPdf) {
+                        CircularProgressIndicator(
+                            color = androidx.compose.ui.graphics.Color.White,
+                            modifier = Modifier.size(20.dp),
+                            strokeWidth = 2.dp
+                        )
+                        Text(
+                            text = stringResource(R.string.pdf_generating),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.CalendarMonth,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.export_pdf),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
 
