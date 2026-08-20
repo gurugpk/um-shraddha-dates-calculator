@@ -61,7 +61,7 @@ class UiUxFunctionalityTest {
         assertEquals("ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ", kn)
 
         val sa = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.SANSKRIT)
-        assertEquals("ಮಾಸಿಕಮ್ 1 — ಆದ್ಯಮಾಸಿಕಮ್", sa)
+        assertEquals("मासिकम् 1 — आद्यमासिकम्", sa)
 
         val te = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.TELUGU)
         assertEquals("మాసికం 1 — ఆద్య మాసికం", te)

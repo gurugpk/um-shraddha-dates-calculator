@@ -4,7 +4,7 @@ import com.shraddhacalendar.core.models.*
 
 /**
  * Localizes authentic traditional Panchanga terms and Shraddha ceremony names
- * into English, Kannada, Sanskrit, Telugu, and Tamil.
+ * into English, Kannada, Sanskrit (Devanagari), Telugu, and Tamil.
  */
 object PanchangaLocalizer {
 
@@ -27,12 +27,12 @@ object PanchangaLocalizer {
                 "ಏಕಾದಶೀ", "ದ್ವಾದಶೀ", "ತ್ರಯೋದಶೀ", "ಚತುರ್ದಶೀ", "ಅಮಾವಾಸ್ಯಾ"
             )
             AppLanguage.SANSKRIT -> listOf(
-                "ಪ್ರಥಮಾ", "ದ್ವಿತೀಯಾ", "ತೃತೀಯಾ", "ಚತುರ್ಥೀ", "ಪಂಚಮೀ",
-                "ಷಷ್ಠೀ", "ಸಪ್ತಮೀ", "ಅಷ್ಟಮೀ", "ನವಮೀ", "ದಶಮೀ",
-                "ಏಕಾದಶೀ", "ದ್ವಾದಶೀ", "ತ್ರಯೋದಶೀ", "ಚತುರ್ದಶೀ", "ಪೂರ್ಣಿಮಾ",
-                "ಪ್ರಥಮಾ", "ದ್ವಿತೀಯಾ", "ತೃತೀಯಾ", "ಚತುರ್ಥೀ", "ಪಂಚಮೀ",
-                "ಷಷ್ಠೀ", "ಸಪ್ತಮೀ", "ಅಷ್ಟಮೀ", "ನವಮೀ", "ದಶಮೀ",
-                "ಏಕಾದಶೀ", "ದ್ವಾದಶೀ", "ತ್ರಯೋದಶೀ", "ಚತುರ್ದಶೀ", "ಅಮಾವಾಸ್ಯಾ"
+                "प्रथमा", "द्वितीया", "तृतीया", "चतुर्थी", "पञ्चमी",
+                "षष्ठी", "सप्तमी", "अष्टमी", "नवमी", "दशमी",
+                "एकादशी", "द्वादशी", "त्रयोदशी", "चतुर्दशी", "पूर्णिमा",
+                "प्रथमा", "द्वितीया", "तृतीया", "चतुर्थी", "पञ्चमी",
+                "षष्ठी", "सप्तमी", "अष्टमी", "नवमी", "दशमी",
+                "एकादशी", "द्वादशी", "त्रयोदशी", "चतुर्दशी", "अमावास्या"
             )
             AppLanguage.TELUGU -> listOf(
                 "ప్రథమ", "ద్వితీయ", "తృతీయ", "చతుర్థి", "పంచమి",
@@ -59,7 +59,7 @@ object PanchangaLocalizer {
         return when (language) {
             AppLanguage.ENGLISH -> paksha.displayName
             AppLanguage.KANNADA -> if (paksha == Paksha.SHUKLA) "ಶುಕ್ಲ ಪಕ್ಷ" else "ಕೃಷ್ಣ ಪಕ್ಷ"
-            AppLanguage.SANSKRIT -> if (paksha == Paksha.SHUKLA) "ಶುಕ್ಲಪಕ್ಷಃ" else "ಕೃಷ್ಣಪಕ್ಷಃ"
+            AppLanguage.SANSKRIT -> if (paksha == Paksha.SHUKLA) "शुक्लपक्षः" else "कृष्णपक्षः"
             AppLanguage.TELUGU -> if (paksha == Paksha.SHUKLA) "శుక్ల పక్షం" else "కృష్ణ పక్షం"
             AppLanguage.TAMIL -> if (paksha == Paksha.SHUKLA) "சுக்ல பக்ஷம்" else "க்ருஷ்ண பக்ஷம்"
         }
@@ -69,7 +69,7 @@ object PanchangaLocalizer {
         val prefix = when (language) {
             AppLanguage.ENGLISH -> if (isAdhika) "Adhika" else "Nija"
             AppLanguage.KANNADA -> if (isAdhika) "ಅಧಿಕ" else "ನಿಜ"
-            AppLanguage.SANSKRIT -> if (isAdhika) "ಅಧಿಕ" else "ನಿಜ"
+            AppLanguage.SANSKRIT -> if (isAdhika) "अधिक" else "निज"
             AppLanguage.TELUGU -> if (isAdhika) "అధిక" else "నిజ"
             AppLanguage.TAMIL -> if (isAdhika) "அதிக" else "நிஜ"
         }
@@ -91,18 +91,18 @@ object PanchangaLocalizer {
                 LunarMonth.PHALGUNA -> "ಫಾಲ್ಗುಣ"
             }
             AppLanguage.SANSKRIT -> when (masa) {
-                LunarMonth.CHAITRA -> "ಚೈತ್ರಃ"
-                LunarMonth.VAISHAKHA -> "ವೈಶಾಖಃ"
-                LunarMonth.JYESHTHA -> "ಜ್ಯೇಷ್ಠಃ"
-                LunarMonth.ASHADHA -> "ಆಷಾಢಃ"
-                LunarMonth.SHRAVANA -> "ಶ್ರಾವಣಃ"
-                LunarMonth.BHADRAPADA -> "ಭಾದ್ರಪದಃ"
-                LunarMonth.ASHVINA -> "ಆಶ್ವಯುಜಃ"
-                LunarMonth.KARTIKA -> "ಕಾರ್ತೀಕಃ"
-                LunarMonth.MARGASHIRSHA -> "ಮಾರ್ಗಶೀರ್ಷಃ"
-                LunarMonth.PUSHYA -> "ಪುಷ್ಯಃ"
-                LunarMonth.MAGHA -> "ಮಾಘಃ"
-                LunarMonth.PHALGUNA -> "ಫಾಲ್ಗುಣಃ"
+                LunarMonth.CHAITRA -> "चैत्रः"
+                LunarMonth.VAISHAKHA -> "वैशाखः"
+                LunarMonth.JYESHTHA -> "ज्येष्ठः"
+                LunarMonth.ASHADHA -> "आषाढः"
+                LunarMonth.SHRAVANA -> "श्रावणः"
+                LunarMonth.BHADRAPADA -> "भाद्रपदः"
+                LunarMonth.ASHVINA -> "आश्वयुजः"
+                LunarMonth.KARTIKA -> "कार्तिकः"
+                LunarMonth.MARGASHIRSHA -> "मार्गशीर्षः"
+                LunarMonth.PUSHYA -> "पुष्यः"
+                LunarMonth.MAGHA -> "माघः"
+                LunarMonth.PHALGUNA -> "फाल्गुनः"
             }
             AppLanguage.TELUGU -> when (masa) {
                 LunarMonth.CHAITRA -> "చైత్ర"
@@ -149,7 +149,7 @@ object PanchangaLocalizer {
             val localizedRitual = translateRitualName(ritual, language)
             val masikaWord = when (language) {
                 AppLanguage.KANNADA -> "ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "मासिकम्"
                 AppLanguage.TELUGU -> "మాసికం"
                 AppLanguage.TAMIL -> "மாஸிகம்"
                 else -> "Masika"
@@ -162,7 +162,7 @@ object PanchangaLocalizer {
             val localizedRitual = translateRitualName(ritual, language)
             val yearlyWord = when (language) {
                 AppLanguage.KANNADA -> "ಸಾಂವತ್ಸರಿಕ ಶ್ರಾದ್ಧ —"
-                AppLanguage.SANSKRIT -> "ಸಾಂವತ್ಸರಿಕ ಶ್ರಾದ್ಧಮ್ —"
+                AppLanguage.SANSKRIT -> "सांवत्सरिकश्राद्धम् —"
                 AppLanguage.TELUGU -> "సాంవత్సరిక శ్రాద్ధం —"
                 AppLanguage.TAMIL -> "ஸாம்வத்ஸரிக ஷ்ராத்தம் —"
                 else -> "Yearly Shraddha —"
@@ -177,147 +177,147 @@ object PanchangaLocalizer {
         return when {
             name.contains("Adya Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ಆದ್ಯ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಆದ್ಯಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "आद्यमासिकम्"
                 AppLanguage.TELUGU -> "ఆద్య మాసికం"
                 AppLanguage.TAMIL -> "ஆத்ய மாஸிகம்"
                 else -> name
             }
             name.contains("Unmasika") -> when (language) {
                 AppLanguage.KANNADA -> "ಊನಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಊನಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "ऊनमासिकम्"
                 AppLanguage.TELUGU -> "ఊనమాసికం"
                 AppLanguage.TAMIL -> "ஊநமாஸிகம்"
                 else -> name
             }
             name.contains("Dwitiya Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ದ್ವಿತೀಯ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ದ್ವಿತೀಯಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "द्वितीयमासिकम्"
                 AppLanguage.TELUGU -> "ద్వితీయ మాసికం"
                 AppLanguage.TAMIL -> "த்விதீய மாஸிகம்"
                 else -> name
             }
             name.contains("Traipakshika") -> when (language) {
                 AppLanguage.KANNADA -> "ತ್ರೈಪಕ್ಷಿಕ"
-                AppLanguage.SANSKRIT -> "ತ್ರೈಪಾಕ್ಷಿಕಮ್"
+                AppLanguage.SANSKRIT -> "त्रैपाक्षिकम्"
                 AppLanguage.TELUGU -> "త్రైపాక్షికం"
                 AppLanguage.TAMIL -> "த்ரைபாக்ஷிகம்"
                 else -> name
             }
             name.contains("Tritiya Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ತೃತೀಯ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ತೃತೀಯಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "तृतीयमासिकम्"
                 AppLanguage.TELUGU -> "తృతీయ మాసికం"
                 AppLanguage.TAMIL -> "திருதீய மாஸிகம்"
                 else -> name
             }
             name.contains("Chaturtha Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ಚತುರ್ಥ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಚತುರ್ಥಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "चतुर्थमासिकम्"
                 AppLanguage.TELUGU -> "చతుర్థ మాసికం"
                 AppLanguage.TAMIL -> "சதுர்த்த மாஸிகம்"
                 else -> name
             }
             name.contains("Panchama Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ಪಂಚಮ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಪಂಚಮಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "पञ्चममासिकम्"
                 AppLanguage.TELUGU -> "పంచమ మాసికం"
                 AppLanguage.TAMIL -> "பஞ்சம மாஸிகம்"
                 else -> name
             }
             name.contains("Shashtha Masika") || name.contains("Shanmasika") -> when (language) {
                 AppLanguage.KANNADA -> "ಷಷ್ಠ ಮಾಸಿಕ (ಷಾಣ್ಮಾಸಿಕ)"
-                AppLanguage.SANSKRIT -> "ಷಷ್ಠಮಾಸಿಕಮ್ (ಷಾಣ್ಮಾಸಿಕಮ್)"
+                AppLanguage.SANSKRIT -> "षष्ठमासिकम् (षाण्मासिकम्)"
                 AppLanguage.TELUGU -> "షష్ఠ మాసికం (షాణ్మాసికం)"
                 AppLanguage.TAMIL -> "ஷஷ்ட மாஸிகம் (ஷாண்மாஸிகம்)"
                 else -> name
             }
             name.contains("Una-Shanmasika") -> when (language) {
                 AppLanguage.KANNADA -> "ಊನಷಾಣ್ಮಾಸಿಕ (ಗೋದಾನ ಸಹಿತ)"
-                AppLanguage.SANSKRIT -> "ಊನಷಾಣ್ಮಾಸಿಕಮ್ (ಗೋದಾನಸಹಿತಮ್)"
+                AppLanguage.SANSKRIT -> "ऊनषाण्मासिकम् (गोदानसहितम्)"
                 AppLanguage.TELUGU -> "ఊనషాణ్మాసికం (గోదాన సహితం)"
                 AppLanguage.TAMIL -> "ஊநஷாண்மாஸிகம் (கோதானத்துடன்)"
                 else -> name
             }
             name.contains("Saptama Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ಸಪ್ತಮ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಸಪ್ತಮಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "सप्तममासिकम्"
                 AppLanguage.TELUGU -> "సప్తమ మాసికం"
                 AppLanguage.TAMIL -> "ஸப்தம மாஸிகம்"
                 else -> name
             }
             name.contains("Ashtama Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ಅಷ್ಟಮ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಅಷ್ಟಮಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "अष्टममासिकम्"
                 AppLanguage.TELUGU -> "అష్టమ మాసికం"
                 AppLanguage.TAMIL -> "அஷ்டம மாஸிகம்"
                 else -> name
             }
             name.contains("Navama Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ನವಮ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ನವಮಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "नवममासिकम्"
                 AppLanguage.TELUGU -> "నవమ మాసికం"
                 AppLanguage.TAMIL -> "நவம மாஸிகம்"
                 else -> name
             }
             name.contains("Dashama Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ದಶಮ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ದಶಮಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "दशममासिकम्"
                 AppLanguage.TELUGU -> "దశమ మాసికం"
                 AppLanguage.TAMIL -> "தசம மாஸிகம்"
                 else -> name
             }
             name.contains("Ekadasha Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ಏಕಾದಶ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ಏಕಾದಶಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "एकादशमासिकम्"
                 AppLanguage.TELUGU -> "ఏకాదశ మాసికం"
                 AppLanguage.TAMIL -> "ஏகாதச மாஸிகம்"
                 else -> name
             }
             name.contains("Dvadasha Masika") -> when (language) {
                 AppLanguage.KANNADA -> "ದ್ವಾದಶ ಮಾಸಿಕ"
-                AppLanguage.SANSKRIT -> "ದ್ವಾದಶಮಾಸಿಕಮ್"
+                AppLanguage.SANSKRIT -> "द्वादशमासिकम्"
                 AppLanguage.TELUGU -> "ద్వాదశ మాసికం"
                 AppLanguage.TAMIL -> "த்வாதச மாஸிகம்"
                 else -> name
             }
             name.contains("Unabdika") -> when (language) {
                 AppLanguage.KANNADA -> "ಊನಾಬ್ದಿಕ (ಊನವಾರ್ಷಿಕ)"
-                AppLanguage.SANSKRIT -> "ಊನಾಬ್ದಿಕಮ್ (ಊನವಾರ್ಷಿಕಮ್)"
+                AppLanguage.SANSKRIT -> "ऊनाब्दिकम् (ऊनवार्षिकम्)"
                 AppLanguage.TELUGU -> "ఊనాబ్దికం (ఊనవార్షికం)"
                 AppLanguage.TAMIL -> "ஊனாப்திகம் (ஊநவார்ஷிகம்)"
                 else -> name
             }
             name.contains("Prathama Varshika") -> when (language) {
                 AppLanguage.KANNADA -> "ಪ್ರಥಮ ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ"
-                AppLanguage.SANSKRIT -> "ಪ್ರಥಮವಾರ್ಷಿಕಶ್ರಾದ್ಧಮ್"
+                AppLanguage.SANSKRIT -> "प्रथमवार्षिकश्राद्धम्"
                 AppLanguage.TELUGU -> "ప్రథమ వార్షిక శ్రాద్ధం"
                 AppLanguage.TAMIL -> "ப்ரதம வார்ஷிக ஷ்ராத்தம்"
                 else -> name
             }
             name.contains("Dvitiya Varshika") -> when (language) {
                 AppLanguage.KANNADA -> "ದ್ವಿತೀಯ ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ"
-                AppLanguage.SANSKRIT -> "ದ್ವಿತೀಯವಾರ್ಷಿಕಶ್ರಾದ್ಧಮ್"
+                AppLanguage.SANSKRIT -> "द्वितीयवार्षिकश्राद्धम्"
                 AppLanguage.TELUGU -> "ద్వితీయ వార్షిక శ్రాద్ధం"
                 AppLanguage.TAMIL -> "த்விதீய வார்ஷிக ஷ்ராத்தம்"
                 else -> name
             }
             name.contains("Tritiya Varshika") -> when (language) {
                 AppLanguage.KANNADA -> "ತೃತೀಯ ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ"
-                AppLanguage.SANSKRIT -> "ತೃತೀಯವಾರ್ಷಿಕಶ್ರಾದ್ಧಮ್"
+                AppLanguage.SANSKRIT -> "तृतीयवार्षिकश्राद्धम्"
                 AppLanguage.TELUGU -> "తృతీయ వార్షిక శ్రాద్ధం"
                 AppLanguage.TAMIL -> "திருதீய வார்ஷிக ஷ்ராத்தம்"
                 else -> name
             }
             name.contains("Chaturtha Varshika") -> when (language) {
                 AppLanguage.KANNADA -> "ಚತುರ್ಥ ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ"
-                AppLanguage.SANSKRIT -> "ಚತುರ್ಥವಾರ್ಷಿಕಶ್ರಾದ್ಧಮ್"
-                AppLanguage.TELUGU -> "చతుర్థ వార్షಿಕ శ్రాద్ధం"
+                AppLanguage.SANSKRIT -> "चतुर्थवार्षिकश्राद्धम्"
+                AppLanguage.TELUGU -> "చతుర్థ వార్షిక శ్రాద్ధం"
                 AppLanguage.TAMIL -> "சதுர்த்த வார்ஷிக ஷ்ராத்தம்"
                 else -> name
             }
             name.contains("Panchama Varshika") -> when (language) {
                 AppLanguage.KANNADA -> "ಪಂಚಮ ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ"
-                AppLanguage.SANSKRIT -> "ಪಂಚಮವಾರ್ಷಿಕಶ್ರಾದ್ಧಮ್"
+                AppLanguage.SANSKRIT -> "पञ्चमवार्षिकश्राद्धम्"
                 AppLanguage.TELUGU -> "పంచమ వార్షిక శ్రాద్ధం"
                 AppLanguage.TAMIL -> "பஞ்சம வார்ஷிக ஷ்ராத்தம்"
                 else -> name
