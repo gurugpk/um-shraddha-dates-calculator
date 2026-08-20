@@ -109,8 +109,13 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ---
 
-## 👨‍💻 Developer & Maintainer
+## 👨‍💻 Developer, Maintainer & Dedication
 
 **Developed and Managed by:**  
 **Gururaj Kulkarni**  
+
+**Dedicated in loving memory of my beloved father:**  
+🌸 **Late Sri Pranesh Kulkarni** 🌸  
+
 *Dedicated to the service of Sri Hari, Vayu, and Sri 108 Uttaradi Math Parampara.*
+
