@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.shraddhacalendar.shraddha.ShraddhaCalculationsTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-08-20T13:27:13.045Z" hostname="gkulkarni-LTM" time="0.087">
+  <properties/>
+  <testcase name="testDeathOlderThanOneYearShowsSingleNextUpcoming" classname="com.shraddhacalendar.shraddha.ShraddhaCalculationsTest" time="0.009"/>
+  <testcase name="testRecentDeathGeneratesFull16ShodashaRitesInYear1" classname="com.shraddhacalendar.shraddha.ShraddhaCalculationsTest" time="0.015"/>
+  <testcase name="testBoundaryConditions" classname="com.shraddhacalendar.shraddha.ShraddhaCalculationsTest" time="0.022"/>
+  <testcase name="testLocationSensitivityBengaluruVsNewYork" classname="com.shraddhacalendar.shraddha.ShraddhaCalculationsTest" time="0.041"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

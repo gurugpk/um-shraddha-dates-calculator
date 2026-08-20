@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_description">UM Shraddha Dates Calculator calculates Masika and Yearly Shraddha dates strictly according to Sri Uttaradi Math Panchanga rules and Madhwa Smriti Muktavali tradition.</string>
+    <string name="about_section">About Application</string>
+    <string name="add_all_to_calendar">Add all Shraddhas to Calendar</string>
+    <string name="allow">Allow</string>
+    <string name="aparahna_window">Aparahna Window (Shraddha Time)</string>
+    <string name="app_name">UM Shraddha Dates Calculator</string>
+    <string name="app_subtitle">Uttaradimatha Panchanga Calculator</string>
+    <string name="calculate_btn">Calculate Shraddha Dates</string>
+    <string name="calculating">Calculating Panchanga...</string>
+    <string name="calendar_permission_desc">Allow UM Shraddha Dates Calculator to create and manage Shraddha reminders in your device calendar with 2-day and 1-day advance notifications.</string>
+    <string name="calendar_permission_title">Calendar Access Required</string>
+    <string name="calendar_reminder">Calendar Reminder</string>
+    <string name="calendar_reminder_off">Reminder OFF</string>
+    <string name="calendar_reminder_on">Reminder ON (2d &amp; 1d before)</string>
+    <string name="calendar_reminders_header">Calendar Reminders</string>
+    <string name="calendar_reminders_rule">Automated Reminders</string>
+    <string name="calendar_reminders_rule_desc">Every calendar event receives 2 notifications:\n• 2 days before the Shraddha date (48 hours)\n• 1 day before the Shraddha date (24 hours)</string>
+    <string name="calendar_section">Calendar Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="ceremonies_count">%1$d Ceremonies</string>
+    <string name="clear_all_history">Clear All History</string>
+    <string name="close">Close</string>
+    <string name="custom_location">Custom Location</string>
+    <string name="date_of_death_label">Date of Death</string>
+    <string name="days_remaining">Days Remaining</string>
+    <string name="death_panchanga_details">Death Panchanga Determination</string>
+    <string name="death_summary_prefix">Death:</string>
+    <string name="delete">Delete</string>
+    <string name="developed_by">Developed and Managed by Gururaj Kulkarni</string>
+    <string name="dinmana">Dinmana</string>
+    <string name="input_guidelines_desc">Both date and exact time of death are required to accurately determine the Mruta Tithi at the precise moment of prana-prayana according to Uttaradimatha Panchanga.</string>
+    <string name="input_guidelines_title">Important Note</string>
+    <string name="language_section">Language</string>
+    <string name="location_label">Location</string>
+    <string name="masa">Masa</string>
+    <string name="nav_calculator">Calculator</string>
+    <string name="nav_recents">Recents</string>
+    <string name="nav_settings">Settings</string>
+    <string name="next_upcoming_shraddha">Next Upcoming Shraddha</string>
+    <string name="offline_available">Offline Available</string>
+    <string name="paksha">Paksha</string>
+    <string name="person_name_hint">e.g., Sri Pranesh Kulkarni</string>
+    <string name="person_name_label">Person Name</string>
+    <string name="recents_empty">No recent searches yet</string>
+    <string name="recents_empty_sub">Searches you perform will be saved here (maximum 10 entries).</string>
+    <string name="recents_title">Recent Searches</string>
+    <string name="reopen_search">Reopen</string>
+    <string name="results_title">Calculated Shraddha Dates</string>
+    <string name="samvatsara">Samvatsara</string>
+    <string name="search_city_hint">Search city, pilgrimage center, or world city...</string>
+    <string name="select_language">Select Application Language</string>
+    <string name="select_location_btn">Select Location</string>
+    <string name="select_location_sheet_title">Select Location</string>
+    <string name="settings_title">Settings</string>
+    <string name="sunrise_sunset">Sunrise / Sunset</string>
+    <string name="time_of_death_label">Time of Death (Mandatory)</string>
+    <string name="tithi">Tithi</string>
+    <string name="trace_dialog_title">Panchanga Trace &amp; Vyapti</string>
+    <string name="version_label">Version</string>
+    <string name="view_astronomical_trace">View Astronomical Calculation Trace</string>
+    <style name="Theme.ShraddhaCalendar" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>
