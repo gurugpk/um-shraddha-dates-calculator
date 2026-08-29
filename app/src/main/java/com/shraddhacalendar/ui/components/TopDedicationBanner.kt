@@ -21,8 +21,15 @@ import com.shraddhacalendar.ui.theme.*
 
 @Composable
 fun TopDedicationBanner(
+    tradition: com.shraddhacalendar.core.models.MadhwaTradition = com.shraddhacalendar.core.models.MadhwaTradition.UTTARADI_MATHA,
     modifier: Modifier = Modifier
 ) {
+    val invocation = when (tradition) {
+        com.shraddhacalendar.core.models.MadhwaTradition.UTTARADI_MATHA -> stringResource(R.string.invocation_um)
+        com.shraddhacalendar.core.models.MadhwaTradition.MANTRALAYA_MUTT -> stringResource(R.string.invocation_srs)
+        com.shraddhacalendar.core.models.MadhwaTradition.UDUPI_ASHTA_MATHA -> stringResource(R.string.invocation_udupi)
+    }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -38,7 +45,7 @@ fun TopDedicationBanner(
         ) {
             // Opening Devotional Invocation
             Text(
-                text = "🕉️ " + stringResource(R.string.invocation_header) + " 🕉️",
+                text = "🕉️ $invocation 🕉️",
                 style = MaterialTheme.typography.titleSmall.copy(fontSize = 13.5.sp),
                 fontWeight = FontWeight.Bold,
                 color = PrimarySaffronDark,

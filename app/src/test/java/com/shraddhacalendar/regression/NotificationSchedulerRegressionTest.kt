@@ -51,7 +51,7 @@ class NotificationSchedulerRegressionTest {
         val en2Day = "%1\$s — %2\$s is in 2 days, on %3\$s."
         val en1Day = "%1\$s — %2\$s is tomorrow, %3\$s."
 
-        val kn2Day = "%1\$s — %2\$s ಇನ್ನೂ ೨ ದಿನಗಳಲ್ಲಿದೆ, %3\$s ರಂದು."
+        val kn2Day = "%1\$s — %2\$s ಇನ್ನೂ 2 ದಿನಗಳಲ್ಲಿದೆ, %3\$s ರಂದು."
         val kn1Day = "%1\$s — %2\$s ನಾಳೆ ಇದೆ, %3\$s ರಂದು."
 
         val sa2Day = "%1\$s — %2\$s दिनद्वयानन्तरम् अस्ति, %3\$s दिनाङ्के।"
@@ -67,36 +67,36 @@ class NotificationSchedulerRegressionTest {
         val ritualEn = PanchangaLocalizer.localizeTraditionalName(ritualRaw, AppLanguage.ENGLISH)
         val msgEn2 = String.format(en2Day, personName, ritualEn, dateFormatted)
         val msgEn1 = String.format(en1Day, personName, ritualEn, dateFormatted)
-        assertEquals("Pranesh Kulkarni — Masika 1 — Adya Masika is in 2 days, on 21 August 2026.", msgEn2)
-        assertEquals("Pranesh Kulkarni — Masika 1 — Adya Masika is tomorrow, 21 August 2026.", msgEn1)
+        assertEquals("Pranesh Kulkarni — Masika 1 — Adya Masika (13th Day) is in 2 days, on 21 August 2026.", msgEn2)
+        assertEquals("Pranesh Kulkarni — Masika 1 — Adya Masika (13th Day) is tomorrow, 21 August 2026.", msgEn1)
 
         // Test Kannada
         val ritualKn = PanchangaLocalizer.localizeTraditionalName(ritualRaw, AppLanguage.KANNADA)
         val msgKn2 = String.format(kn2Day, personName, ritualKn, dateFormatted)
         val msgKn1 = String.format(kn1Day, personName, ritualKn, dateFormatted)
-        assertEquals("Pranesh Kulkarni — ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ ಇನ್ನೂ ೨ ದಿನಗಳಲ್ಲಿದೆ, 21 August 2026 ರಂದು.", msgKn2)
-        assertEquals("Pranesh Kulkarni — ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ ನಾಳೆ ಇದೆ, 21 August 2026 ರಂದು.", msgKn1)
+        assertEquals("Pranesh Kulkarni — ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ (13ನೇ ದಿನ) ಇನ್ನೂ 2 ದಿನಗಳಲ್ಲಿದೆ, 21 August 2026 ರಂದು.", msgKn2)
+        assertEquals("Pranesh Kulkarni — ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ (13ನೇ ದಿನ) ನಾಳೆ ಇದೆ, 21 August 2026 ರಂದು.", msgKn1)
 
         // Test Sanskrit (Devanagari)
         val ritualSa = PanchangaLocalizer.localizeTraditionalName(ritualRaw, AppLanguage.SANSKRIT)
         val msgSa2 = String.format(sa2Day, personName, ritualSa, dateFormatted)
         val msgSa1 = String.format(sa1Day, personName, ritualSa, dateFormatted)
-        assertEquals("Pranesh Kulkarni — मासिकम् 1 — आद्यमासिकम् दिनद्वयानन्तरम् अस्ति, 21 August 2026 दिनाङ्के।", msgSa2)
-        assertEquals("Pranesh Kulkarni — मासिकम् 1 — आद्यमासिकम् श्वः अस्ति, 21 August 2026 दिनाङ्के।", msgSa1)
+        assertEquals("Pranesh Kulkarni — मासिकम् 1 — आद्यमासिकम् (13 तमदिनम्) दिनद्वयानन्तरम् अस्ति, 21 August 2026 दिनाङ्के।", msgSa2)
+        assertEquals("Pranesh Kulkarni — मासिकम् 1 — आद्यमासिकम् (13 तमदिनम्) श्वः अस्ति, 21 August 2026 दिनाङ्के।", msgSa1)
 
         // Test Telugu
         val ritualTe = PanchangaLocalizer.localizeTraditionalName(ritualRaw, AppLanguage.TELUGU)
         val msgTe2 = String.format(te2Day, personName, ritualTe, dateFormatted)
         val msgTe1 = String.format(te1Day, personName, ritualTe, dateFormatted)
-        assertEquals("Pranesh Kulkarni — మాసికం 1 — ఆద్య మాసికం మరో 2 రోజుల్లో ఉంది, 21 August 2026 తేదీన.", msgTe2)
-        assertEquals("Pranesh Kulkarni — మాసికం 1 — ఆద్య మాసికం రేపు ఉంది, 21 August 2026 తేదీన.", msgTe1)
+        assertEquals("Pranesh Kulkarni — మాసికం 1 — ఆద్య మాసికం (13వ రోజు) మరో 2 రోజుల్లో ఉంది, 21 August 2026 తేదీన.", msgTe2)
+        assertEquals("Pranesh Kulkarni — మాసికం 1 — ఆద్య మాసికం (13వ రోజు) రేపు ఉంది, 21 August 2026 తేదీన.", msgTe1)
 
         // Test Tamil
         val ritualTa = PanchangaLocalizer.localizeTraditionalName(ritualRaw, AppLanguage.TAMIL)
         val msgTa2 = String.format(ta2Day, personName, ritualTa, dateFormatted)
         val msgTa1 = String.format(ta1Day, personName, ritualTa, dateFormatted)
-        assertEquals("Pranesh Kulkarni — மாஸிகம் 1 — ஆத்ய மாஸிகம் இன்னும் 2 நாட்களில் உள்ளது, 21 August 2026 அன்று.", msgTa2)
-        assertEquals("Pranesh Kulkarni — மாஸிகம் 1 — ஆத்ய மாஸிகம் நாளை உள்ளது, 21 August 2026 அன்று.", msgTa1)
+        assertEquals("Pranesh Kulkarni — மாஸிகம் 1 — ஆத்ய மாஸிகம் (13ஆம் நாள்) இன்னும் 2 நாட்களில் உள்ளது, 21 August 2026 அன்று.", msgTa2)
+        assertEquals("Pranesh Kulkarni — மாஸிகம் 1 — ஆத்ய மாஸிகம் (13ஆம் நாள்) நாளை உள்ளது, 21 August 2026 அன்று.", msgTa1)
     }
 
     @Test

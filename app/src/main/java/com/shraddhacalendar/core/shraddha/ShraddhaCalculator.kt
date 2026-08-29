@@ -1,13 +1,11 @@
 package com.shraddhacalendar.core.shraddha
 
 import com.shraddhacalendar.core.models.*
-import com.shraddhacalendar.core.panchang.MasaCalculator
+import com.shraddhacalendar.core.tradition.TraditionEngineFactory
 import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 /**
- * Main coordinator for calculating Shraddha dates based on Uttaradimatha Panchanga.
+ * Main coordinator for calculating Shraddha and Paksha dates across all Madhwa traditions.
  */
 object ShraddhaCalculator {
 
@@ -15,62 +13,75 @@ object ShraddhaCalculator {
         personRecord: PersonDeathRecord,
         currentDate: LocalDate = LocalDate.now()
     ): ShraddhaCalculationResult {
-        val zoneId = ZoneId.of(personRecord.location.timezoneId)
+        val tradition = personRecord.tradition
+        val engine = TraditionEngineFactory.getEngine(tradition)
 
-        // 1. Calculate the exact astronomical Panchanga at the precise moment of death
-        val deathZdt = ZonedDateTime.of(personRecord.deathDate, personRecord.deathTime, zoneId)
-        val mrutaPanchanga = MasaCalculator.getFullPanchangaTithi(deathZdt)
+        // 1. Calculate astronomical Mruta Panchanga Tithi at moment of death
+        val mrutaPanchanga = engine.calculateMrutaTithi(
+            deathDate = personRecord.deathDate,
+            deathTime = personRecord.deathTime,
+            location = personRecord.location
+        )
 
-        // 2. Calculate Year 1 events (16 Shodasha rites + Prathama Varshika)
-        val year1Events = MasikaShraddhaCalculator.calculateYear1Events(personRecord, mrutaPanchanga)
-        val prathamaVarshikaEvent = year1Events.last { it.type == ShraddhaType.VARSHIKA }
-        val prathamaVarshikaDate = prathamaVarshikaEvent.gregorianDate
+        // 2. Evaluate classical Shastric Doshas
+        val doshaResult = engine.evaluateDosha(personRecord, mrutaPanchanga)
 
-        // 3. Determine if first year is already completed based on actual Panchanga Shraddha date
-        val isFirstYearCompleted = currentDate.isAfter(prathamaVarshikaDate)
+        // 3. Calculate full chronological groups (Year 1 Masikas, Varshikas, and Mahalaya Pakshas)
+        val observanceGroups = engine.calculateYearlyObservanceGroups(
+            record = personRecord,
+            mrutaTithi = mrutaPanchanga,
+            currentDate = currentDate
+        )
 
-        return if (isFirstYearCompleted) {
-            // Death is older than 1 year -> Show only the next upcoming applicable Shraddha
-            val nextUpcoming = VarshikaShraddhaCalculator.findNextUpcomingShraddha(
-                personRecord = personRecord,
-                mrutaPanchanga = mrutaPanchanga,
-                currentDate = currentDate
-            )
+        val year1Group = observanceGroups.first()
+        val prathamaVarshikaDate = year1Group.varshikaEvent.gregorianDate
+        val isDeathOlderThanOneYear = currentDate.isAfter(prathamaVarshikaDate)
 
-            ShraddhaCalculationResult(
-                personRecord = personRecord,
-                mrutaTithi = mrutaPanchanga,
-                isDeathOlderThanOneYear = true,
-                nextUpcomingShraddha = nextUpcoming,
-                yearlySections = emptyList()
-            )
-        } else {
-            // Recent death (within 1st year) -> Show 5-year drilldown
-            val year1StartYear = personRecord.deathDate.year
-            val year1EndYear = prathamaVarshikaDate.year
+        // 4. Find the immediate next upcoming observance (whichever is earliest on or after currentDate)
+        val allEventsChronological = mutableListOf<ShraddhaEvent>()
+        observanceGroups.forEach { group ->
+            allEventsChronological.addAll(group.masikas)
+            allEventsChronological.add(group.varshikaEvent)
+            if (group.pakshaEvent != null) {
+                allEventsChronological.add(group.pakshaEvent)
+            }
+        }
+        allEventsChronological.sortBy { it.gregorianDate }
 
-            val year1Section = ShraddhaYearSection(
-                yearIndex = 1,
-                yearTitle = "Year 1 ($year1StartYear - $year1EndYear)",
-                isExpandedByDefault = true,
-                events = year1Events
-            )
+        val nextUpcomingObservance = allEventsChronological.firstOrNull { !it.gregorianDate.isBefore(currentDate) }
+            ?: allEventsChronological.lastOrNull()
 
-            val futureYearSections = VarshikaShraddhaCalculator.calculateFutureYears(
-                personRecord = personRecord,
-                mrutaPanchanga = mrutaPanchanga,
-                year1VarshikaDate = prathamaVarshikaDate
-            )
+        // Also identify the next upcoming annual Varshika Shraddha specifically
+        val nextUpcomingVarshika = allEventsChronological
+            .filter { it.type == ShraddhaType.VARSHIKA && !it.gregorianDate.isBefore(currentDate) }
+            .minByOrNull { it.gregorianDate } ?: year1Group.varshikaEvent
 
-            val allYearSections = listOf(year1Section) + futureYearSections
-
-            ShraddhaCalculationResult(
-                personRecord = personRecord,
-                mrutaTithi = mrutaPanchanga,
-                isDeathOlderThanOneYear = false,
-                nextUpcomingShraddha = null,
-                yearlySections = allYearSections
+        // Build legacy yearlySections for backward compatibility
+        val legacyYearSections = observanceGroups.map { grp ->
+            val eventsList = if (grp.yearIndex == 1) {
+                grp.masikas + listOf(grp.varshikaEvent)
+            } else {
+                listOfNotNull(grp.varshikaEvent, grp.pakshaEvent)
+            }
+            ShraddhaYearSection(
+                yearIndex = grp.yearIndex,
+                yearTitle = grp.yearTitle,
+                isExpandedByDefault = grp.isExpandedByDefault,
+                events = eventsList
             )
         }
+
+        return ShraddhaCalculationResult(
+            personRecord = personRecord,
+            mrutaTithi = mrutaPanchanga,
+            isDeathOlderThanOneYear = isDeathOlderThanOneYear,
+            nextUpcomingShraddha = nextUpcomingVarshika,
+            yearlySections = legacyYearSections,
+            yearlyObservanceGroups = observanceGroups,
+            nextUpcomingObservance = nextUpcomingObservance,
+            nextUpcomingCategory = nextUpcomingObservance?.observanceCategory,
+            doshaEvaluation = doshaResult,
+            tradition = tradition
+        )
     }
 }

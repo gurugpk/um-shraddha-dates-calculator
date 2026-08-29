@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.shraddhacalendar.R
 import com.shraddhacalendar.core.calendar.makeEntityKey
 import com.shraddhacalendar.core.localization.AppLanguage
+import com.shraddhacalendar.core.localization.PanchangaLocalizer
 import com.shraddhacalendar.core.models.ShraddhaEvent
 import com.shraddhacalendar.core.models.ShraddhaYearSection
 import com.shraddhacalendar.ui.theme.*
@@ -56,6 +57,7 @@ fun ExpandableYearSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
+                    modifier = Modifier.weight(1f).padding(end = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
@@ -65,8 +67,9 @@ fun ExpandableYearSection(
                         color = PrimarySaffronDark
                     )
                     Column {
+                        val localizedTitle = PanchangaLocalizer.localizeYearTitleString(section.yearTitle, language)
                         Text(
-                            text = section.yearTitle,
+                            text = localizedTitle,
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = TextPrimary
@@ -82,7 +85,7 @@ fun ExpandableYearSection(
                 IconButton(onClick = { isExpanded = !isExpanded }) {
                     Icon(
                         imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                        contentDescription = if (isExpanded) "Collapse" else "Expand",
+                        contentDescription = if (isExpanded) stringResource(R.string.collapse) else stringResource(R.string.expand),
                         tint = PrimarySaffronDark
                     )
                 }

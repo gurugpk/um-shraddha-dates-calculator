@@ -1,16 +1,14 @@
 package com.shraddhacalendar.ui.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,15 +17,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.shraddhacalendar.R
 import com.shraddhacalendar.core.localization.AppLanguage
+import com.shraddhacalendar.core.localization.PanchangaLocalizer
+import com.shraddhacalendar.core.models.MadhwaTradition
+import com.shraddhacalendar.ui.components.TopDedicationBanner
 import com.shraddhacalendar.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     currentLanguage: AppLanguage,
+    selectedTradition: MadhwaTradition = MadhwaTradition.UTTARADI_MATHA,
     onLanguageSelected: (AppLanguage) -> Unit,
+    onTraditionSelected: (MadhwaTradition) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -57,9 +61,82 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // Dedicated Top Banner
-            com.shraddhacalendar.ui.components.TopDedicationBanner()
+            TopDedicationBanner(tradition = selectedTradition)
 
-            // 1. Language Selection Card
+            // 1. Madhwa Lineage / Matha Tradition Selection Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = SurfaceCard),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(Icons.Default.AccountBalance, contentDescription = null, tint = PrimarySaffronDark)
+                        Text(
+                            text = stringResource(R.string.tradition_section),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary
+                        )
+                    }
+
+                    Text(
+                        text = stringResource(R.string.tradition_section_subtitle),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextSecondary
+                    )
+
+                    HorizontalDivider(color = DividerColor)
+
+                    MadhwaTradition.entries.forEach { trad ->
+                        val isSelected = trad == selectedTradition
+                        val bg = if (isSelected) PrimarySaffron.copy(alpha = 0.08f) else SurfaceCard
+                        val border = if (isSelected) PrimarySaffron else CardBorder
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(bg)
+                                .border(if (isSelected) 1.5.dp else 1.dp, border, RoundedCornerShape(12.dp))
+                                .clickable { onTraditionSelected(trad) }
+                                .padding(horizontal = 14.dp, vertical = 10.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = isSelected,
+                                onClick = { onTraditionSelected(trad) },
+                                colors = RadioButtonDefaults.colors(selectedColor = PrimarySaffronDark)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Column {
+                                Text(
+                                    text = PanchangaLocalizer.localizeTradition(trad, currentLanguage),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold,
+                                    color = if (isSelected) PrimarySaffronDark else TextPrimary
+                                )
+                                Text(
+                                    text = trad.guruParamparaName,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = TextSecondary
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 2. Language Selection Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
@@ -98,37 +175,54 @@ fun SettingsScreen(
                     HorizontalDivider(color = DividerColor)
 
                     // Native Script Language Options
-                    AppLanguage.entries.forEach { lang ->
+                    val languages = listOf(
+                        Triple(AppLanguage.KANNADA, "ಕನ್ನಡ", "Kannada"),
+                        Triple(AppLanguage.ENGLISH, "English", "English"),
+                        Triple(AppLanguage.TELUGU, "తెలుగు", "Telugu"),
+                        Triple(AppLanguage.SANSKRIT, "संस्कृतम्", "Sanskrit (Devanagari)"),
+                        Triple(AppLanguage.TAMIL, "தமிழ்", "Tamil")
+                    )
+
+                    languages.forEach { (lang, nativeName, englishName) ->
+                        val isSelected = lang == currentLanguage
+                        val bg = if (isSelected) PrimarySaffron.copy(alpha = 0.08f) else SurfaceCard
+                        val border = if (isSelected) PrimarySaffron else CardBorder
+
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(12.dp))
+                                .background(bg)
+                                .border(if (isSelected) 1.5.dp else 1.dp, border, RoundedCornerShape(12.dp))
                                 .clickable { onLanguageSelected(lang) }
-                                .padding(vertical = 10.dp, horizontal = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                                .padding(horizontal = 14.dp, vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                text = lang.nativeDisplayName,
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = if (lang == currentLanguage) FontWeight.Bold else FontWeight.Normal,
-                                color = if (lang == currentLanguage) PrimarySaffronDark else TextPrimary
-                            )
-
                             RadioButton(
-                                selected = (lang == currentLanguage),
+                                selected = isSelected,
                                 onClick = { onLanguageSelected(lang) },
-                                colors = RadioButtonDefaults.colors(
-                                    selectedColor = PrimarySaffronDark,
-                                    unselectedColor = TextTertiary
-                                )
+                                colors = RadioButtonDefaults.colors(selectedColor = PrimarySaffronDark)
                             )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Column {
+                                Text(
+                                    text = nativeName,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold,
+                                    color = if (isSelected) PrimarySaffronDark else TextPrimary
+                                )
+                                Text(
+                                    text = englishName,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = TextSecondary
+                                )
+                            }
                         }
                     }
                 }
             }
 
-            // 2. Calendar Settings & Automated Reminders Info Card
+            // 3. Calendar Settings Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
@@ -139,7 +233,7 @@ fun SettingsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -158,86 +252,25 @@ fun SettingsScreen(
                         )
                     }
 
+                    HorizontalDivider(color = DividerColor)
+
                     Text(
                         text = stringResource(R.string.calendar_reminders_rule),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
                         color = TextPrimary
                     )
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(SurfaceCardVariant)
-                            .padding(14.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.calendar_reminders_rule_desc),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary,
-                            lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.3
-                        )
-                    }
-                }
-            }
-
-            // 3. App Notifications Info Card
-            val context = androidx.compose.ui.platform.LocalContext.current
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = SurfaceCard),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Notifications,
-                            contentDescription = null,
-                            tint = PrimarySaffronDark
-                        )
-                        Text(
-                            text = stringResource(R.string.notifications_section),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = TextPrimary
-                        )
-                    }
 
                     Text(
-                        text = stringResource(R.string.app_notifications_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = TextPrimary
+                        text = stringResource(R.string.calendar_reminders_rule_desc),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextSecondary,
+                        lineHeight = 20.sp
                     )
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(SurfaceCardVariant)
-                            .padding(14.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.app_notifications_desc),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary,
-                            lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.3
-                        )
-                    }
                 }
             }
 
-            // 4. About Section Card
+            // 4. About & Disclaimers Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
@@ -267,83 +300,26 @@ fun SettingsScreen(
                         )
                     }
 
+                    HorizontalDivider(color = DividerColor)
+
                     Text(
                         text = stringResource(R.string.about_description),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextSecondary
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TextSecondary,
+                        lineHeight = 18.sp
                     )
 
-                    HorizontalDivider(color = DividerColor)
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = stringResource(R.string.version_label),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary
-                        )
-                        Text(
-                            text = "1.0.0",
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = TextPrimary
-                        )
-                    }
-
-                    HorizontalDivider(color = DividerColor)
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(SurfaceCardVariant)
-                            .padding(vertical = 12.dp, horizontal = 14.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            Text(
-                                text = "🕉️ " + stringResource(R.string.invocation_header) + " 🕉️",
-                                style = MaterialTheme.typography.titleSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = PrimarySaffronDark,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                            )
-                            HorizontalDivider(
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
-                                color = PrimarySaffron.copy(alpha = 0.25f),
-                                thickness = 0.8.dp
-                            )
-                            Text(
-                                text = stringResource(R.string.dedication_service),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = TextSecondary,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                            )
-                            Text(
-                                text = "🌸 " + stringResource(R.string.dedication_father) + " 🌸",
-                                style = MaterialTheme.typography.bodySmall,
-                                fontWeight = FontWeight.SemiBold,
-                                color = TextPrimary,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                            )
-                            Text(
-                                text = stringResource(R.string.developed_by),
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = PrimarySaffronDark,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                            )
-                        }
-                    }
+                    Text(
+                        text = stringResource(R.string.app_disclaimer),
+                        style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.5.sp),
+                        color = PrimarySaffronDark,
+                        lineHeight = 15.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

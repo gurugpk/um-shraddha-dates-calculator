@@ -41,7 +41,7 @@ android {
     applicationVariants.all {
         outputs.all {
             val output = this as? com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            output?.outputFileName = "um_shraddha_masika_calulator.apk"
+            output?.outputFileName = "pitru_panchanga.apk"
         }
     }
 }
@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
+    implementation("com.ibm.icu:icu4j:74.2")
     testImplementation(libs.junit)
     testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("androidx.test:core:1.6.1")

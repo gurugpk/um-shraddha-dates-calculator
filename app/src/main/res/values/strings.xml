@@ -1,15 +1,44 @@
 <resources>
-    <string name="app_name">UM Shraddha Dates Calculator</string>
-    <string name="app_subtitle">Uttaradimatha Panchanga Calculator</string>
+    <string name="app_name">Pitru Panchanga</string>
+    <string name="app_subtitle">Authentic Madhwa Shraddha &amp; Paksha Almanac</string>
     
     <!-- Navigation -->
-    <string name="nav_calculator">Calculator</string>
+    <string name="nav_calculator">Calculate</string>
     <string name="nav_saved">Saved</string>
     <string name="nav_recents">Recents</string>
     <string name="nav_settings">Settings</string>
     
+    <!-- Traditions -->
+    <string name="tradition_label">Tradition / Lineage</string>
+    <string name="tradition_um">Sri Uttaradi Matha</string>
+    <string name="tradition_srs">Mantralaya (Sri Raghavendra Swamy Mutt)</string>
+    <string name="tradition_udupi">Udupi Ashta Mathas</string>
+    <string name="onboarding_title">Select Your Madhwa Lineage</string>
+    <string name="onboarding_subtitle">Choose your Matha tradition to apply the appropriate calculation methodology, Panchanga rules, and devotional invocations.</string>
+    <string name="onboarding_confirm">Proceed to Almanac</string>
+    
+    <!-- Relationships -->
+    <string name="relationship_label">Relationship</string>
+    <string name="rel_father">Father</string>
+    <string name="rel_mother">Mother</string>
+    <string name="rel_grandfather">Grandfather</string>
+    <string name="rel_grandmother">Grandmother</string>
+    <string name="rel_husband">Husband</string>
+    <string name="rel_wife">Wife</string>
+    <string name="rel_brother">Brother</string>
+    <string name="rel_sister">Sister</string>
+    <string name="rel_son">Son</string>
+    <string name="rel_daughter">Daughter</string>
+    <string name="rel_uncle">Uncle</string>
+    <string name="rel_aunt">Aunt</string>
+    <string name="rel_other">Other / Relative</string>
+    
+    <!-- Location Sheet -->
+    <string name="select_location_sheet_title">Select Demise Location</string>
+    <string name="search_city_hint">Search city (e.g. Bangalore, Mantralayam, Udupi)...</string>
+    
     <!-- Saved Profiles Screen -->
-    <string name="saved_title">Saved Shraddha Profiles</string>
+    <string name="saved_title">Saved Family Profiles</string>
     <string name="saved_empty">No Saved Profiles Yet</string>
     <string name="saved_empty_desc">Save your family members\' Shraddha profiles permanently on your phone to easily access calculations and dates anytime.</string>
     <string name="save_profile_btn">Save Profile</string>
@@ -18,32 +47,38 @@
     <string name="saved_profile_subtitle">Stored permanently in Saved tab</string>
     <string name="calendar_sync_subtitle">2-day &amp; 1-day advance reminders</string>
     <string name="remove_saved_btn">Remove</string>
-    <string name="open_profile">Open Shraddha Dates</string>
+    <string name="open_profile">View Dates</string>
+    <string name="edit_profile">Edit</string>
+    <string name="edit_profile_title">Edit Profile Details</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="new_calculation_btn">New Calculation</string>
     
     <!-- Input Screen -->
     <string name="person_name_label">Person Name</string>
-    <string name="person_name_hint">e.g., Sri Pranesh Kulkarni</string>
+    <string name="person_name_hint">e.g., Sri Pranesh Kulakarni</string>
     <string name="date_of_death_label">Date of Death</string>
+    <string name="observance_date_label">Observance Date</string>
     <string name="time_of_death_label">Time of Death (Mandatory)</string>
-    <string name="location_label">Location</string>
+    <string name="location_label">Demise Location</string>
     <string name="select_location_btn">Select Location</string>
-    <string name="calculate_btn">Calculate Shraddha Dates</string>
+    <string name="calculate_btn">Calculate Shraddha &amp; Paksha Dates</string>
     <string name="calculating">Calculating Panchanga...</string>
     <string name="input_guidelines_title">Important Note</string>
-    <string name="input_guidelines_desc">Both date and exact time of death are required to accurately determine the Mruta Tithi at the precise moment of prana-prayana according to Uttaradimatha Panchanga.</string>
+    <string name="input_guidelines_desc">Both date and exact time of death are required to accurately determine the Mruta Tithi at the precise moment of prana-prayana according to selected Madhwa Panchanga rules.</string>
     
     <!-- Results Screen -->
-    <string name="results_title">Calculated Shraddha Dates</string>
-    <string name="death_summary_prefix">Death:</string>
-    <string name="death_panchanga_details">Death Panchanga Determination</string>
-    <string name="add_all_to_calendar">Add all Shraddhas to Calendar</string>
+    <string name="results_title">Shraddha &amp; Paksha Calendar</string>
+    <string name="death_summary_prefix">Demise Record:</string>
+    <string name="death_panchanga_details">Demise Panchanga Determination</string>
+    <string name="add_all_to_calendar">Add all Observances to Calendar</string>
     <string name="calendar_reminders_header">Calendar Reminders</string>
     <string name="calendar_reminder">Calendar Reminder</string>
     <string name="calendar_reminder_on">Reminder ON (2d &amp; 1d before)</string>
     <string name="calendar_reminder_off">Reminder OFF</string>
-    <string name="next_upcoming_shraddha">Next Upcoming Shraddha</string>
+    <string name="next_upcoming_observance">Next Upcoming Observance</string>
+    <string name="next_upcoming_shraddha">Next Upcoming Varshika Shraddha</string>
     <string name="days_remaining">Days Remaining</string>
-    <string name="aparahna_window">Aparahna Window (Shraddha Time)</string>
+    <string name="aparahna_window">Aparahna Window (Ritual Time)</string>
     <string name="sunrise_sunset">Sunrise / Sunset</string>
     <string name="dinmana">Dinmana</string>
     <string name="samvatsara">Samvatsara</string>
@@ -53,7 +88,31 @@
     <string name="view_astronomical_trace">View Astronomical Calculation Trace</string>
     <string name="trace_dialog_title">Panchanga Trace &amp; Vyapti</string>
     <string name="close">Close</string>
-    <string name="ceremonies_count">%1$d Ceremonies</string>
+    <string name="ceremonies_count">%1$d Observances</string>
+    
+    <!-- Sub-Tabs within Year Sections -->
+    <string name="tab_masikas">Masikas (1st Year Rites)</string>
+    <string name="tab_shraddha">Shraddha (Annual)</string>
+    <string name="tab_paksha">Paksha (Mahalaya)</string>
+    <string name="paksha_not_applicable_y1">Not Applicable in Year 1 (Preta Avastha prior to Sapindikarana)</string>
+    <string name="info_btn">Meaning</string>
+    <string name="scriptural_significance">Scriptural Basis</string>
+    <string name="view_trace_btn">View Trace</string>
+    <string name="today_badge">Today</string>
+    <string name="days_remaining_fmt">%1$d Days Remaining</string>
+    <string name="date_time_demise_label">Date &amp; Time of Demise</string>
+    <string name="mruta_tithi_at_demise">Astronomical Mruta Tithi at Demise:</string>
+    <string name="soul_journey_station_title">Soul\'s Journey Station</string>
+    <string name="spiritual_impact_title">Spiritual Significance &amp; Impact</string>
+    <string name="canonical_source_title">Canonical Scriptural Source</string>
+    <string name="demise_no_dosha_desc">Demise occurred under standard astrological parameters without Panchaka or Sandhi afflictions.</string>
+    
+    <!-- Dosha / Traditional Considerations -->
+    <string name="dosha_header">Traditional Circumstances &amp; Dosha Evaluation</string>
+    <string name="dosha_clear">✓ No exceptional dosha detected for this demise time</string>
+    <string name="dosha_alert">⚠️ Traditional Consideration Identified</string>
+    <string name="remedy_label">Prescribed Traditional Remedy:</string>
+    <string name="source_label">Scriptural Source:</string>
     
     <!-- Recents Screen -->
     <string name="recents_title">Recent Searches</string>
@@ -67,20 +126,27 @@
     <string name="settings_title">Settings</string>
     <string name="language_section">Language</string>
     <string name="select_language">Select Application Language</string>
+    <string name="tradition_section">Madhwa Lineage / Matha</string>
     <string name="calendar_section">Calendar Settings</string>
     <string name="calendar_reminders_rule">Automated Reminders</string>
-    <string name="calendar_reminders_rule_desc">Every calendar event receives 2 notifications:\n• 2 days before the Shraddha date (48 hours)\n• 1 day before the Shraddha date (24 hours)</string>
+    <string name="calendar_reminders_rule_desc">Every calendar event receives 2 notifications:\n• 2 days before the date (48 hours)\n• 1 day before the date (24 hours)</string>
     <string name="about_section">About Application</string>
-    <string name="about_description">UM Shraddha Dates Calculator calculates Masika and Yearly Shraddha dates strictly according to Sri Uttaradi Math Panchanga rules and Madhwa Smriti Muktavali tradition.</string>
+    <string name="about_description">Pitru Panchanga calculates Masika, Varshika Shraddha, and Mahalaya Paksha dates strictly according to authentic Madhwa Dharma Shastras and respective Matha Panchanga rules.</string>
     <string name="version_label">Version</string>
-    <string name="invocation_header">Śrī Satyātmatīrtha Gurubhyo Namaḥ</string>
-    <string name="dedication_service">Dedicated to the service of Sri Hari, Sri Vayu, and the Sri 108 Uttaradi Math Parampara</string>
-    <string name="dedication_father">Dedicated in loving memory of my father, Late Sri Pranesh Kulkarni</string>
+    <string name="invocation_um">Śrīmad Ānandatīrtha Bhagavatpādāchārya Gurubhyo Namaḥ</string>
+    <string name="invocation_srs">Śrī Rāghavendra Gurubhyo Namaḥ</string>
+    <string name="invocation_udupi">Śrī Vādirāja Gurubhyo Namaḥ</string>
+    <string name="invocation_header">Śrīmad Ānandatīrtha Bhagavatpādāchārya Gurubhyo Namaḥ</string>
+    <string name="dedication_service">Dedicated to the service of Sri Hari, Sri Vayu, and the Madhwa Guru Parampara</string>
+    <string name="dedication_father">Dedicated in loving memory of my father, Late Sri Pranesh Kulakarni</string>
     <string name="developed_by">Developed and managed by Gururaj Kulkarni</string>
     <string name="export_pdf">Export / Share PDF</string>
     <string name="pdf_generating">Generating print-ready PDF...</string>
-    <string name="pdf_share_title">Share Shraddha Calendar PDF</string>
+    <string name="pdf_share_title">Share Pitru Panchanga PDF</string>
     <string name="hari_vayu_footer">॥ Śrī Hariḥ Sarvottamaḥ • Vāyuḥ Jīvottamaḥ ॥</string>
+    
+    <!-- Disclaimer -->
+    <string name="app_disclaimer">Disclaimer: This application is for information purposes only. The Pitru Panchanga calculator may produce varying astronomical results and is not 100% authoritative. Please consult your family Acharya / expert Acharya to verify and resolve any date-related issues.</string>
     
     <!-- App Notification Strings -->
     <string name="notif_channel_name">Shraddha Ceremony Reminders</string>
@@ -93,17 +159,47 @@
     <string name="app_notifications_label">Advance Reminders</string>
     <string name="app_notifications_desc">Receive reminders directly on your phone 2 days and 1 day before at 08:00 AM</string>
     <string name="notification_permission_required">Notification Permission Required</string>
-    <string name="notification_permission_desc">Allow UM Shraddha Dates Calculator to send timely reminders 2 days and 1 day before each ceremony.</string>
+    <string name="notification_permission_desc">Allow Pitru Panchanga to send timely reminders 2 days and 1 day before each ceremony.</string>
     
     <!-- Calendar Permissions -->
     <string name="calendar_permission_title">Calendar Access Required</string>
-    <string name="calendar_permission_desc">Allow UM Shraddha Dates Calculator to create and manage Shraddha reminders in your device calendar with 2-day and 1-day advance notifications.</string>
-    <string name="allow">Allow</string>
+    <string name="calendar_permission_desc">Allow Pitru Panchanga to create and manage Shraddha reminders in your device calendar with 2-day and 1-day advance notifications.</string>
+    <string name="grant_permission">Grant Permission</string>
     <string name="cancel">Cancel</string>
+    <string name="tradition_section_subtitle">Select Matha tradition to apply corresponding Panchanga methodologies &amp; invocations.</string>
     
-    <!-- Location Picker -->
-    <string name="select_location_sheet_title">Select Location</string>
-    <string name="search_city_hint">Search city, pilgrimage center, or world city...</string>
-    <string name="offline_available">Offline Available</string>
-    <string name="custom_location">Custom Location</string>
+    <!-- Calculation Details & Dialogs -->
+    <string name="calculation_details">Calculation Details</string>
+    <string name="local_astronomical_timings">Local Astronomical Timings</string>
+    <string name="location_label_short">Location</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="daylight_dinmana">Daylight (Dinmana)</string>
+    <string name="aparahna_kala_4th">Aparahna Kala (4th Part)</string>
+    <string name="kutapa_muhurta_8th">Kutapa Muhurta (8th Part)</string>
+    <string name="panchanga_determination_trace">Panchanga Determination Trace</string>
+    <string name="change_btn">Change</string>
+    <string name="remove_profile_confirm_title">Remove Profile</string>
+    <string name="remove_profile_confirm_msg">Are you sure you want to remove %1$s\'s profile?</string>
+    <string name="clear_history_confirm_title">Clear History</string>
+    <string name="clear_history_confirm_msg">Are you sure you want to clear all recent searches?</string>
+    <string name="ok">OK</string>
+    <string name="details">Details</string>
+    <string name="expand">Expand</string>
+    <string name="collapse">Collapse</string>
+    <string name="tradition_um_subtitle">Amanta • Strict Aparahna Vyapti • Srimad Ananda Tirtha Parampara</string>
+    <string name="tradition_srs_subtitle">Mantralayam • Sri Raghavendra Swamy Mutt Panchanga • Rayara Gurubhyo Namaha</string>
+    <string name="tradition_udupi_subtitle">Coastal Tuluva Tradition • Udupi Ashta Mathas • Sri Vadiraja Swamy Parampara</string>
+    <string name="edit">Edit</string>
+    <string name="export_year_pdf">Download Year %1$d PDF</string>
+    <string name="export_year_pdf_short">PDF</string>
+    <string name="pancha_kala_guide_btn">5 Divisions of Day (Kalas)</string>
+    <string name="pancha_kala_guide_title">The 5 Sacred Divisions of the Day (Pancha Kalas)</string>
+    <string name="pancha_kala_guide_desc">Dinamana (sunrise to sunset) divided into 5 equal parts</string>
+    <string name="sunrise_tithi_label">Sunrise Tithi</string>
+    <string name="aparahna_tithi_label">Aparahna Ritual Tithi</string>
+    <string name="tithi_transition_badge">Sunrise: %1$s ➔ Aparahna: %2$s</string>
+    <string name="canonical_injunction_title">Canonical Scriptural Injunction</string>
+    <string name="layperson_qa_title">Why This Date &amp; Time Was Selected</string>
+    <string name="explore_pancha_kalas">Explore All 5 Divisions of Day (Pancha Kalas)</string>
 </resources>

@@ -55,6 +55,38 @@ object DinmanaCalculator {
         )
     }
 
+    fun calculatePanchaKalaWindows(date: LocalDate, location: GeoLocation): Map<com.shraddhacalendar.core.shraddha.VedicKala, Pair<LocalTime, LocalTime>> {
+        val zoneId = ZoneId.of(location.timezoneId)
+        val solarTimes = SunriseSunsetCalculator.calculate(
+            date = date,
+            latitude = location.latitude,
+            longitude = location.longitude,
+            zoneId = zoneId
+        )
+
+        val sunrise = solarTimes.sunrise
+        val sunset = solarTimes.sunset
+
+        val sunriseSeconds = sunrise.toSecondOfDay().toDouble()
+        val sunsetSeconds = sunset.toSecondOfDay().toDouble()
+        val dinmanaSeconds = (sunsetSeconds - sunriseSeconds).coerceAtLeast(0.0)
+        val kalaDuration = dinmanaSeconds / 5.0
+
+        val pratah = Pair(sunrise, secondsToLocalTime(sunriseSeconds + kalaDuration))
+        val sangava = Pair(secondsToLocalTime(sunriseSeconds + kalaDuration), secondsToLocalTime(sunriseSeconds + 2 * kalaDuration))
+        val madhyahna = Pair(secondsToLocalTime(sunriseSeconds + 2 * kalaDuration), secondsToLocalTime(sunriseSeconds + 3 * kalaDuration))
+        val aparahna = Pair(secondsToLocalTime(sunriseSeconds + 3 * kalaDuration), secondsToLocalTime(sunriseSeconds + 4 * kalaDuration))
+        val sayahna = Pair(secondsToLocalTime(sunriseSeconds + 4 * kalaDuration), sunset)
+
+        return mapOf(
+            com.shraddhacalendar.core.shraddha.VedicKala.PRATAH to pratah,
+            com.shraddhacalendar.core.shraddha.VedicKala.SANGAVA to sangava,
+            com.shraddhacalendar.core.shraddha.VedicKala.MADHYAHNA to madhyahna,
+            com.shraddhacalendar.core.shraddha.VedicKala.APARAHNA to aparahna,
+            com.shraddhacalendar.core.shraddha.VedicKala.SAYAHNA to sayahna
+        )
+    }
+
     private fun secondsToLocalTime(totalSeconds: Double): LocalTime {
         val secs = ((totalSeconds % 86400.0) + 86400.0) % 86400.0
         val hours = (secs / 3600).toInt().coerceIn(0, 23)

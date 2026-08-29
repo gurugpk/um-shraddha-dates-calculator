@@ -1,22 +1,16 @@
 package com.shraddhacalendar.ui.viewmodel
 
 import android.app.Application
-import android.widget.Toast
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.shraddhacalendar.core.calendar.CalendarManager
 import com.shraddhacalendar.core.localization.AppLanguage
 import com.shraddhacalendar.core.localization.LocaleManager
-import com.shraddhacalendar.core.models.GeoLocation
-import com.shraddhacalendar.core.models.PersonDeathRecord
-import com.shraddhacalendar.core.models.ShraddhaCalculationResult
-import com.shraddhacalendar.core.models.ShraddhaEvent
+import com.shraddhacalendar.core.models.*
+import com.shraddhacalendar.core.shraddha.EducationalContentRepository
 import com.shraddhacalendar.core.shraddha.ShraddhaCalculator
-import com.shraddhacalendar.data.local.CalendarMappingRepository
-import com.shraddhacalendar.data.local.RecentSearchItem
-import com.shraddhacalendar.data.local.RecentSearchRepository
-import com.shraddhacalendar.data.local.SavedProfileItem
-import com.shraddhacalendar.data.local.SavedProfilesRepository
+import com.shraddhacalendar.data.local.*
 import com.shraddhacalendar.data.location.CityDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +32,10 @@ enum class AppTab {
 data class ShraddhaUiState(
     val selectedTab: AppTab = AppTab.CALCULATOR,
     val currentLanguage: AppLanguage = AppLanguage.ENGLISH,
+    val selectedTradition: MadhwaTradition = MadhwaTradition.UTTARADI_MATHA,
+    val hasCompletedOnboarding: Boolean = true,
     val personName: String = "",
+    val relationship: FamilyRelationship = FamilyRelationship.OTHER,
     val deathDate: LocalDate = LocalDate.now(),
     val deathTime: LocalTime = LocalTime.of(12, 0),
     val selectedLocation: GeoLocation = CityDatabase.CITIES.first(),
@@ -51,12 +48,15 @@ data class ShraddhaUiState(
     val showCalendarPermissionRationale: Boolean = false,
     val pendingCalendarAction: (() -> Unit)? = null,
     val savedProfiles: List<SavedProfileItem> = emptyList(),
-    val recentSearches: List<RecentSearchItem> = emptyList()
+    val recentSearches: List<RecentSearchItem> = emptyList(),
+    val editingProfile: SavedProfileItem? = null,
+    val selectedCeremonyInfo: EducationalCeremonyInfo? = null
 )
 
 class ShraddhaViewModel(application: Application) : AndroidViewModel(application) {
 
     private val context = application.applicationContext
+    private val prefs = context.getSharedPreferences("madwa_shraddha_prefs", Context.MODE_PRIVATE)
     private val recentSearchRepo = RecentSearchRepository(context)
     private val savedProfilesRepo = SavedProfilesRepository(context)
     private val calendarMappingRepo = CalendarMappingRepository(context)
@@ -64,7 +64,9 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
 
     private val _uiState = MutableStateFlow(
         ShraddhaUiState(
-            currentLanguage = LocaleManager.getSavedLanguage(context)
+            currentLanguage = LocaleManager.getSavedLanguage(context),
+            selectedTradition = getSavedTradition(),
+            hasCompletedOnboarding = prefs.getBoolean("has_completed_onboarding", false)
         )
     )
     val uiState: StateFlow<ShraddhaUiState> = _uiState.asStateFlow()
@@ -75,12 +77,72 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
         syncActiveCalendarEvents()
     }
 
+    private fun getSavedTradition(): MadhwaTradition {
+        val savedId = prefs.getString("selected_tradition", MadhwaTradition.UTTARADI_MATHA.id)
+        return MadhwaTradition.fromId(savedId)
+    }
+
+    fun setTradition(tradition: MadhwaTradition) {
+        prefs.edit().putString("selected_tradition", tradition.id).apply()
+        _uiState.update { it.copy(selectedTradition = tradition) }
+        // If there's an active calculation, recalculate with the new tradition
+        val currentRecord = _uiState.value.calculationResult?.personRecord
+        if (currentRecord != null) {
+            val updatedRecord = currentRecord.copy(tradition = tradition)
+            calculateForRecord(updatedRecord)
+        }
+    }
+
+    fun completeOnboarding(tradition: MadhwaTradition) {
+        prefs.edit()
+            .putBoolean("has_completed_onboarding", true)
+            .putString("selected_tradition", tradition.id)
+            .apply()
+        _uiState.update {
+            it.copy(
+                hasCompletedOnboarding = true,
+                selectedTradition = tradition
+            )
+        }
+    }
+
     fun selectTab(tab: AppTab) {
-        _uiState.update { it.copy(selectedTab = tab) }
-        if (tab == AppTab.SAVED) {
-            loadSavedProfiles()
-        } else if (tab == AppTab.RECENTS) {
-            loadRecentSearches()
+        if (tab == AppTab.CALCULATOR) {
+            _uiState.update {
+                it.copy(
+                    selectedTab = tab,
+                    personName = "",
+                    relationship = FamilyRelationship.OTHER,
+                    deathDate = LocalDate.now(),
+                    deathTime = LocalTime.of(12, 0),
+                    selectedLocation = CityDatabase.CITIES.first(),
+                    calculationResult = null,
+                    validationError = null,
+                    isCurrentResultSaved = false
+                )
+            }
+        } else {
+            _uiState.update { it.copy(selectedTab = tab) }
+            if (tab == AppTab.SAVED) {
+                loadSavedProfiles()
+            } else if (tab == AppTab.RECENTS) {
+                loadRecentSearches()
+            }
+        }
+    }
+
+    fun resetCalculator() {
+        _uiState.update {
+            it.copy(
+                personName = "",
+                relationship = FamilyRelationship.OTHER,
+                deathDate = LocalDate.now(),
+                deathTime = LocalTime.of(12, 0),
+                selectedLocation = CityDatabase.CITIES.first(),
+                calculationResult = null,
+                validationError = null,
+                isCurrentResultSaved = false
+            )
         }
     }
 
@@ -91,6 +153,10 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
 
     fun onPersonNameChange(name: String) {
         _uiState.update { it.copy(personName = name, validationError = null) }
+    }
+
+    fun onRelationshipChange(rel: FamilyRelationship) {
+        _uiState.update { it.copy(relationship = rel) }
     }
 
     fun onDeathDateChange(date: LocalDate) {
@@ -112,360 +178,310 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
             return
         }
 
+        val record = PersonDeathRecord(
+            name = currentState.personName.trim(),
+            deathDate = currentState.deathDate,
+            deathTime = currentState.deathTime,
+            location = currentState.selectedLocation,
+            relationship = currentState.relationship,
+            tradition = currentState.selectedTradition
+        )
+
+        calculateForRecord(record)
+    }
+
+    private fun calculateForRecord(record: PersonDeathRecord) {
         _uiState.update { it.copy(isCalculating = true, validationError = null) }
 
         viewModelScope.launch {
             try {
-                val record = PersonDeathRecord(
-                    name = currentState.personName.trim(),
-                    deathDate = currentState.deathDate,
-                    deathTime = currentState.deathTime,
-                    location = currentState.selectedLocation
-                )
+                val result = withContext(Dispatchers.Default) {
+                    ShraddhaCalculator.calculate(record)
+                }
 
-                val result = ShraddhaCalculator.calculate(
-                    personRecord = record,
-                    currentDate = LocalDate.now()
-                )
+                // Save to recent searches
+                withContext(Dispatchers.IO) {
+                    recentSearchRepo.saveRecentSearch(record)
+                }
 
-                // Save to Recents (Max 10 FIFO)
-                recentSearchRepo.saveRecentSearch(record)
-                loadRecentSearches()
-
-                val isSaved = savedProfilesRepo.isProfileSaved(record.name, record.deathDate)
+                // Check if profile is saved
+                val isSaved = withContext(Dispatchers.IO) {
+                    savedProfilesRepo.isProfileSaved(record.name, record.deathDate)
+                }
 
                 _uiState.update {
                     it.copy(
                         isCalculating = false,
                         calculationResult = result,
                         isCurrentResultSaved = isSaved,
-                        validationError = null
+                        selectedTradition = record.tradition,
+                        relationship = record.relationship
                     )
                 }
 
+                loadRecentSearches()
                 syncActiveCalendarEvents()
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
                         isCalculating = false,
-                        validationError = "Calculation error: ${e.localizedMessage ?: "Unknown error"}"
+                        validationError = "Calculation error: ${e.localizedMessage}"
                     )
                 }
             }
         }
     }
 
-    fun toggleSaveCurrentResult(relationship: String? = null, notes: String? = null) {
+    fun openSavedProfile(profile: SavedProfileItem) {
+        val record = profile.toPersonDeathRecord()
+        _uiState.update {
+            it.copy(
+                personName = record.name,
+                relationship = record.relationship,
+                deathDate = record.deathDate,
+                deathTime = record.deathTime,
+                selectedLocation = record.location,
+                selectedTradition = record.tradition,
+                selectedTab = AppTab.CALCULATOR
+            )
+        }
+        calculateForRecord(record)
+    }
+
+    fun openRecentSearch(recent: RecentSearchItem) {
+        val record = PersonDeathRecord(
+            name = recent.personName,
+            deathDate = recent.deathDate,
+            deathTime = recent.deathTime,
+            location = recent.location,
+            tradition = _uiState.value.selectedTradition
+        )
+        _uiState.update {
+            it.copy(
+                personName = record.name,
+                deathDate = record.deathDate,
+                deathTime = record.deathTime,
+                selectedLocation = record.location,
+                selectedTab = AppTab.CALCULATOR
+            )
+        }
+        calculateForRecord(record)
+    }
+
+    fun editRecentSearch(recent: RecentSearchItem) {
+        _uiState.update {
+            it.copy(
+                selectedTab = AppTab.CALCULATOR,
+                personName = recent.personName,
+                relationship = FamilyRelationship.OTHER,
+                deathDate = recent.deathDate,
+                deathTime = recent.deathTime,
+                selectedLocation = recent.location,
+                calculationResult = null,
+                validationError = null,
+                isCurrentResultSaved = false
+            )
+        }
+    }
+
+    fun startEditingProfile(profile: SavedProfileItem) {
+        _uiState.update { it.copy(editingProfile = profile) }
+    }
+
+    fun dismissEditingProfile() {
+        _uiState.update { it.copy(editingProfile = null) }
+    }
+
+    fun saveEditedProfile(updatedRecord: PersonDeathRecord) {
+        val editing = _uiState.value.editingProfile ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            savedProfilesRepo.updateProfile(
+                id = editing.id,
+                record = updatedRecord,
+                relationship = updatedRecord.relationship.id,
+                notes = updatedRecord.notes,
+                traditionId = updatedRecord.tradition.id
+            )
+
+            loadSavedProfiles()
+
+            val currentResult = _uiState.value.calculationResult
+            if (currentResult != null && currentResult.personRecord.id == editing.id) {
+                withContext(Dispatchers.Main) {
+                    calculateForRecord(updatedRecord)
+                }
+            }
+        }
+        _uiState.update { it.copy(editingProfile = null) }
+    }
+
+    fun showCeremonyInfo(info: EducationalCeremonyInfo) {
+        _uiState.update { it.copy(selectedCeremonyInfo = info) }
+    }
+
+    fun dismissCeremonyInfo() {
+        _uiState.update { it.copy(selectedCeremonyInfo = null) }
+    }
+
+    fun toggleSaveCurrentProfile() {
         val result = _uiState.value.calculationResult ?: return
-        val person = result.personRecord
+        val currentlySaved = _uiState.value.isCurrentResultSaved
 
-        viewModelScope.launch {
-            val currentlySaved = savedProfilesRepo.isProfileSaved(person.name, person.deathDate)
+        viewModelScope.launch(Dispatchers.IO) {
             if (currentlySaved) {
-                savedProfilesRepo.deleteSavedProfileByRecord(person.name, person.deathDate)
+                savedProfilesRepo.deleteSavedProfileByRecord(
+                    personName = result.personRecord.name,
+                    deathDate = result.personRecord.deathDate
+                )
                 _uiState.update { it.copy(isCurrentResultSaved = false) }
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "Removed from Saved Profiles", Toast.LENGTH_SHORT).show()
-                }
             } else {
-                savedProfilesRepo.saveProfile(person, relationship, notes)
+                savedProfilesRepo.saveProfile(
+                    record = result.personRecord,
+                    relationship = result.personRecord.relationship.id,
+                    notes = result.personRecord.notes,
+                    traditionId = result.personRecord.tradition.id
+                )
                 _uiState.update { it.copy(isCurrentResultSaved = true) }
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "Saved permanently to device memory", Toast.LENGTH_SHORT).show()
-                }
             }
             loadSavedProfiles()
         }
     }
 
-    fun deleteSavedProfile(id: Long) {
-        viewModelScope.launch {
-            savedProfilesRepo.deleteSavedProfile(id)
-            loadSavedProfiles()
-            val result = _uiState.value.calculationResult
-            if (result != null) {
-                val isSaved = savedProfilesRepo.isProfileSaved(result.personRecord.name, result.personRecord.deathDate)
-                _uiState.update { it.copy(isCurrentResultSaved = isSaved) }
+    fun deleteSavedProfile(profile: SavedProfileItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            savedProfilesRepo.deleteSavedProfile(profile.id)
+            val currentResult = _uiState.value.calculationResult
+            if (currentResult != null && currentResult.personRecord.name == profile.personName && currentResult.personRecord.deathDate == profile.deathDate) {
+                _uiState.update { it.copy(isCurrentResultSaved = false) }
             }
+            loadSavedProfiles()
         }
     }
 
-    fun reopenSavedProfile(item: SavedProfileItem) {
-        _uiState.update {
-            it.copy(
-                personName = item.personName,
-                deathDate = item.deathDate,
-                deathTime = item.deathTime,
-                selectedLocation = item.location,
-                selectedTab = AppTab.CALCULATOR
-            )
+    fun clearAllSavedProfiles() {
+        viewModelScope.launch(Dispatchers.IO) {
+            savedProfilesRepo.clearAllSavedProfiles()
+            _uiState.update { it.copy(isCurrentResultSaved = false) }
+            loadSavedProfiles()
         }
-        calculateShraddha()
     }
 
-    fun reopenRecentSearch(person: PersonDeathRecord) {
-        _uiState.update {
-            it.copy(
-                personName = person.name,
-                deathDate = person.deathDate,
-                deathTime = person.deathTime,
-                selectedLocation = person.location,
-                selectedTab = AppTab.CALCULATOR
-            )
-        }
-        calculateShraddha()
-    }
-
-    fun deleteRecentSearch(id: Long) {
-        viewModelScope.launch {
-            recentSearchRepo.deleteRecentSearch(id)
+    fun deleteRecentSearch(recent: RecentSearchItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            recentSearchRepo.deleteRecentSearch(recent.id)
             loadRecentSearches()
         }
     }
 
     fun clearAllRecentSearches() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             recentSearchRepo.clearAllHistory()
             loadRecentSearches()
         }
     }
 
-    private fun loadSavedProfiles() {
-        viewModelScope.launch {
-            try {
-                val saved = savedProfilesRepo.getAllSaved()
-                _uiState.update { it.copy(savedProfiles = saved) }
-            } catch (_: Exception) {
-            }
+    fun loadSavedProfiles() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = savedProfilesRepo.getAllSaved()
+            _uiState.update { it.copy(savedProfiles = list) }
         }
     }
 
-    private fun loadRecentSearches() {
-        viewModelScope.launch {
-            try {
-                val recents = recentSearchRepo.getRecentSearches()
-                _uiState.update { it.copy(recentSearches = recents) }
-            } catch (_: Exception) {
-            }
+    fun loadRecentSearches() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = recentSearchRepo.getRecentSearches()
+            _uiState.update { it.copy(recentSearches = list) }
         }
     }
 
-    private fun syncActiveCalendarEvents() {
-        viewModelScope.launch {
-            try {
-                val result = _uiState.value.calculationResult
-                val person = result?.personRecord
-                val activeKeys = mutableSetOf<String>()
-
-                if (result != null && person != null) {
-                    val allEvents = if (result.isDeathOlderThanOneYear && result.nextUpcomingShraddha != null) {
-                        listOf(result.nextUpcomingShraddha)
-                    } else {
-                        result.yearlySections.flatMap { it.events }
-                    }
-
-                    allEvents.forEach { ev ->
-                        val key = com.shraddhacalendar.core.calendar.makeEntityKey(person.name, ev.gregorianDate, ev.sequenceNumber)
-                        if (calendarManager.isEventActive(key, person.name, ev)) {
-                            activeKeys.add(key)
-                        }
-                    }
-                } else {
-                    val mappings = calendarMappingRepo.getAllActiveMappings()
-                    mappings.forEach { (key, _) ->
-                        if (calendarManager.isEventActive(key, person?.name)) {
-                            activeKeys.add(key)
-                        }
-                    }
-                }
-                updateCalendarActiveState(activeKeys)
-            } catch (_: Exception) {
-            }
-        }
-    }
-
-    private fun updateCalendarActiveState(activeKeys: Set<String>) {
-        val result = _uiState.value.calculationResult
-        val totalEvents = if (result != null) {
-            if (result.isDeathOlderThanOneYear && result.nextUpcomingShraddha != null) 1
-            else result.yearlySections.sumOf { it.events.size }
-        } else 0
-
-        val allActive = totalEvents > 0 && activeKeys.size >= totalEvents
-        _uiState.update {
-            it.copy(
-                activeCalendarEntities = activeKeys,
-                isAllCalendarActive = allActive
-            )
-        }
-    }
-
-    fun toggleIndividualCalendar(entityKey: String, enable: Boolean, event: ShraddhaEvent, onNeedPermission: () -> Unit) {
-        if (!calendarManager.hasCalendarPermission()) {
-            _uiState.update {
-                it.copy(
-                    showCalendarPermissionRationale = true,
-                    pendingCalendarAction = { toggleIndividualCalendar(entityKey, enable, event, onNeedPermission) }
-                )
-            }
-            return
-        }
-
-        viewModelScope.launch {
-            val person = _uiState.value.calculationResult?.personRecord ?: return@launch
-            val lang = _uiState.value.currentLanguage
-
-            val success = if (enable) {
-                // 1. Add to Google Calendar
-                val calOk = calendarManager.addShraddhaToCalendar(person, event, entityKey, lang)
-                // 2. Schedule App Notifications (2d & 1d before at 08:00 AM)
-                com.shraddhacalendar.core.notification.ShraddhaNotificationHelper.scheduleNotificationsForEvent(
-                    context = context,
-                    personName = person.name,
-                    event = event,
-                    entityKey = entityKey,
-                    language = lang,
-                    locationTimezoneId = person.location.timezoneId
-                )
-                calOk
-            } else {
-                // 1. Remove from Google Calendar
-                val calOk = calendarManager.removeShraddhaFromCalendar(entityKey, person.name, event)
-                // 2. Cancel App Notifications
-                com.shraddhacalendar.core.notification.ShraddhaNotificationHelper.cancelNotificationsForEvent(
-                    context = context,
-                    entityKey = entityKey
-                )
-                calOk
-            }
-
-            withContext(Dispatchers.Main) {
-                if (enable) {
-                    if (success) {
-                        Toast.makeText(context, "Added to Google Calendar & App Reminders (2d & 1d advance)", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, "App notification scheduled. (Google Calendar sync pending)", Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(context, "Removed from Calendar & App Reminders", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            val updated = _uiState.value.activeCalendarEntities.toMutableSet()
-            if (enable) updated.add(entityKey) else updated.remove(entityKey)
-            updateCalendarActiveState(updated)
-        }
-    }
-
-    fun toggleAllCalendar(enable: Boolean, onNeedPermission: () -> Unit) {
-        if (!calendarManager.hasCalendarPermission()) {
-            _uiState.update {
-                it.copy(
-                    showCalendarPermissionRationale = true,
-                    pendingCalendarAction = { toggleAllCalendar(enable, onNeedPermission) }
-                )
-            }
-            return
-        }
-
+    fun toggleAllCalendarEvents() {
         val result = _uiState.value.calculationResult ?: return
-        val person = result.personRecord
-        val lang = _uiState.value.currentLanguage
+        val isAllActive = _uiState.value.isAllCalendarActive
+        val language = _uiState.value.currentLanguage
 
-        viewModelScope.launch {
-            val eventsToProcess = if (result.isDeathOlderThanOneYear && result.nextUpcomingShraddha != null) {
-                listOf(result.nextUpcomingShraddha)
-            } else {
-                result.yearlySections.flatMap { it.events }
+        viewModelScope.launch(Dispatchers.IO) {
+            val allEvents = mutableListOf<ShraddhaEvent>()
+            result.yearlyObservanceGroups.forEach { grp ->
+                allEvents.addAll(grp.masikas)
+                allEvents.add(grp.varshikaEvent)
+                if (grp.pakshaEvent != null) allEvents.add(grp.pakshaEvent)
             }
 
-            val updated = _uiState.value.activeCalendarEntities.toMutableSet()
-            var anyAdded = false
-
-            eventsToProcess.forEach { ev ->
-                val entityKey = com.shraddhacalendar.core.calendar.makeEntityKey(person.name, ev.gregorianDate, ev.sequenceNumber)
-                if (enable) {
-                    val ok = calendarManager.addShraddhaToCalendar(person, ev, entityKey, lang)
-                    com.shraddhacalendar.core.notification.ShraddhaNotificationHelper.scheduleNotificationsForEvent(
-                        context = context,
-                        personName = person.name,
-                        event = ev,
+            if (isAllActive) {
+                allEvents.forEach { event ->
+                    val entityKey = "${result.personRecord.name}_${event.gregorianDate}_${event.traditionalName}"
+                    calendarManager.removeShraddhaFromCalendar(
                         entityKey = entityKey,
-                        language = lang,
-                        locationTimezoneId = person.location.timezoneId
+                        personName = result.personRecord.name,
+                        event = event
                     )
-                    if (ok) anyAdded = true
-                    updated.add(entityKey)
-                } else {
-                    calendarManager.removeShraddhaFromCalendar(entityKey, person.name, ev)
-                    com.shraddhacalendar.core.notification.ShraddhaNotificationHelper.cancelNotificationsForEvent(
-                        context = context,
-                        entityKey = entityKey
+                }
+            } else {
+                allEvents.forEach { event ->
+                    val entityKey = "${result.personRecord.name}_${event.gregorianDate}_${event.traditionalName}"
+                    calendarManager.addShraddhaToCalendar(
+                        entityKey = entityKey,
+                        person = result.personRecord,
+                        event = event,
+                        language = language
                     )
-                    updated.remove(entityKey)
                 }
             }
-
-            withContext(Dispatchers.Main) {
-                if (enable) {
-                    Toast.makeText(context, "All Shraddhas enabled with Calendar & App Reminders", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "All Shraddhas removed from Calendar & App Reminders", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            updateCalendarActiveState(updated)
+            syncActiveCalendarEvents()
         }
     }
 
-    fun handleNotificationDeepLink(personName: String) {
-        if (personName.isBlank()) return
-        viewModelScope.launch {
-            try {
-                val saved = savedProfilesRepo.getAllSaved()
-                val foundSaved = saved.firstOrNull { it.personName.equals(personName.trim(), ignoreCase = true) }
-                if (foundSaved != null) {
-                    reopenSavedProfile(foundSaved)
-                    return@launch
-                }
+    fun toggleCalendarEvent(event: ShraddhaEvent) {
+        val result = _uiState.value.calculationResult ?: return
+        val language = _uiState.value.currentLanguage
 
-                val recents = recentSearchRepo.getRecentSearches()
-                val found = recents.firstOrNull { it.personName.equals(personName.trim(), ignoreCase = true) }
-                if (found != null) {
-                    reopenRecentSearch(
-                        PersonDeathRecord(
-                            name = found.personName,
-                            deathDate = found.deathDate,
-                            deathTime = found.deathTime,
-                            location = found.location
-                        )
-                    )
-                } else {
-                    _uiState.update {
-                        it.copy(
-                            personName = personName,
-                            selectedTab = AppTab.CALCULATOR
-                        )
-                    }
-                    calculateShraddha()
+        viewModelScope.launch(Dispatchers.IO) {
+            val entityKey = "${result.personRecord.name}_${event.gregorianDate}_${event.traditionalName}"
+            val existingEventId = calendarMappingRepo.getEventId(entityKey)
+            if (existingEventId != null && existingEventId > 0) {
+                calendarManager.removeShraddhaFromCalendar(
+                    entityKey = entityKey,
+                    personName = result.personRecord.name,
+                    event = event
+                )
+            } else {
+                calendarManager.addShraddhaToCalendar(
+                    entityKey = entityKey,
+                    person = result.personRecord,
+                    event = event,
+                    language = language
+                )
+            }
+            syncActiveCalendarEvents()
+        }
+    }
+
+    fun syncActiveCalendarEvents() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val activeMappings = calendarMappingRepo.getAllActiveMappings()
+            val scheduled = activeMappings.keys
+            val result = _uiState.value.calculationResult
+            val isAll = if (result != null) {
+                val allEvents = mutableListOf<ShraddhaEvent>()
+                result.yearlyObservanceGroups.forEach { grp ->
+                    allEvents.addAll(grp.masikas)
+                    allEvents.add(grp.varshikaEvent)
+                    if (grp.pakshaEvent != null) allEvents.add(grp.pakshaEvent)
                 }
-            } catch (_: Exception) {
+                allEvents.isNotEmpty() && allEvents.all { event ->
+                    val key = "${result.personRecord.name}_${event.gregorianDate}_${event.traditionalName}"
+                    scheduled.contains(key)
+                }
+            } else false
+
+            _uiState.update {
+                it.copy(
+                    activeCalendarEntities = scheduled,
+                    isAllCalendarActive = isAll
+                )
             }
         }
     }
 
-    fun dismissCalendarPermissionDialog() {
-        _uiState.update { it.copy(showCalendarPermissionRationale = false, pendingCalendarAction = null) }
-    }
-
-    fun onCalendarPermissionGranted() {
-        _uiState.update { it.copy(showCalendarPermissionRationale = false) }
-        val action = _uiState.value.pendingCalendarAction
-        _uiState.update { it.copy(pendingCalendarAction = null) }
-        action?.invoke()
-    }
-
-    fun resetCalculation() {
-        _uiState.update { it.copy(calculationResult = null, validationError = null, isCurrentResultSaved = false) }
-    }
+    fun hasCalendarPermission(): Boolean = calendarManager.hasCalendarPermission()
 }

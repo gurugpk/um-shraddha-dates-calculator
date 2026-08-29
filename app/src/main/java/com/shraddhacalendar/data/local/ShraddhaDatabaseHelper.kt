@@ -18,22 +18,11 @@ data class RecentSearchItem(
     val timestamp: Long
 )
 
-data class SavedProfileItem(
-    val id: Long,
-    val personName: String,
-    val relationship: String?,
-    val deathDate: LocalDate,
-    val deathTime: LocalTime,
-    val location: GeoLocation,
-    val notes: String?,
-    val timestamp: Long
-)
-
 class ShraddhaDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        const val DATABASE_NAME = "um_shraddha.db"
-        const val DATABASE_VERSION = 3
+        const val DATABASE_NAME = "madwa_shraddha.db"
+        const val DATABASE_VERSION = 4
 
         // Table 1: Recent Searches (Max 10 FIFO)
         const val TABLE_RECENTS = "recent_searches"
@@ -66,6 +55,7 @@ class ShraddhaDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATAB
         // Table 4: Permanently Saved Profiles (User-saved records that never get deleted by FIFO)
         const val TABLE_SAVED_PROFILES = "saved_profiles"
         const val COL_RELATIONSHIP = "relationship"
+        const val COL_TRADITION_ID = "tradition_id"
         const val COL_NOTES = "notes"
     }
 
@@ -119,6 +109,7 @@ class ShraddhaDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATAB
                 $COL_LATITUDE REAL NOT NULL,
                 $COL_LONGITUDE REAL NOT NULL,
                 $COL_TIMEZONE TEXT NOT NULL,
+                $COL_TRADITION_ID TEXT NOT NULL DEFAULT 'uttaradi_matha',
                 $COL_NOTES TEXT,
                 $COL_TIMESTAMP INTEGER NOT NULL
             )
@@ -163,6 +154,13 @@ class ShraddhaDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATAB
                 )
             """.trimIndent()
             db.execSQL(createSavedProfiles)
+        }
+        if (oldVersion < 4) {
+            try {
+                db.execSQL("ALTER TABLE $TABLE_SAVED_PROFILES ADD COLUMN $COL_TRADITION_ID TEXT NOT NULL DEFAULT 'uttaradi_matha'")
+            } catch (e: Exception) {
+                // Column might already exist
+            }
         }
     }
 }

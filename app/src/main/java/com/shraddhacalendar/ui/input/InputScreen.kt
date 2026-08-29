@@ -1,5 +1,6 @@
 package com.shraddhacalendar.ui.input
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,9 +17,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.shraddhacalendar.R
+import com.shraddhacalendar.core.localization.PanchangaLocalizer
+import com.shraddhacalendar.core.models.FamilyRelationship
 import com.shraddhacalendar.core.models.GeoLocation
+import com.shraddhacalendar.core.models.MadhwaTradition
 import com.shraddhacalendar.ui.components.LocationPickerSheet
+import com.shraddhacalendar.ui.components.TopDedicationBanner
 import com.shraddhacalendar.ui.theme.*
 import com.shraddhacalendar.ui.viewmodel.ShraddhaUiState
 import java.time.Instant
@@ -32,15 +38,19 @@ import java.time.format.DateTimeFormatter
 fun InputScreen(
     uiState: ShraddhaUiState,
     onPersonNameChange: (String) -> Unit,
+    onRelationshipChange: (FamilyRelationship) -> Unit,
     onDeathDateChange: (LocalDate) -> Unit,
     onDeathTimeChange: (LocalTime) -> Unit,
     onLocationChange: (GeoLocation) -> Unit,
+    onTraditionChange: (MadhwaTradition) -> Unit,
     onCalculateClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
     var showLocationSheet by remember { mutableStateOf(false) }
+    var isRelationshipExpanded by remember { mutableStateOf(false) }
+    var isTraditionExpanded by remember { mutableStateOf(false) }
 
     val scrollState = rememberScrollState()
 
@@ -73,12 +83,70 @@ fun InputScreen(
                 .padding(padding)
                 .padding(horizontal = 20.dp)
                 .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             Spacer(modifier = Modifier.height(2.dp))
 
             // Dedicated Top Banner
-            com.shraddhacalendar.ui.components.TopDedicationBanner()
+            TopDedicationBanner(tradition = uiState.selectedTradition)
+
+            // Tradition Selector Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = SurfaceCard),
+                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.tradition_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = TextSecondary,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    ExposedDropdownMenuBox(
+                        expanded = isTraditionExpanded,
+                        onExpandedChange = { isTraditionExpanded = it }
+                    ) {
+                        OutlinedTextField(
+                            value = PanchangaLocalizer.localizeTradition(uiState.selectedTradition, uiState.currentLanguage),
+                            onValueChange = {},
+                            readOnly = true,
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isTraditionExpanded) },
+                            leadingIcon = { Icon(Icons.Default.AccountBalance, contentDescription = null, tint = PrimarySaffron) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .menuAnchor(),
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                        ExposedDropdownMenu(
+                            expanded = isTraditionExpanded,
+                            onDismissRequest = { isTraditionExpanded = false }
+                        ) {
+                            MadhwaTradition.entries.forEach { trad ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Column {
+                                            Text(PanchangaLocalizer.localizeTradition(trad, uiState.currentLanguage), fontWeight = FontWeight.Bold)
+                                            Text(trad.guruParamparaName, style = MaterialTheme.typography.bodySmall, color = TextSecondary)
+                                        }
+                                    },
+                                    onClick = {
+                                        onTraditionChange(trad)
+                                        isTraditionExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
 
             // Main Input Card
             Card(
@@ -91,10 +159,10 @@ fun InputScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.person_name_label),
+                        text = stringResource(R.string.date_time_demise_label),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = TextPrimary
@@ -113,210 +181,257 @@ fun InputScreen(
                         isError = uiState.validationError != null && uiState.personName.isBlank()
                     )
 
-                    // 2. Date of Death
+                    // 2. Relationship Dropdown
+                    ExposedDropdownMenuBox(
+                        expanded = isRelationshipExpanded,
+                        onExpandedChange = { isRelationshipExpanded = it }
+                    ) {
+                        OutlinedTextField(
+                            value = PanchangaLocalizer.localizeRelationship(uiState.relationship, uiState.currentLanguage),
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(stringResource(R.string.relationship_label)) },
+                            leadingIcon = { Icon(Icons.Default.People, contentDescription = null, tint = PrimarySaffron) },
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isRelationshipExpanded) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .menuAnchor(),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        ExposedDropdownMenu(
+                            expanded = isRelationshipExpanded,
+                            onDismissRequest = { isRelationshipExpanded = false }
+                        ) {
+                            FamilyRelationship.entries.forEach { rel ->
+                                DropdownMenuItem(
+                                    text = { Text(PanchangaLocalizer.localizeRelationship(rel, uiState.currentLanguage)) },
+                                    onClick = {
+                                        onRelationshipChange(rel)
+                                        isRelationshipExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    // 3. Date of Death
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             text = stringResource(R.string.date_of_death_label),
                             style = MaterialTheme.typography.labelMedium,
-                            color = TextSecondary
+                            color = TextSecondary,
+                            fontWeight = FontWeight.SemiBold
                         )
-                        Surface(
+
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(12.dp))
-                                .border(1.dp, DividerColor, RoundedCornerShape(12.dp))
+                                .border(1.dp, CardBorder, RoundedCornerShape(12.dp))
                                 .clickable { showDatePicker = true }
-                                .padding(horizontal = 16.dp, vertical = 14.dp),
-                            color = SurfaceCardVariant
+                                .padding(horizontal = 14.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Icon(Icons.Default.CalendarToday, contentDescription = null, tint = PrimarySaffron)
-                                val dateFormatted = uiState.deathDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
-                                Text(
-                                    text = dateFormatted,
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    fontWeight = FontWeight.Medium,
-                                    color = TextPrimary
-                                )
-                            }
+                            Icon(Icons.Default.CalendarToday, contentDescription = null, tint = PrimarySaffron, modifier = Modifier.size(20.dp))
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = uiState.deathDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.SemiBold,
+                                color = TextPrimary
+                            )
                         }
                     }
 
-                    // 3. Time of Death (MANDATORY)
+                    // 4. Exact Time of Death
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
                                 text = stringResource(R.string.time_of_death_label),
                                 style = MaterialTheme.typography.labelMedium,
-                                color = TextSecondary
+                                color = TextSecondary,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                text = stringResource(R.string.tithi),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = PrimarySaffronDark,
+                                fontWeight = FontWeight.Bold
                             )
                         }
 
-                        Surface(
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(12.dp))
-                                .border(1.dp, DividerColor, RoundedCornerShape(12.dp))
+                                .border(1.dp, CardBorder, RoundedCornerShape(12.dp))
                                 .clickable { showTimePicker = true }
-                                .padding(horizontal = 16.dp, vertical = 14.dp),
-                            color = SurfaceCardVariant
+                                .padding(horizontal = 14.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Icon(Icons.Default.AccessTime, contentDescription = null, tint = PrimarySaffron)
-                                val timeFormatted = uiState.deathTime.format(DateTimeFormatter.ofPattern("hh:mm a"))
-                                Text(
-                                    text = "$timeFormatted (${uiState.deathTime.format(DateTimeFormatter.ofPattern("HH:mm"))} 24-hr)",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    fontWeight = FontWeight.Medium,
-                                    color = TextPrimary
-                                )
-                            }
+                            Icon(Icons.Default.Schedule, contentDescription = null, tint = PrimarySaffron, modifier = Modifier.size(20.dp))
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = uiState.deathTime.format(DateTimeFormatter.ofPattern("hh:mm a")),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.SemiBold,
+                                color = TextPrimary
+                            )
                         }
                     }
 
-                    // 4. Location (MANDATORY)
+                    // 5. Demise Location
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             text = stringResource(R.string.location_label),
                             style = MaterialTheme.typography.labelMedium,
-                            color = TextSecondary
+                            color = TextSecondary,
+                            fontWeight = FontWeight.SemiBold
                         )
 
-                        Surface(
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(12.dp))
-                                .border(1.dp, DividerColor, RoundedCornerShape(12.dp))
+                                .border(1.dp, CardBorder, RoundedCornerShape(12.dp))
                                 .clickable { showLocationSheet = true }
-                                .padding(horizontal = 16.dp, vertical = 14.dp),
-                            color = SurfaceCardVariant
+                                .padding(horizontal = 14.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Icon(Icons.Default.LocationOn, contentDescription = null, tint = PrimarySaffron)
-                                Column {
-                                    Text(
-                                        text = uiState.selectedLocation.displayName,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = TextPrimary
-                                    )
-                                    Text(
-                                        text = "Timezone: ${uiState.selectedLocation.timezoneId}",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = TextTertiary
-                                    )
-                                }
+                            Icon(Icons.Default.LocationOn, contentDescription = null, tint = PrimarySaffron, modifier = Modifier.size(20.dp))
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = uiState.selectedLocation.city,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = TextPrimary
+                                )
+                                Text(
+                                    text = "${uiState.selectedLocation.state}, ${uiState.selectedLocation.country}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = TextSecondary
+                                )
                             }
+                            Text(
+                                text = stringResource(R.string.edit_profile),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = PrimarySaffronDark,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
 
+                    // Validation Error Message
                     if (uiState.validationError != null) {
                         Text(
                             text = uiState.validationError,
-                            style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.error,
-                            fontWeight = FontWeight.SemiBold
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(4.dp))
-
+                    // Calculate Button
                     Button(
                         onClick = onCalculateClick,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(52.dp),
                         shape = RoundedCornerShape(14.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = PrimarySaffron)
+                        colors = ButtonDefaults.buttonColors(containerColor = PrimarySaffron),
+                        enabled = !uiState.isCalculating
                     ) {
                         if (uiState.isCalculating) {
-                            CircularProgressIndicator(color = SurfaceCard, modifier = Modifier.size(24.dp))
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(22.dp),
+                                color = SurfaceCard,
+                                strokeWidth = 2.dp
+                            )
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(stringResource(R.string.calculating))
                         } else {
                             Icon(Icons.Default.Calculate, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = stringResource(R.string.calculate_btn),
                                 style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = SurfaceCard
+                                fontWeight = FontWeight.Bold
                             )
                         }
                     }
                 }
             }
 
-            // Explanatory Card
+            // Guidelines Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = SurfaceCardVariant)
+                colors = CardDefaults.cardColors(containerColor = SurfaceCard)
             ) {
                 Row(
                     modifier = Modifier.padding(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.Top
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Info,
-                        contentDescription = null,
-                        tint = PrimarySaffron,
-                        modifier = Modifier.size(24.dp)
-                    )
+                    Icon(Icons.Default.Info, contentDescription = null, tint = PrimarySaffron, modifier = Modifier.size(20.dp))
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             text = stringResource(R.string.input_guidelines_title),
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
-                            color = TextPrimary
+                            color = PrimarySaffronDark
                         )
                         Text(
                             text = stringResource(R.string.input_guidelines_desc),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary
+                            style = MaterialTheme.typography.bodySmall,
+                            color = TextSecondary,
+                            lineHeight = 16.sp
                         )
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            // Universal Disclaimer Footer
+            Text(
+                text = stringResource(R.string.app_disclaimer),
+                style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.5.sp),
+                color = TextSecondary.copy(alpha = 0.8f),
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 6.dp)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 
-    // Date Picker Dialog
+    // Material Date Picker Dialog
     if (showDatePicker) {
         val datePickerState = rememberDatePickerState(
-            initialSelectedDateMillis = uiState.deathDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+            initialSelectedDateMillis = uiState.deathDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
         )
         DatePickerDialog(
             onDismissRequest = { showDatePicker = false },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        datePickerState.selectedDateMillis?.let { millis ->
-                            val selectedDate = Instant.ofEpochMilli(millis).atZone(ZoneId.of("UTC")).toLocalDate()
-                            onDeathDateChange(selectedDate)
-                        }
-                        showDatePicker = false
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        val selected = Instant.ofEpochMilli(millis).atZone(ZoneId.of("UTC")).toLocalDate()
+                        onDeathDateChange(selected)
                     }
-                ) {
-                    Text("OK", color = PrimarySaffronDark, fontWeight = FontWeight.Bold)
+                    showDatePicker = false
+                }) {
+                    Text(stringResource(R.string.ok), color = PrimarySaffronDark, fontWeight = FontWeight.Bold)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDatePicker = false }) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(R.string.cancel), color = TextSecondary)
                 }
             }
         ) {
@@ -324,7 +439,7 @@ fun InputScreen(
         }
     }
 
-    // Time Picker Dialog
+    // Material Time Picker Dialog
     if (showTimePicker) {
         val timePickerState = rememberTimePickerState(
             initialHour = uiState.deathTime.hour,
@@ -334,23 +449,23 @@ fun InputScreen(
         AlertDialog(
             onDismissRequest = { showTimePicker = false },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        val selectedTime = LocalTime.of(timePickerState.hour, timePickerState.minute)
-                        onDeathTimeChange(selectedTime)
-                        showTimePicker = false
-                    }
-                ) {
-                    Text("OK", color = PrimarySaffronDark, fontWeight = FontWeight.Bold)
+                TextButton(onClick = {
+                    onDeathTimeChange(LocalTime.of(timePickerState.hour, timePickerState.minute))
+                    showTimePicker = false
+                }) {
+                    Text(stringResource(R.string.ok), color = PrimarySaffronDark, fontWeight = FontWeight.Bold)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showTimePicker = false }) {
-                    Text(stringResource(R.string.cancel))
+                    Text(stringResource(R.string.cancel), color = TextSecondary)
                 }
             },
+            title = { Text(stringResource(R.string.time_of_death_label), style = MaterialTheme.typography.titleMedium, color = PrimarySaffronDark) },
             text = {
-                TimePicker(state = timePickerState)
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    TimePicker(state = timePickerState)
+                }
             }
         )
     }
@@ -358,8 +473,9 @@ fun InputScreen(
     // Location Picker Bottom Sheet
     if (showLocationSheet) {
         LocationPickerSheet(
-            onLocationSelected = { loc ->
-                onLocationChange(loc)
+            onLocationSelected = { location ->
+                onLocationChange(location)
+                showLocationSheet = false
             },
             onDismiss = { showLocationSheet = false }
         )

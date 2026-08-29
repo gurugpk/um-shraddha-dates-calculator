@@ -39,12 +39,7 @@ fun SingleUpcomingCard(
     var showDetailsDialog by remember { mutableStateOf(false) }
 
     val daysRemaining = ChronoUnit.DAYS.between(LocalDate.now(), event.gregorianDate)
-    val countdownText = when {
-        daysRemaining == 0L -> "Today"
-        daysRemaining == 1L -> "Tomorrow"
-        daysRemaining > 1L -> "In $daysRemaining days"
-        else -> "Passed recently"
-    }
+    val countdownText = PanchangaLocalizer.localizeDaysRemaining(daysRemaining, language)
 
     val localizedTraditionalName = PanchangaLocalizer.localizeTraditionalName(event.traditionalName, language)
     val localizedMasa = PanchangaLocalizer.localizeMasa(event.tithi.masa, event.tithi.isAdhikaMasa, language)
@@ -111,7 +106,9 @@ fun SingleUpcomingCard(
                     tint = PrimarySaffron,
                     modifier = Modifier.size(24.dp)
                 )
-                val formattedDate = event.gregorianDate.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy"))
+                val dayName = PanchangaLocalizer.localizeDayOfWeek(event.dayOfWeek, language)
+                val datePart = event.gregorianDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
+                val formattedDate = "$dayName, $datePart"
                 Text(
                     text = formattedDate,
                     style = MaterialTheme.typography.titleLarge,
@@ -146,7 +143,8 @@ fun SingleUpcomingCard(
                     Icon(
                         imageVector = if (isCalendarEnabled) Icons.Default.NotificationsActive else Icons.Default.NotificationsNone,
                         contentDescription = null,
-                        tint = if (isCalendarEnabled) PrimarySaffron else TextTertiary
+                        tint = if (isCalendarEnabled) PrimarySaffron else TextTertiary,
+                        modifier = Modifier.size(20.dp)
                     )
                     Text(
                         text = if (isCalendarEnabled) stringResource(R.string.calendar_reminder_on) else stringResource(R.string.calendar_reminder_off),
@@ -159,14 +157,11 @@ fun SingleUpcomingCard(
                 Switch(
                     checked = isCalendarEnabled,
                     onCheckedChange = onCalendarToggle,
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = SurfaceCard,
-                        checkedTrackColor = PrimarySaffron,
-                        uncheckedThumbColor = TextTertiary,
-                        uncheckedTrackColor = SurfaceCardVariant
-                    )
+                    colors = shraddhaSwitchColors()
                 )
             }
+
+            Spacer(modifier = Modifier.height(6.dp))
 
             OutlinedButton(
                 onClick = { showDetailsDialog = true },
@@ -174,7 +169,7 @@ fun SingleUpcomingCard(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = PrimarySaffron)
             ) {
-                Icon(Icons.Default.Info, contentDescription = null, modifier = Modifier.size(18.dp))
+                Icon(Icons.Default.Info, contentDescription = stringResource(R.string.details), modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(stringResource(R.string.view_astronomical_trace))
             }
@@ -185,6 +180,7 @@ fun SingleUpcomingCard(
         ExplanationDialog(
             event = event,
             locationName = locationName,
+            currentLanguage = language,
             onDismiss = { showDetailsDialog = false }
         )
     }

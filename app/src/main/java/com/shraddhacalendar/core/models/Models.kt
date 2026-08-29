@@ -22,7 +22,10 @@ data class PersonDeathRecord(
     val name: String,
     val deathDate: LocalDate,
     val deathTime: LocalTime, // Mandatory: exact time of death
-    val location: GeoLocation
+    val location: GeoLocation,
+    val relationship: FamilyRelationship = FamilyRelationship.OTHER,
+    val tradition: MadhwaTradition = MadhwaTradition.UTTARADI_MATHA,
+    val notes: String = ""
 )
 
 enum class Paksha(val displayName: String) {
@@ -113,7 +116,8 @@ data class DayKalaDetails(
 enum class ShraddhaType {
     MASIKA,
     UNA_RITE,
-    VARSHIKA
+    VARSHIKA,
+    MAHALAYA_PAKSHA
 }
 
 data class ShraddhaEvent(
@@ -122,10 +126,28 @@ data class ShraddhaEvent(
     val traditionalName: String, // e.g. "Masika 1 — Adya Masika", "Masika 2 — Unmasika"
     val gregorianDate: LocalDate,
     val dayOfWeek: String,
-    val tithi: PanchangaTithi,
+    val tithi: PanchangaTithi, // Aparahna / Ritual Panchanga
     val kalaDetails: DayKalaDetails,
-    val explanation: String // Trace explanation for transparency
-)
+    val explanation: String, // Trace explanation for transparency
+    val observanceCategory: ObservanceCategory = when (type) {
+        ShraddhaType.MASIKA, ShraddhaType.UNA_RITE -> ObservanceCategory.MASIKA
+        ShraddhaType.VARSHIKA -> ObservanceCategory.VARSHIKA_SHRADDHA
+        ShraddhaType.MAHALAYA_PAKSHA -> ObservanceCategory.MAHALAYA_PAKSHA
+    },
+    val sunrisePanchanga: PanchangaTithi = tithi, // Prevailing Panchanga at Sunrise of the civil date
+    val isEkadashiShifted: Boolean = false, // True if ritual date was shifted from Ekadashi to Dvadashi
+    val ekadashiDate: LocalDate? = null // Original astronomical Ekadashi date if shifted
+) {
+    val isEkadashiObservance: Boolean
+        get() = isEkadashiShifted || tithi.tithi.pakshaTithiNumber == 11 || sunrisePanchanga.tithi.pakshaTithiNumber == 11
+
+    val dvadashiDate: LocalDate
+        get() = if (isEkadashiShifted) gregorianDate else gregorianDate.plusDays(1)
+
+    val isSunriseDifferentFromRitual: Boolean
+        get() = sunrisePanchanga.tithi.number != tithi.tithi.number
+}
+
 
 data class ShraddhaYearSection(
     val yearIndex: Int, // 1..5
@@ -139,5 +161,10 @@ data class ShraddhaCalculationResult(
     val mrutaTithi: PanchangaTithi,
     val isDeathOlderThanOneYear: Boolean,
     val nextUpcomingShraddha: ShraddhaEvent?,
-    val yearlySections: List<ShraddhaYearSection>
+    val yearlySections: List<ShraddhaYearSection> = emptyList(),
+    val yearlyObservanceGroups: List<YearlyObservanceGroup> = emptyList(),
+    val nextUpcomingObservance: ShraddhaEvent? = nextUpcomingShraddha,
+    val nextUpcomingCategory: ObservanceCategory? = nextUpcomingShraddha?.observanceCategory,
+    val doshaEvaluation: DoshaEvaluationResult = DoshaEvaluationResult(false, emptyList(), "No exceptional dosha detected."),
+    val tradition: MadhwaTradition = personRecord.tradition
 )

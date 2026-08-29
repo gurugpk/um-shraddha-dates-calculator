@@ -31,3 +31,15 @@ fun ShraddhaCalendarTheme(
         content = content
     )
 }
+
+@Composable
+fun shraddhaSwitchColors() = androidx.compose.material3.SwitchDefaults.colors(
+    checkedThumbColor = androidx.compose.ui.graphics.Color.White,
+    checkedTrackColor = PrimarySaffron,
+    checkedBorderColor = PrimarySaffronDark,
+    uncheckedThumbColor = PrimarySaffron,
+    uncheckedTrackColor = androidx.compose.ui.graphics.Color(0xFFEDE4D8),
+    uncheckedBorderColor = androidx.compose.ui.graphics.Color(0xFFA69380)
+)
+
+

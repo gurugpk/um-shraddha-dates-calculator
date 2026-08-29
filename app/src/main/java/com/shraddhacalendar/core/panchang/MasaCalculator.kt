@@ -41,10 +41,10 @@ object MasaCalculator {
     fun getLunarMonthInfo(zonedDateTime: ZonedDateTime): LunarMonthInfo {
         val currentJd = JulianDay.fromZonedDateTime(zonedDateTime)
 
-        // Find previous New Moon (elongation = 0°)
-        val prevNmJd = findNewMoonJd(currentJd - 32.0, currentJd)
-        // Find next New Moon
-        val nextNmJd = findNewMoonJd(currentJd, currentJd + 32.0)
+        // Find previous New Moon (elongation = 0°) strictly before/at currentJd
+        val prevNmJd = findPreviousNewMoonJd(currentJd)
+        // Find next New Moon strictly after currentJd
+        val nextNmJd = findNextNewMoonJd(currentJd)
 
         // Determine Sun's sidereal Nirayana zodiac sign at previous and next New Moons
         val sunLongPrev = SunCoordinates.getNirayanaLongitude(prevNmJd)
@@ -132,41 +132,52 @@ object MasaCalculator {
     }
 
     /**
-     * Finds the New Moon (elongation = 0°) between [jdMin] and [jdMax].
+     * Finds the New Moon (elongation = 0°) immediately preceding [currentJd].
      */
-    private fun findNewMoonJd(jdMin: Double, jdMax: Double): Double {
-        var low = jdMin
-        var high = jdMax
-
-        // Scan in 1-day steps to find the transition where elongation crosses 0° (e.g. 355° -> 5°)
-        var bracketLow = low
-        var bracketHigh = high
-        var step = low
-        while (step + 1.0 <= high) {
-            val el1 = TithiCalculator.getLunarElongation(step)
-            val el2 = TithiCalculator.getLunarElongation(step + 1.0)
+    private fun findPreviousNewMoonJd(currentJd: Double): Double {
+        var step = currentJd
+        while (step >= currentJd - 35.0) {
+            val el1 = TithiCalculator.getLunarElongation(step - 0.5)
+            val el2 = TithiCalculator.getLunarElongation(step)
             if (el1 > 300.0 && el2 < 60.0) {
-                bracketLow = step
-                bracketHigh = step + 1.0
-                break
+                return refineNewMoon(step - 0.5, step)
             }
-            step += 1.0
+            step -= 0.5
         }
+        return currentJd - 29.53
+    }
 
-        low = bracketLow
-        high = bracketHigh
+    /**
+     * Finds the New Moon (elongation = 0°) immediately following [currentJd].
+     */
+    private fun findNextNewMoonJd(currentJd: Double): Double {
+        var step = currentJd
+        while (step <= currentJd + 35.0) {
+            val el1 = TithiCalculator.getLunarElongation(step)
+            val el2 = TithiCalculator.getLunarElongation(step + 0.5)
+            if (el1 > 300.0 && el2 < 60.0) {
+                return refineNewMoon(step, step + 0.5)
+            }
+            step += 0.5
+        }
+        return currentJd + 29.53
+    }
 
-        for (i in 0 until 30) {
-            val mid = (low + high) / 2.0
+    /**
+     * Binary search to find exact New Moon JD within [low, high].
+     */
+    private fun refineNewMoon(low: Double, high: Double): Double {
+        var lo = low
+        var hi = high
+        for (i in 0 until 35) {
+            val mid = (lo + hi) / 2.0
             val angle = TithiCalculator.getLunarElongation(mid)
             if (angle > 180.0) {
-                // Approaching 360° / 0°
-                low = mid
+                lo = mid
             } else {
-                // Past 0°
-                high = mid
+                hi = mid
             }
         }
-        return (low + high) / 2.0
+        return (lo + hi) / 2.0
     }
 }

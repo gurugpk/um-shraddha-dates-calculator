@@ -1,6 +1,7 @@
 package com.shraddhacalendar
 
 import android.Manifest
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,7 +26,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.shraddhacalendar.core.localization.LocaleManager
 import com.shraddhacalendar.ui.components.CalendarPermissionDialog
+import com.shraddhacalendar.ui.components.OnboardingDialog
 import com.shraddhacalendar.ui.input.InputScreen
 import com.shraddhacalendar.ui.recents.RecentsScreen
 import com.shraddhacalendar.ui.results.ResultsScreen
@@ -40,12 +43,21 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: ShraddhaViewModel by viewModels()
 
+    override fun attachBaseContext(newBase: Context) {
+        val language = LocaleManager.getSavedLanguage(newBase)
+        val locale = Locale(language.code)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration).apply {
+            setLocale(locale)
+            setLayoutDirection(locale)
+        }
+        val context = newBase.createConfigurationContext(config)
+        super.attachBaseContext(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        // Handle notification deep-link
-        handleNotificationIntent(intent)
 
         setContent {
             val uiState by viewModel.uiState.collectAsState()
@@ -54,51 +66,66 @@ class MainActivity : ComponentActivity() {
                 Locale(uiState.currentLanguage.code)
             }
 
-            // Dynamically update Locale & Activity configuration without breaking Activity context
-            SideEffect {
+            val localizedConfiguration = remember(uiState.currentLanguage) {
+                Configuration(resources.configuration).apply {
+                    setLocale(locale)
+                    setLayoutDirection(locale)
+                }
+            }
+
+            val activityContext = this@MainActivity
+            val localizedContext = remember(uiState.currentLanguage) {
+                val config = Configuration(activityContext.resources.configuration).apply {
+                    setLocale(locale)
+                    setLayoutDirection(locale)
+                }
+                activityContext.createConfigurationContext(config)
+            }
+
+            LaunchedEffect(uiState.currentLanguage) {
                 Locale.setDefault(locale)
-                val config = Configuration(resources.configuration)
-                config.setLocale(locale)
+                val config = Configuration(resources.configuration).apply {
+                    setLocale(locale)
+                    setLayoutDirection(locale)
+                }
                 @Suppress("DEPRECATION")
                 resources.updateConfiguration(config, resources.displayMetrics)
             }
 
-            val localizedConfiguration = remember(uiState.currentLanguage) {
-                Configuration(resources.configuration).apply {
-                    setLocale(locale)
+            var pendingCalendarAction by remember { mutableStateOf<(() -> Unit)?>(null) }
+            val permissionLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.RequestMultiplePermissions()
+            ) { permissions ->
+                val writeGranted = permissions[Manifest.permission.WRITE_CALENDAR] == true
+                val readGranted = permissions[Manifest.permission.READ_CALENDAR] == true
+                if (writeGranted || readGranted) {
+                    pendingCalendarAction?.invoke()
+                    pendingCalendarAction = null
+                    viewModel.syncActiveCalendarEvents()
+                } else {
+                    pendingCalendarAction = null
+                }
+            }
+
+            // Request POST_NOTIFICATIONS on Android 13+
+            LaunchedEffect(Unit) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                    if (androidx.core.content.ContextCompat.checkSelfPermission(
+                            activityContext,
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != android.content.pm.PackageManager.PERMISSION_GRANTED
+                    ) {
+                        permissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+                    }
                 }
             }
 
             CompositionLocalProvider(
-                LocalConfiguration provides localizedConfiguration
+                LocalConfiguration provides localizedConfiguration,
+                LocalContext provides localizedContext
             ) {
                 key(uiState.currentLanguage) {
                     ShraddhaCalendarTheme {
-                        val permissionLauncher = rememberLauncherForActivityResult(
-                            contract = ActivityResultContracts.RequestMultiplePermissions()
-                        ) { permissions ->
-                            val granted = permissions.values.all { it }
-                            if (granted) {
-                                viewModel.onCalendarPermissionGranted()
-                            } else {
-                                viewModel.dismissCalendarPermissionDialog()
-                            }
-                        }
-
-                        // Request POST_NOTIFICATIONS on Android 13+
-                        val context = LocalContext.current
-                        LaunchedEffect(Unit) {
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                                if (androidx.core.content.ContextCompat.checkSelfPermission(
-                                        context,
-                                        Manifest.permission.POST_NOTIFICATIONS
-                                    ) != android.content.pm.PackageManager.PERMISSION_GRANTED
-                                ) {
-                                    permissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
-                                }
-                            }
-                        }
-
                         Scaffold(
                             bottomBar = {
                                 NavigationBar(
@@ -186,34 +213,48 @@ class MainActivity : ComponentActivity() {
                                         if (uiState.calculationResult != null) {
                                             ResultsScreen(
                                                 result = uiState.calculationResult!!,
-                                                language = uiState.currentLanguage,
-                                                isCalendarActive = { key -> uiState.activeCalendarEntities.contains(key) },
+                                                currentLanguage = uiState.currentLanguage,
+                                                activeCalendarEntities = uiState.activeCalendarEntities,
                                                 isAllCalendarActive = uiState.isAllCalendarActive,
-                                                isSaved = uiState.isCurrentResultSaved,
-                                                onToggleSave = { viewModel.toggleSaveCurrentResult() },
-                                                onToggleIndividualCalendar = { key, enable, event ->
-                                                    viewModel.toggleIndividualCalendar(key, enable, event) {
+                                                isCurrentResultSaved = uiState.isCurrentResultSaved,
+                                                onToggleSaveProfile = { viewModel.toggleSaveCurrentProfile() },
+                                                onToggleAllCalendar = {
+                                                    if (!viewModel.hasCalendarPermission()) {
+                                                        pendingCalendarAction = { viewModel.toggleAllCalendarEvents() }
                                                         permissionLauncher.launch(
-                                                            arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
+                                                            arrayOf(
+                                                                Manifest.permission.READ_CALENDAR,
+                                                                Manifest.permission.WRITE_CALENDAR
+                                                            )
                                                         )
+                                                    } else {
+                                                        viewModel.toggleAllCalendarEvents()
                                                     }
                                                 },
-                                                onToggleAllCalendar = { enable ->
-                                                    viewModel.toggleAllCalendar(enable) {
+                                                onToggleEventCalendar = { event ->
+                                                    if (!viewModel.hasCalendarPermission()) {
+                                                        pendingCalendarAction = { viewModel.toggleCalendarEvent(event) }
                                                         permissionLauncher.launch(
-                                                            arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
+                                                            arrayOf(
+                                                                Manifest.permission.READ_CALENDAR,
+                                                                Manifest.permission.WRITE_CALENDAR
+                                                            )
                                                         )
+                                                    } else {
+                                                        viewModel.toggleCalendarEvent(event)
                                                     }
                                                 },
-                                                onBackClick = { viewModel.resetCalculation() }
+                                                onNewCalculationClick = { viewModel.resetCalculator() }
                                             )
                                         } else {
                                             InputScreen(
                                                 uiState = uiState,
                                                 onPersonNameChange = { viewModel.onPersonNameChange(it) },
+                                                onRelationshipChange = { viewModel.onRelationshipChange(it) },
                                                 onDeathDateChange = { viewModel.onDeathDateChange(it) },
                                                 onDeathTimeChange = { viewModel.onDeathTimeChange(it) },
                                                 onLocationChange = { viewModel.onLocationChange(it) },
+                                                onTraditionChange = { viewModel.setTradition(it) },
                                                 onCalculateClick = { viewModel.calculateShraddha() }
                                             )
                                         }
@@ -223,9 +264,13 @@ class MainActivity : ComponentActivity() {
                                         SavedScreen(
                                             savedProfiles = uiState.savedProfiles,
                                             currentLanguage = uiState.currentLanguage,
-                                            onSelectProfile = { item -> viewModel.reopenSavedProfile(item) },
-                                            onDeleteProfile = { id -> viewModel.deleteSavedProfile(id) },
-                                            onNavigateToCalculator = { viewModel.selectTab(AppTab.CALCULATOR) }
+                                            onSelectProfile = { item -> viewModel.openSavedProfile(item) },
+                                            onEditProfile = { profile -> viewModel.startEditingProfile(profile) },
+                                            onSaveEditedProfile = { updated -> viewModel.saveEditedProfile(updated) },
+                                            onDeleteProfile = { id -> viewModel.deleteSavedProfile(uiState.savedProfiles.first { it.id == id }) },
+                                            onNavigateToCalculator = { viewModel.selectTab(AppTab.CALCULATOR) },
+                                            editingProfile = uiState.editingProfile,
+                                            onDismissEdit = { viewModel.dismissEditingProfile() }
                                         )
                                     }
 
@@ -233,8 +278,9 @@ class MainActivity : ComponentActivity() {
                                         RecentsScreen(
                                             recentSearches = uiState.recentSearches,
                                             currentLanguage = uiState.currentLanguage,
-                                            onSelectRecent = { record -> viewModel.reopenRecentSearch(record) },
-                                            onDeleteRecent = { id -> viewModel.deleteRecentSearch(id) },
+                                            onSelectRecent = { item -> viewModel.openRecentSearch(item) },
+                                            onEditRecent = { item -> viewModel.editRecentSearch(item) },
+                                            onDeleteRecent = { id -> viewModel.deleteRecentSearch(uiState.recentSearches.first { it.id == id }) },
                                             onClearAll = { viewModel.clearAllRecentSearches() }
                                         )
                                     }
@@ -242,42 +288,24 @@ class MainActivity : ComponentActivity() {
                                     AppTab.SETTINGS -> {
                                         SettingsScreen(
                                             currentLanguage = uiState.currentLanguage,
-                                            onLanguageSelected = { lang -> viewModel.setLanguage(lang) }
+                                            selectedTradition = uiState.selectedTradition,
+                                            onLanguageSelected = { lang -> viewModel.setLanguage(lang) },
+                                            onTraditionSelected = { trad -> viewModel.setTradition(trad) }
                                         )
                                     }
                                 }
                             }
 
-                            if (uiState.showCalendarPermissionRationale) {
-                                CalendarPermissionDialog(
-                                    onConfirm = {
-                                        permissionLauncher.launch(
-                                            arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
-                                        )
-                                    },
-                                    onDismiss = { viewModel.dismissCalendarPermissionDialog() }
+                            // First-Launch Onboarding Dialog
+                            if (!uiState.hasCompletedOnboarding) {
+                                OnboardingDialog(
+                                    initialTradition = uiState.selectedTradition,
+                                    onConfirm = { trad -> viewModel.completeOnboarding(trad) }
                                 )
                             }
                         }
                     }
                 }
-            }
-        }
-    }
-
-    override fun onNewIntent(intent: android.content.Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        handleNotificationIntent(intent)
-    }
-
-    private fun handleNotificationIntent(intent: android.content.Intent?) {
-        if (intent == null) return
-        val fromNotif = intent.getBooleanExtra(com.shraddhacalendar.core.notification.ShraddhaNotificationHelper.EXTRA_FROM_NOTIFICATION, false)
-        if (fromNotif) {
-            val personName = intent.getStringExtra(com.shraddhacalendar.core.notification.ShraddhaNotificationHelper.EXTRA_PERSON_NAME)
-            if (!personName.isNullOrBlank()) {
-                viewModel.handleNotificationDeepLink(personName)
             }
         }
     }

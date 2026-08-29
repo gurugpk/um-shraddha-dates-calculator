@@ -38,7 +38,7 @@ fun CalendarPermissionDialog(
         },
         confirmButton = {
             Button(onClick = onConfirm) {
-                Text(stringResource(R.string.allow))
+                Text(stringResource(R.string.grant_permission))
             }
         },
         dismissButton = {

@@ -11,6 +11,8 @@ val TertiaryCopper = Color(0xFF9E4712)
 val BackgroundWarm = Color(0xFFFDFBF7) // Warm ivory / cream
 val SurfaceCard = Color(0xFFFFFFFF)
 val SurfaceCardVariant = Color(0xFFF7F2EA)
+val SurfaceBackground = Color(0xFFFAF6F0)
+val CardBorder = Color(0xFFE8DFD4)
 
 val TextPrimary = Color(0xFF2C241E) // High contrast charcoal brown
 val TextSecondary = Color(0xFF6B5E54)

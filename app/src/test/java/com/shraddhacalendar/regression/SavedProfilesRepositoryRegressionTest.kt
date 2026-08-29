@@ -77,8 +77,8 @@ class SavedProfilesRepositoryRegressionTest {
     fun testIndividualDeletion() {
         val savedList = mutableListOf<SavedProfileItem>()
 
-        val p1 = SavedProfileItem(1L, "Ancestor 1", "Grandfather", LocalDate.of(2010, 3, 4), LocalTime.of(6, 0), sampleLocation, null, 100L)
-        val p2 = SavedProfileItem(2L, "Ancestor 2", "Grandmother", LocalDate.of(2015, 7, 20), LocalTime.of(18, 0), sampleLocation, null, 200L)
+        val p1 = SavedProfileItem(1L, "Ancestor 1", "Grandfather", LocalDate.of(2010, 3, 4), LocalTime.of(6, 0), sampleLocation, null, "uttaradi_matha", 100L)
+        val p2 = SavedProfileItem(2L, "Ancestor 2", "Grandmother", LocalDate.of(2015, 7, 20), LocalTime.of(18, 0), sampleLocation, null, "uttaradi_matha", 200L)
         savedList.add(p1)
         savedList.add(p2)
 

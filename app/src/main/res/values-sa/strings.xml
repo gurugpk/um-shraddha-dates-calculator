@@ -1,109 +1,204 @@
 <resources>
-    <string name="app_name">श्रीउत्तरादिमठ श्राद्धदिनगणकम्</string>
-    <string name="app_subtitle">श्रीउत्तरादिमठ पञ्चाङ्गानुसारेण</string>
+    <string name="app_name">पितृपञ्चाङ्गम्</string>
+    <string name="app_subtitle">प्रामाणिक-मध्वश्राद्ध-पक्ष-पञ्चाङ्गम्</string>
     
     <!-- Navigation -->
-    <string name="nav_calculator">गणकम्</string>
+    <string name="nav_calculator">गणनम्</string>
     <string name="nav_saved">संरक्षिताः</string>
     <string name="nav_recents">नूतनानि</string>
-    <string name="nav_settings">विन्यासाः</string>
+    <string name="nav_settings">व्यवस्था</string>
+    
+    <!-- Traditions -->
+    <string name="tradition_label">परम्परा / मठः</string>
+    <string name="tradition_um">श्रीउत्तरादिमठः</string>
+    <string name="tradition_srs">मन्त्रालयम् (श्रीराघवेन्द्रस्वामिमठः)</string>
+    <string name="tradition_udupi">उडुपी अष्टमठाः</string>
+    <string name="onboarding_title">भवतां मध्वपरम्परां चिनोतु</string>
+    <string name="onboarding_subtitle">उचितपञ्चाङ्गपद्धतेः, आचारनियमानां, गुरुप्रार्थनायाश्च अनुसरणार्यं स्वमठपरम्परां चिनोतु।</string>
+    <string name="onboarding_confirm">पञ्चाङ्गम् अनुसरतु</string>
+    
+    <!-- Relationships -->
+    <string name="relationship_label">सम्बन्धः</string>
+    <string name="rel_father">पिता</string>
+    <string name="rel_mother">माता</string>
+    <string name="rel_grandfather">पितामहः / मातामहः</string>
+    <string name="rel_grandmother">पितामही / मातामही</string>
+    <string name="rel_husband">पतिः</string>
+    <string name="rel_wife">पत्नी</string>
+    <string name="rel_brother">भ्राता</string>
+    <string name="rel_sister">भगिनी</string>
+    <string name="rel_son">पुत्रः</string>
+    <string name="rel_daughter">पुत्री</string>
+    <string name="rel_uncle">पितृव्यः / मातुलः</string>
+    <string name="rel_aunt">पितृष्वसा / मातुलानी</string>
+    <string name="rel_other">अन्यः / सम्बन्धी</string>
+    
+    <!-- Location Sheet -->
+    <string name="select_location_sheet_title">मृत्युस्थानं चिनोतु</string>
+    <string name="search_city_hint">नगरम् अन्विष्यातु (यथा: बेङ्गळूरु, मन्त्रालयम्, उडुपी)...</string>
     
     <!-- Saved Profiles Screen -->
-    <string name="saved_title">संरक्षित-श्राद्ध-विवरणानि</string>
-    <string name="saved_empty">न किमपि संरक्षितम्</string>
-    <string name="saved_empty_desc">कुटुम्बसदस्यानां श्राद्धविवरणानि दूरवाण्यां शाश्वततया संरक्ष्य यथेच्छं पश्यन्तु।</string>
-    <string name="save_profile_btn">संरक्षयतु</string>
-    <string name="saved_badge">शाश्वतं संरक्षितम्</string>
-    <string name="save_profile_subtitle">दूरवाण्यां शाश्वतं संरक्षयतु</string>
-    <string name="saved_profile_subtitle">संरक्षितभागे उपलब्धम्</string>
-    <string name="calendar_sync_subtitle">दिनद्वयं पूर्वं दिनमेकं पूर्वं च स्मरणम्</string>
+    <string name="saved_title">संरक्षितानि कुलविवरणानि</string>
+    <string name="saved_empty">न कापि सञ्चिका संरक्षिता</string>
+    <string name="saved_empty_desc">स्वकुटुम्बजनानां श्राद्धविवरणं दूरवाणीस्मृतौ संरक्ष्य यदा कदापि पश्यन्तु।</string>
+    <string name="save_profile_btn">विवरणं संरक्षतु</string>
+    <string name="saved_badge">स्थायिरूपेण संरक्षितम्</string>
+    <string name="save_profile_subtitle">दूरवाणीस्मृतौ स्थायिरूपेण संरक्षतु</string>
+    <string name="saved_profile_subtitle">संरक्षितभागे स्थायिरूपेण स्थापितम्</string>
+    <string name="calendar_sync_subtitle">दिनद्वयं दिनमेकं च पूर्वं स्मारकाणि</string>
     <string name="remove_saved_btn">निष्कासयतु</string>
-    <string name="open_profile">श्राद्धदिनानि पश्यतु</string>
+    <string name="open_profile">तिथीः पश्यतु</string>
+    <string name="edit_profile">परिवर्तयतु</string>
+    <string name="edit_profile_title">विवरणसंशोधनम्</string>
+    <string name="save_changes">परिवर्तनं संरक्षतु</string>
+    <string name="new_calculation_btn">नूतनगणनम्</string>
     
     <!-- Input Screen -->
-    <string name="person_name_label">मृतव्यक्तिनाम</string>
+    <string name="person_name_label">दिवङ्गतस्य नाम</string>
     <string name="person_name_hint">यथा: श्री प्राणेश कुलकर्णी</string>
-    <string name="date_of_death_label">मृतदिनाङ्कः</string>
-    <string name="time_of_death_label">मृतसमयः (अनिवार्यः)</string>
+    <string name="date_of_death_label">मृत्युदिनाङ्कः</string>
+    <string name="observance_date_label">आचरणदिनाङ्कः</string>
+    <string name="time_of_death_label">मृत्युसमयः (अनिवार्यः)</string>
     <string name="location_label">स्थानम्</string>
     <string name="select_location_btn">स्थानं चिनोतु</string>
-    <string name="calculate_btn">श्राद्धदिनानि गणयतु</string>
-    <string name="calculating">पञ्चाङ्गं गण्यते...</string>
-    <string name="input_guidelines_title">मुख्यसूचना</string>
-    <string name="input_guidelines_desc">प्राणप्रयाणकाले मृततिथिनिर्णयाय दिनाङ्कः समयश्च द्वयमपि अत्यन्तावश्यकम्।</string>
+    <string name="calculate_btn">श्राद्धपक्षतिथीः गणयतु</string>
+    <string name="calculating">पञ्चाङ्गगणनं प्रचलति...</string>
+    <string name="input_guidelines_title">महत्त्वपूर्णसूचना</string>
+    <string name="input_guidelines_desc">प्राणप्रयाणकाले मृततिथिनिर्णयार्थं मृत्युदिनाङ्कः सूक्ष्मसमयश्च द्वयमपि अनिवार्यम्।</string>
     
     <!-- Results Screen -->
-    <string name="results_title">श्राद्धदिनगणितफलम्</string>
-    <string name="death_summary_prefix">मृतदिनम्:</string>
+    <string name="results_title">श्राद्धपक्षपञ्चाङ्गम्</string>
+    <string name="death_summary_prefix">मृत्युविवरणम्:</string>
     <string name="death_panchanga_details">मृतपञ्चाङ्गनिर्णयः</string>
-    <string name="add_all_to_calendar">सर्वाणि श्राद्धदिनानि कैलेण्डर् मध्ये योजयतु</string>
-    <string name="calendar_reminders_header">स्मारकव्यवस्था</string>
+    <string name="add_all_to_calendar">दिनदर्शिकायां योजयतु</string>
+    <string name="calendar_reminders_header">दिनदर्शिकास्मारकाणि</string>
     <string name="calendar_reminder">स्मारकम्</string>
-    <string name="calendar_reminder_on">स्मारकं सक्रियम् (दिनद्वयात् पूर्वम्)</string>
-    <string name="calendar_reminder_off">स्मारकं निष्क्रियम्</string>
-    <string name="next_upcoming_shraddha">आगामि श्राद्धम्</string>
-    <string name="days_remaining">अवशिष्टदिनानि</string>
-    <string name="aparahna_window">अपराह्नकालः (श्राद्धकालः)</string>
+    <string name="calendar_reminder_on">सक्रियम् (दिनद्वयं दिनमेकं च पूर्वम्)</string>
+    <string name="calendar_reminder_off">निष्क्रियम्</string>
+    <string name="next_upcoming_observance">आगामी अनुष्ठानम्</string>
+    <string name="next_upcoming_shraddha">आगामि वार्षिकश्राद्धम्</string>
+    <string name="days_remaining">अवशिष्टाः दिवसाः</string>
+    <string name="aparahna_window">अपराह्णकालः (श्राद्धसमयः)</string>
     <string name="sunrise_sunset">सूर्योदयः / सूर्यास्तः</string>
     <string name="dinmana">दिनमानम्</string>
     <string name="samvatsara">संवत्सरः</string>
     <string name="masa">मासः</string>
     <string name="paksha">पक्षः</string>
     <string name="tithi">तिथिः</string>
-    <string name="view_astronomical_trace">खगोलगणितविवरणं पश्यतु</string>
-    <string name="trace_dialog_title">व्याप्तिनिर्णयविवरणम्</string>
-    <string name="close">पिधातु</string>
-    <string name="ceremonies_count">%1$d श्राद्धकर्माणि</string>
+    <string name="view_astronomical_trace">खगोलगणनव्याप्तिविवरणं पश्यतु</string>
+    <string name="trace_dialog_title">पञ्चाङ्गव्याप्तिविवरणम्</string>
+    <string name="close">पिदधातु</string>
+    <string name="ceremonies_count">%1$d अनुष्ठानानि</string>
+    
+    <string name="tab_masikas">मासिकानि (प्रथमवर्षकार्याणि)</string>
+    <string name="tab_shraddha">वार्षिकश्राद्धम्</string>
+    <string name="tab_paksha">महालयपक्षः</string>
+    <string name="paksha_not_applicable_y1">प्रथमवर्षे न भवति (सपिण्डीकरणात्पूर्वं प्रेतावस्था)</string>
+    <string name="info_btn">विवरणम्</string>
+    <string name="scriptural_significance">शास्त्रप्रमाणम्</string>
+    <string name="view_trace_btn">गणनं पश्यतु</string>
+    <string name="today_badge">अद्य</string>
+    <string name="days_remaining_fmt">%1$d दिनानि अवशिष्टानि</string>
+    <string name="date_time_demise_label">मृत्युदिनाङ्कः समयश्च</string>
+    <string name="mruta_tithi_at_demise">मृत्युकालिकं पञ्चाङ्गम्:</string>
+    <string name="soul_journey_station_title">जीवात्मनः मार्गस्थानम्</string>
+    <string name="spiritual_impact_title">अध्यात्मिकमहत्त्वं शास्त्रप्रयोजनं च</string>
+    <string name="canonical_source_title">प्रमाणग्रन्थः</string>
+    <string name="demise_no_dosha_desc">पञ्चकसन्धिदोषाणां विना शुभज्योतिषनियमानुसारं कालः वर्तते।</string>
+    
+    <!-- Dosha / Traditional Considerations -->
+    <string name="dosha_header">शास्त्रीयस्थितिः दोषपरीक्षा च</string>
+    <string name="dosha_clear">✓ अस्मिन् मृत्युसमये कोऽपि विशेषदोषः न दृश्यते</string>
+    <string name="dosha_alert">⚠️ शास्त्रीयपरिगणनं ज्ञायते</string>
+    <string name="remedy_label">शास्त्रोक्तशान्तिपरिहारः:</string>
+    <string name="source_label">प्रमाणग्रन्थः:</string>
     
     <!-- Recents Screen -->
-    <string name="recents_title">निकटानुसन्धानानि</string>
-    <string name="recents_empty">पूर्वगणितं नास्ति</string>
-    <string name="recents_empty_sub">अत्र पूर्वगणितविवरणानि स्थास्यन्ति (अधिकतमं १० विवरणानि)।</string>
-    <string name="clear_all_history">सर्वं मार्जयतु</string>
-    <string name="delete">अपनयतु</string>
+    <string name="recents_title">नूतनान्वेषणानि</string>
+    <string name="recents_empty">न कापि नूतनान्वेषणा</string>
+    <string name="recents_empty_sub">गणितानि विवरणान्यत्र स्थास्यन्ति (अधिकतमं 10)।</string>
+    <string name="clear_all_history">सर्वं प्रमाष्टु</string>
+    <string name="delete">निष्कासयतु</string>
     <string name="reopen_search">पुनरुद्घाटयतु</string>
     
     <!-- Settings Screen -->
     <string name="settings_title">व्यवस्था</string>
     <string name="language_section">भाषा</string>
-    <string name="select_language">भाषां चिनोतु</string>
-    <string name="calendar_section">कैलेण्डर् व्यवस्था</string>
-    <string name="calendar_reminders_rule">स्वचालितस्मारकम्</string>
-    <string name="calendar_reminders_rule_desc">प्रत्येकं श्राद्धाय द्वे स्मारके भवतः:\n• श्राद्धदिनात् दिनद्वयात् पूर्वम् (४८ घण्टाः)\n• श्राद्धदिनात् एकदिनात् पूर्वम् (२४ घण्टाः)</string>
-    <string name="about_section">आँप् विवरणम्</string>
-    <string name="about_description">श्रीउत्तरादिमठपञ्चाङ्गानुसारेण माध्वस्मृतिमुक्तावलीपद्धत्या श्राद्धदिनानि यथार्थतया गण्यन्ते।</string>
+    <string name="select_language">अनुप्रयोगभाषां चिनोतु</string>
+    <string name="tradition_section">मध्वपरम्परा / मठः</string>
+    <string name="calendar_section">दिनदर्शिकाव्यवस्था</string>
+    <string name="calendar_reminders_rule">स्वचालितस्मारकाणि</string>
+    <string name="calendar_reminders_rule_desc">प्रत्येकश्राद्धार्थं स्मारकद्वयं लभ्यते:\n• दिनाङ्कात् 2 दिनं पूर्वम्\n• दिनाङ्कात् 1 दिनं पूर्वम्</string>
+    <string name="about_section">अनुप्रयोगविषये</string>
+    <string name="about_description">पितृपञ्चाङ्गम् प्रामाणिकमध्वधर्मशास्त्रपञ्चाङ्गनियमानुसारं मासिक-वार्षिक-महालयतिथीः गणयति।</string>
     <string name="version_label">आवृत्तिः</string>
-    <string name="invocation_header">श्रीसत्यात्मतीर्थगुरुभ्यो नमः</string>
-    <string name="dedication_service">श्रीहरि-श्रीवायु-श्री १०८ उत्तरादिमठपरम्परायाः सेवायै समर्पितम्</string>
-    <string name="dedication_father">पूज्यपितृपादानां दिवङ्गतानां श्रीप्राणेशकुलकर्णीमहोदयानां पवित्रस्मृत्यर्थं समर्पितम्</string>
-    <string name="developed_by">निर्माणं प्रबन्धनं च: गुरुराज कुलकर्णी</string>
-    <string name="export_pdf">पि.डि.एफ् अवतरणं / प्रेषणम्</string>
-    <string name="pdf_generating">पि.डि.एफ् सज्जायते...</string>
-    <string name="pdf_share_title">श्राद्धपञ्चाङ्ग-पि.डि.एफ् प्रेषयतु</string>
-    <string name="hari_vayu_footer">॥ श्रीहरिः सर्वोत्तमः • वायुर्जीवोत्तमः ॥</string>
+    <string name="invocation_um">श्रीमदानन्दतीर्थभगवत्पादाचार्यगुरुभ्यो नमः</string>
+    <string name="invocation_srs">श्रीराघवेन्द्रगुरुभ्यो नमः</string>
+    <string name="invocation_udupi">श्रीवादिराजगुरुभ्यो नमः</string>
+    <string name="invocation_header">श्रीमदानन्दतीर्थभगवत्पादाचार्यगुरुभ्यो नमः</string>
+    <string name="dedication_service">श्रीहरि-श्रीवायु-मध्वगुरुपरम्परायाः सेवायां समर्पितम्</string>
+    <string name="dedication_father">पूज्यपितृपादानां स्वर्गीय-श्रीप्राणेशकुलकर्णीमहोदयानां पावनस्मृतौ समर्पितम्</string>
+    <string name="developed_by">रचना प्रबन्धश्च: गुरुराज कुलकर्णी</string>
+    <string name="export_pdf">पि.डि.एफ्. रक्षणम् / प्रेषणम्</string>
+    <string name="pdf_generating">पि.डि.एफ्. सज्जीक्रियते...</string>
+    <string name="pdf_share_title">पितृपञ्चाङ्गं प्रेषयतु</string>
+    <string name="hari_vayu_footer">॥ श्री हरिः सर्वोत्तमः • वायुः जीवोत्तमः ॥</string>
+    
+    <!-- Disclaimer -->
+    <string name="app_disclaimer">प्रत्याख्यानम्: अयमनुप्रयोगः केवलं ज्ञानार्थमेव। पितृपञ्चाङ्गस्य खगोलगणने भेदाः सम्भवन्ति। कस्मिंश्चिदपि दिनाङ्कनिर्णये कृपया स्वकुलगुरूं / आचार्यान् पृष्ट्वा निश्चिनुवन्तु।</string>
     
     <!-- App Notification Strings -->
-    <string name="notif_channel_name">श्राद्धदिनस्मारकाणि</string>
-    <string name="notif_channel_desc">श्राद्धदिनात् दिनद्वयात् एकदिनात् च पूर्वं स्मारकाणि</string>
+    <string name="notif_channel_name">श्राद्धकर्मस्मारकाणि</string>
+    <string name="notif_channel_desc">श्राद्धदिनात् दिनद्वयं दिनमेकं च पूर्वं दीयमानानि स्मारकाणि</string>
     <string name="notif_upcoming_title">आगामिश्राद्धम्</string>
     <string name="notif_reminder_title">श्राद्धस्मारकम्</string>
-    <string name="notif_2days_body">%1$s — %2$s दिनद्वयानन्तरम् अस्ति, %3$s दिनाङ्के।</string>
-    <string name="notif_1day_body">%1$s — %2$s श्वः अस्ति, %3$s दिनाङ्के।</string>
-    <string name="notifications_section">सूचनाव्यवस्था</string>
-    <string name="app_notifications_label">आँप्-स्मारकम्</string>
-    <string name="app_notifications_desc">आँप्-माध्यमेन पूर्वस्मारकं प्राप्नुवन्तु (दिनद्वयात् एकदिनात् च पूर्वं प्रातः ८:०० वादने)</string>
+    <string name="notif_2days_body">%1$s — %2$s दिनद्वयानन्तरं (%3$s) भविष्यति।</string>
+    <string name="notif_1day_body">%1$s — %2$s श्वः (%3$s) भविष्यति।</string>
+    <string name="notifications_section">अनुप्रयोगसूचनाः</string>
+    <string name="app_notifications_label">पूर्वस्मारकाणि</string>
+    <string name="app_notifications_desc">दिनद्वयं दिनमेकं च पूर्वं प्रातः 08:00 वादने दूरवाण्यां सूचनां प्राप्नुवन्तु</string>
     <string name="notification_permission_required">सूचनानुमतिः आवश्यकी</string>
-    <string name="notification_permission_desc">श्राद्धस्मारकाणि यथाकालं प्रेषयितुम् अनुमतिं ददातु।</string>
+    <string name="notification_permission_desc">श्राद्धकर्मभ्यः समये स्मारयितुमनुमतिं ददातु।</string>
     
     <!-- Calendar Permissions -->
-    <string name="calendar_permission_title">कैलेण्डर् अनुमतिः आवश्यकी</string>
-    <string name="calendar_permission_desc">श्राद्धस्मारकनिर्माणाय दिनद्वयपूर्वसूचनार्थं च अनुमतिं ददातु।</string>
-    <string name="allow">अनुमन्यताम्</string>
-    <string name="cancel">प्रत्याख्यातु</string>
+    <string name="calendar_permission_title">दिनदर्शिकानुमतिः आवश्यकी</string>
+    <string name="calendar_permission_desc">दिनदर्शिकायां श्राद्धस्मारकयोजनायानुमतिं ददातु।</string>
+    <string name="grant_permission">अनुमतिं ददातु</string>
+    <string name="cancel">निरस्यतु</string>
+    <string name="tradition_section_subtitle">यथोचितपञ्चाङ्गपद्धतिप्रार्थनानां कृते मठनियमान् चिनुत।</string>
     
-    <!-- Location Picker -->
-    <string name="select_location_sheet_title">स्थानं चिनोतु</string>
-    <string name="search_city_hint">नगरं क्षेत्रं वा अन्विष्यतु...</string>
-    <string name="offline_available">ऑफलाइन लभ्यम्</string>
-    <string name="custom_location">विशिष्टस्थानम्</string>
+    <!-- Calculation Details & Dialogs -->
+    <string name="calculation_details">गणनाविवरणम्</string>
+    <string name="local_astronomical_timings">स्थानीय-ज्यौतिष-समयाः</string>
+    <string name="location_label_short">स्थानम्</string>
+    <string name="sunrise">सूर्योदयः</string>
+    <string name="sunset">सूर्यास्तः</string>
+    <string name="daylight_dinmana">दिनमानम्</string>
+    <string name="aparahna_kala_4th">अपराह्णकालः (4थः भागः)</string>
+    <string name="kutapa_muhurta_8th">कुतपमुहूर्तः (8मः भागः)</string>
+    <string name="panchanga_determination_trace">पञ्चाङ्गनिर्णयविवरणम्</string>
+    <string name="change_btn">परिवर्तयतु</string>
+    <string name="remove_profile_confirm_title">विवरणं निष्कासयतु</string>
+    <string name="remove_profile_confirm_msg">किं भवान् %1$s महोदयस्य विवरणं निष्कासयितुम् इच्छति?</string>
+    <string name="clear_history_confirm_title">इतिहासम् अपसारयतु</string>
+    <string name="clear_history_confirm_msg">किं भवान् सर्वान् नूतनान् शोधनान् अपसारयितुम् इच्छति?</string>
+    <string name="ok">अस्तु</string>
+    <string name="details">विवरणम्</string>
+    <string name="expand">विस्तारयतु</string>
+    <string name="collapse">संकोचयतु</string>
+    <string name="tradition_um_subtitle">अमान्तपद्धतिः • अपराह्णव्याप्तिः • श्रीमदानन्दतीर्थभगवत्पादपरम्परा</string>
+    <string name="tradition_srs_subtitle">मन्त्रालयम् • श्रीराघवेन्द्रस्वामिमठपञ्चाङ्गम् • रायगुरुभ्यो नमः</string>
+    <string name="tradition_udupi_subtitle">तुळुवपरम्परा • उडुपि-अष्टमठाः • श्रीवादिराजस्वामिपरम्परा</string>
+    <string name="edit">सम्पादनम्</string>
+    <string name="export_year_pdf">%1$d तमवर्षस्य PDF डाउनलोड्</string>
+    <string name="export_year_pdf_short">PDF</string>
+    <string name="pancha_kala_guide_btn">दिनस्य ५ कालाः</string>
+    <string name="pancha_kala_guide_title">दिनस्य पञ्च पवित्रकालाः (पञ्चकालाः)</string>
+    <string name="pancha_kala_guide_desc">दिनमानस्य पञ्चधा विभागः</string>
+    <string name="sunrise_tithi_label">सूर्योदयतिथिः</string>
+    <string name="aparahna_tithi_label">अपराह्नश्राद्धतिथिः</string>
+    <string name="tithi_transition_badge">सूर्योदयः: %1$s ➔ अपराह्नः: %2$s</string>
+    <string name="canonical_injunction_title">शास्त्रप्रमाणश्लोकः</string>
+    <string name="layperson_qa_title">कथम् अयमेव दिवसः स्वीकृतः?</string>
+    <string name="explore_pancha_kalas">पञ्चकालविभागं पश्यतु</string>
 </resources>

@@ -58,19 +58,19 @@ class UiUxFunctionalityTest {
         val traditionalName = "Masika 1 — Adya Masika"
 
         val kn = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.KANNADA)
-        assertEquals("ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ", kn)
+        assertEquals("ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ (13ನೇ ದಿನ)", kn)
 
         val sa = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.SANSKRIT)
-        assertEquals("मासिकम् 1 — आद्यमासिकम्", sa)
+        assertEquals("मासिकम् 1 — आद्यमासिकम् (13 तमदिनम्)", sa)
 
         val te = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.TELUGU)
-        assertEquals("మాసికం 1 — ఆద్య మాసికం", te)
+        assertEquals("మాసికం 1 — ఆద్య మాసికం (13వ రోజు)", te)
 
         val ta = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.TAMIL)
-        assertEquals("மாஸிகம் 1 — ஆத்ய மாஸிகம்", ta)
+        assertEquals("மாஸிகம் 1 — ஆத்ய மாஸிகம் (13ஆம் நாள்)", ta)
 
         val en = PanchangaLocalizer.localizeTraditionalName(traditionalName, AppLanguage.ENGLISH)
-        assertEquals("Masika 1 — Adya Masika", en)
+        assertEquals("Masika 1 — Adya Masika (13th Day)", en)
     }
 
     @Test

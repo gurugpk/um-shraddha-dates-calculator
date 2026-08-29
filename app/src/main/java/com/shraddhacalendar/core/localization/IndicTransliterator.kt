@@ -10,9 +10,11 @@ package com.shraddhacalendar.core.localization
  *   - Tamil (தமிழ்)
  *
  * Handles:
- *   1. Full multi-lingual dictionary for standard Indian & global names, matha parampara, and places.
- *   2. Granular phonetic rules for consonant clusters (samyuktaksharas), aspirates, sibilants,
- *      nasals (anusvara), diphthongs, and word-final virama / halant.
+ *   1. Full multi-lingual dictionary with expansive phonetic variants for Indian & global names,
+ *      matha parampara, surnames, and geographical places.
+ *   2. Granular phonetic rules for consonant clusters (samyuktaksharas), Arkavattu/Repha (ರ್ / र् / ర్ / ர்),
+ *      Paninian Natva (रषाभ्यां नो णः - retroflex nasal ಣ / ण / ణ in -rn-, -shn-), aspirates,
+ *      sibilants, and word-final virama / halant.
  */
 object IndicTransliterator {
 
@@ -27,7 +29,8 @@ object IndicTransliterator {
         "mr" to "ಶ್ರೀ", "mrs" to "ಶ್ರೀಮತಿ", "miss" to "ಕುಮಾರಿ", "master" to "ಚಿ.",
         "pandit" to "ಪಂಡಿತ", "vidwan" to "ವಿದ್ವಾನ್", "acharya" to "ಆಚಾರ್ಯ",
         "shastri" to "ಶಾಸ್ತ್ರಿ", "bhatta" to "ಭಟ್ಟ", "swamy" to "ಸ್ವಾಮಿ", "swami" to "ಸ್ವಾಮಿ",
-        "theertha" to "ತೀರ್ಥ", "tirtha" to "ತೀರ್ಥ",
+        "theertha" to "ತೀರ್ಥ", "tirtha" to "ತೀರ್ಥ", "guru" to "ಗುರು", "gurubhyo" to "ಗುರುಭ್ಯೋ",
+        "namaha" to "ನಮಃ", "namah" to "ನಮಃ",
 
         // Parampara & Spiritual Names
         "satyatmatheertha" to "ಸತ್ಯಾತ್ಮತೀರ್ಥ", "satyatma" to "ಸತ್ಯಾತ್ಮ", "satyatmatirtha" to "ಸತ್ಯಾತ್ಮತೀರ್ಥ",
@@ -35,41 +38,117 @@ object IndicTransliterator {
         "madhwacharya" to "ಮಧ್ವಾಚಾರ್ಯ", "madhva" to "ಮಧ್ವ", "madhwa" to "ಮಧ್ವ",
         "jayatheertha" to "ಜಯತೀರ್ಥ", "jayatirtha" to "ಜಯತೀರ್ಥ", "teekacharya" to "ಟೀಕಾಚಾರ್ಯ",
         "raghavendra" to "ರಾಘವೇಂದ್ರ", "raghavendrateertha" to "ರಾಘವೇಂದ್ರತೀರ್ಥ", "rayaru" to "ರಾಯರು",
+        "raghavendraswamy" to "ರಾಘವೇಂದ್ರಸ್ವಾಮಿ", "raghavendraswami" to "ರಾಘವೇಂದ್ರಸ್ವಾಮಿ",
         "vadiraja" to "ವಾದಿರಾಜ", "vyasatheertha" to "ವ್ಯಾಸತೀರ್ಥ", "vyasatirtha" to "ವ್ಯಾಸತೀರ್ಥ",
         "purandaradasa" to "ಪುರಂದರದಾಸ", "kanakadasa" to "ಕನಕದಾಸ", "vijayadasa" to "ವಿಜಯದಾಸ",
-        "uttaradi" to "ಉತ್ತರಾದಿ", "math" to "ಮಠ", "matha" to "ಮಠ",
+        "uttaradi" to "ಉತ್ತರಾದಿ", "mantralaya" to "ಮಂತ್ರಾಲಯ", "mantralayam" to "ಮಂತ್ರಾಲಯ",
+        "math" to "ಮಠ", "matha" to "ಮಠ", "mutt" to "ಮಠ",
 
-        // Common First Names
-        "pranesh" to "ಪ್ರಾಣೇಶ್", "gururaj" to "ಗುರುರಾಜ್", "ramachandra" to "ರಾಮಚಂದ್ರ",
-        "anand" to "ಆನಂದ್", "ananda" to "ಆನಂದ", "narayana" to "ನಾರಾಯಣ", "krishna" to "ಕೃಷ್ಣ",
-        "venkatesh" to "ವೆಂಕಟೇಶ್", "venkataramana" to "ವೆಂಕಟರಮಣ", "vijay" to "ವಿಜಯ್",
-        "srinivas" to "ಶ್ರೀನಿವಾಸ್", "srinivasa" to "ಶ್ರೀನಿವಾಸ", "tanmay" to "ತನ್ಮಯ್", "tammay" to "ತಮ್ಮಯ್",
-        "raghav" to "ರಾಘವ್", "raghava" to "ರಾಘವ", "keshava" to "ಕೇಶವ", "govinda" to "ಗೋವಿಂದ",
-        "madhava" to "ಮಾಧವ", "vishnu" to "ವಿಷ್ಣು", "prahlad" to "ಪ್ರಹ್ಲಾದ್", "prahlada" to "ಪ್ರಹ್ಲಾದ",
-        "ganesh" to "ಗಣೇಶ್", "ganesha" to "ಗಣೇಶ", "subrahmanya" to "ಸುಬ್ರಹ್ಮಣ್ಯ", "surya" to "ಸೂರ್ಯ",
-        "shankar" to "ಶಂಕರ್", "shankara" to "ಶಂಕರ", "dattatreya" to "ದತ್ತಾತ್ರೇಯ", "hanuman" to "ಹನುಮಾನ್",
-        "bhimsen" to "ಭೀಮಸೇನ್", "bhima" to "ಭೀಮ", "arjun" to "ಅರ್ಜುನ್", "arjuna" to "ಅರ್ಜುನ",
-        "manjunath" to "ಮಂಜುನಾಥ್", "manjunatha" to "ಮಂಜುನಾಥ", "nagaraj" to "ನಾಗರಾಜ್",
-        "prashanth" to "ಪ್ರಶಾಂತ್", "pradeep" to "ಪ್ರದೀಪ್", "prakash" to "ಪ್ರಕಾಶ್", "suresh" to "ಸುರೇಶ್",
-        "ramesh" to "ರಮೇಶ್", "mahesh" to "ಮಹೇಶ್", "dinesh" to "ದಿನೇಶ್", "rajesh" to "ರಾಜೇಶ್",
-        "girish" to "ಗಿರೀಶ್", "harish" to "ಹರೀಶ್", "satish" to "ಸತೀಶ್", "ravindra" to "ರವೀಂದ್ರ",
-        "gopal" to "ಗೋಪಾಲ್", "gopala" to "ಗೋಪಾಲ", "vasudeva" to "ವಾಸುದೇವ", "damodara" to "ದಾಮೋದರ",
-        "janardana" to "ಜನಾರ್ದನ", "padmanabha" to "ಪದ್ಮನಾಭ", "achyuta" to "ಅಚ್ಯುತ",
-        "lakshmi" to "ಲಕ್ಷ್ಮಿ", "saraswati" to "ಸರಸ್ವತಿ", "parvati" to "ಪಾರ್ವತಿ", "radha" to "ರಾಧಾ",
-        "rukmini" to "ರುಕ್ಮಿಣಿ", "sita" to "ಸೀತಾ", "gayatri" to "ಗಾಯತ್ರಿ", "savithri" to "ಸಾವಿತ್ರಿ",
+        // Common First Names & Variations
+        "pranesh" to "ಪ್ರಾಣೇಶ್", "pranesha" to "ಪ್ರಾಣೇಶ", "praneshrao" to "ಪ್ರಾಣೇಶರಾವ್",
+        "gururaj" to "ಗುರುರಾಜ್", "gururaja" to "ಗುರುರಾಜ", "gururajarao" to "ಗುರುರಾಜರಾವ್",
+        "ramachandra" to "ರಾಮಚಂದ್ರ", "ramchandra" to "ರಾಮಚಂದ್ರ", "ramachandrarao" to "ರಾಮಚಂದ್ರರಾವ್",
+        "anand" to "ಆನಂದ್", "ananda" to "ಆನಂದ", "ananth" to "ಅನಂತ", "anantha" to "ಅನಂತ",
+        "narayan" to "ನಾರಾಯಣ", "narayana" to "ನಾರಾಯಣ", "narayanarao" to "ನಾರಾಯಣರಾವ್",
+        "krishna" to "ಕೃಷ್ಣ", "krishnamurthy" to "ಕೃಷ್ಣಮೂರ್ತಿ", "krishnamurti" to "ಕೃಷ್ಣಮೂರ್ತಿ",
+        "venkatesh" to "ವೆಂಕಟೇಶ್", "venkatesha" to "ವೆಂಕಟೇಶ", "venkataramana" to "ವೆಂಕಟರಮಣ",
+        "venkateshwara" to "ವೆಂಕಟೇಶ್ವರ", "venkatarama" to "ವೆಂಕಟರಾಮ",
+        "vijay" to "ವಿಜಯ್", "vijaya" to "ವಿಜಯ", "vijayakrishna" to "ವಿಜಯಕೃಷ್ಣ",
+        "srinivas" to "ಶ್ರೀನಿವಾಸ್", "srinivasa" to "ಶ್ರೀನಿವಾಸ", "srinivasarao" to "ಶ್ರೀನಿವಾಸರಾವ್",
+        "shrinivas" to "ಶ್ರೀನಿವಾಸ್", "shrinivasa" to "ಶ್ರೀನಿವಾಸ",
+        "tanmay" to "ತನ್ಮಯ್", "tammay" to "ತಮ್ಮಯ್",
+        "raghav" to "ರಾಘವ್", "raghava" to "ರಾಘವ", "raghavarao" to "ರಾಘವರಾವ್",
+        "keshav" to "ಕೇಶವ", "keshava" to "ಕೇಶವ", "keshavarao" to "ಕೇಶವರಾವ್",
+        "govind" to "ಗೋವಿಂದ", "govinda" to "ಗೋವಿಂದ", "govindarao" to "ಗೋವಿಂದರಾವ್",
+        "madhav" to "ಮಾಧವ", "madhava" to "ಮಾಧವ", "madhavarao" to "ಮಾಧವರಾವ್",
+        "vishnu" to "ವಿಷ್ಣು", "vishnumurthy" to "ವಿಷ್ಣುಮೂರ್ತಿ",
+        "prahlad" to "ಪ್ರಹ್ಲಾದ್", "prahlada" to "ಪ್ರಹ್ಲಾದ", "prahladarao" to "ಪ್ರಹ್ಲಾದರಾವ್",
+        "ganesh" to "ಗಣೇಶ್", "ganesha" to "ಗಣೇಶ", "ganapathi" to "ಗಣಪತಿ", "ganapati" to "ಗಣಪತಿ",
+        "subrahmanya" to "ಸುಬ್ರಹ್ಮಣ್ಯ", "subramanya" to "ಸುಬ್ರಹ್ಮಣ್ಯ", "subramaniam" to "ಸುಬ್ರಹ್ಮಣ್ಯಂ",
+        "surya" to "ಸೂರ್ಯ", "suryanarayana" to "ಸೂರ್ಯನಾರಾಯಣ",
+        "shankar" to "ಶಂಕರ್", "shankara" to "ಶಂಕರ", "shankaranarayana" to "ಶಂಕರನಾರಾಯಣ",
+        "dattatreya" to "ದತ್ತಾತ್ರೇಯ", "dattatraya" to "ದತ್ತಾತ್ರೇಯ", "datta" to "ದತ್ತ",
+        "hanuman" to "ಹನುಮಾನ್", "hanumantha" to "ಹನುಮಂತ", "hanumantharao" to "ಹನುಮಂತರಾವ್",
+        "bhimsen" to "ಭೀಮಸೇನ್", "bheemsen" to "ಭೀಮಸೇನ್", "bhima" to "ಭೀಮ", "bhimasena" to "ಭೀಮಸೇನ",
+        "arjun" to "ಅರ್ಜುನ್", "arjuna" to "ಅರ್ಜುನ", "arjunarao" to "ಅರ್ಜುನರಾವ್",
+        "manjunath" to "ಮಂಜುನಾಥ್", "manjunatha" to "ಮಂಜುನಾಥ",
+        "nagaraj" to "ನಾಗರಾಜ್", "nagaraja" to "ನಾಗರಾಜ", "nagendra" to "ನಾಗೇಂದ್ರ",
+        "prashanth" to "ಪ್ರಶಾಂತ್", "prashant" to "ಪ್ರಶಾಂತ್",
+        "pradeep" to "ಪ್ರದೀಪ್", "pradeepa" to "ಪ್ರದೀಪ",
+        "prakash" to "ಪ್ರಕಾಶ್", "prakasha" to "ಪ್ರಕಾಶ",
+        "pramod" to "ಪ್ರಮೋದ್", "pramoda" to "ಪ್ರಮೋದ",
+        "suresh" to "ಸುರೇಶ್", "suresha" to "ಸುರೇಶ",
+        "ramesh" to "ರಮೇಶ್", "ramesha" to "ರಮೇಶ",
+        "mahesh" to "ಮಹೇಶ್", "mahesha" to "ಮಹೇಶ",
+        "dinesh" to "ದಿನೇಶ್", "dinesha" to "ದಿನೇಶ",
+        "rajesh" to "ರಾಜೇಶ್", "rajesha" to "ರಾಜೇಶ",
+        "girish" to "ಗಿರೀಶ್", "girisha" to "ಗಿರೀಶ",
+        "harish" to "ಹರೀಶ್", "harisha" to "ಹರೀಶ",
+        "satish" to "ಸತೀಶ್", "satisha" to "ಸತೀಶ",
+        "ravindra" to "ರವೀಂದ್ರ", "ravindranath" to "ರವೀಂದ್ರನಾಥ",
+        "gopal" to "ಗೋಪಾಲ್", "gopala" to "ಗೋಪಾಲ", "gopalakrishna" to "ಗೋಪಾಲಕೃಷ್ಣ",
+        "vasudev" to "ವಾಸುದೇವ", "vasudeva" to "ವಾಸುದೇವ",
+        "damodar" to "ದಾಮೋದರ", "damodara" to "ದಾಮೋದರ",
+        "janardana" to "ಜನಾರ್ದನ", "janardan" to "ಜನಾರ್ದನ",
+        "padmanabha" to "ಪದ್ಮನಾಭ", "padmanabharao" to "ಪದ್ಮನಾಭರಾವ್",
+        "achyuta" to "ಅಚ್ಯುತ", "achyutarao" to "ಅಚ್ಯುತರಾವ್",
+        "lakshman" to "ಲಕ್ಷ್ಮಣ", "lakshmana" to "ಲಕ್ಷ್ಮಣ", "laxman" to "ಲಕ್ಷ್ಮಣ",
+        "sudarshan" to "ಸುದರ್ಶನ", "sudharshan" to "ಸುದರ್ಶನ",
+        "gangadhar" to "ಗಂಗಾಧರ", "gangadhara" to "ಗಂಗಾಧರ",
+        "mahadev" to "ಮಹಾದೇವ", "mahadeva" to "ಮಹಾದೇವ",
+        "parameshwara" to "ಪರಮೇಶ್ವರ", "parameshwar" to "ಪರಮೇಶ್ವರ",
+        "vishwanatha" to "ವಿಶ್ವನಾಥ", "vishwanath" to "ವಿಶ್ವನಾಥ",
+        "someshwara" to "ಸೋಮೇಶ್ವರ", "somashekar" to "ಸೋಮಶೇಖರ್",
+        "chidananda" to "ಚಿದಾನಂದ", "sadananda" to "ಸದಾನಂದ", "shivananda" to "ಶಿವಾನಂದ",
+        "giridhar" to "ಗಿರಿಧರ", "muralidhar" to "ಮುರಳಿಧರ",
+        "chandrashekar" to "ಚಂದ್ರಶೇಖರ್", "chandrasekhar" to "ಚಂದ್ರಶೇಖರ್",
+        "vinay" to "ವಿನಯ್", "vinayak" to "ವಿನಾಯಕ", "vinayaka" to "ವಿನಾಯಕ",
+        "ashok" to "ಅಶೋಕ್", "ashoka" to "ಅಶೋಕ",
+        "kalyan" to "ಕಲ್ಯಾಣ್", "kalyana" to "ಕಲ್ಯಾಣ",
 
-        // Common Surnames & Family Names
-        "kulkarni" to "ಕುಲಕರ್ಣಿ", "rao" to "ರಾವ್", "joshi" to "ಜೋಷಿ", "deshpande" to "ದೇಶಪಾಂಡೆ",
-        "bhat" to "ಭಟ್", "bhatta" to "ಭಟ್ಟ", "sharma" to "ಶರ್ಮಾ", "shastri" to "ಶಾಸ್ತ್ರಿ",
-        "pai" to "ಪೈ", "kamath" to "ಕಾಮತ್", "shenoy" to "ಶೆಣೈ", "prabhu" to "ಪ್ರಭು",
-        "hegde" to "ಹೆಗಡೆ", "shetty" to "ಶೆಟ್ಟಿ", "gowda" to "ಗೌಡ", "patil" to "ಪಾಟೀಲ್",
-        "deshmukh" to "ದೇಶಮುಖ್", "mutalik" to "ಮುತಾಲಿಕ್", "in转型" to "ಇನಾಂದಾರ್", "inamdar" to "ಇನಾಂದಾರ್",
-        "diwan" to "ದಿವಾನ್", "pujari" to "ಪೂಜಾರಿ", "archak" to "ಅರ್ಚಕ", "karanth" to "ಕಾರಂತ್",
-        "adiga" to "ಅಡಿಗ", "holla" to "ಹೊಳ್ಳ", "upadhyaya" to "ಉಪಾಧ್ಯಾಯ", "puranik" to "ಪುರಾಣಿಕ್",
+        // Female First Names
+        "lakshmi" to "ಲಕ್ಷ್ಮಿ", "laxmi" to "ಲಕ್ಷ್ಮಿ", "lakshmidevi" to "ಲಕ್ಷ್ಮಿದೇವಿ",
+        "saraswati" to "ಸರಸ್ವತಿ", "saraswathi" to "ಸರಸ್ವತಿ",
+        "parvati" to "ಪಾರ್ವತಿ", "parvathi" to "ಪಾರ್ವತಿ",
+        "radha" to "ರಾಧಾ", "radhika" to "ರಾಧಿಕಾ",
+        "rukmini" to "ರುಕ್ಮಿಣಿ", "rugmini" to "ರುಕ್ಮಿಣಿ",
+        "sita" to "ಸೀತಾ", "seetha" to "ಸೀತಾ",
+        "gayatri" to "ಗಾಯತ್ರಿ", "gayathri" to "ಗಾಯತ್ರಿ",
+        "savithri" to "ಸಾವಿತ್ರಿ", "savitri" to "ಸಾವಿತ್ರಿ",
+        "shakuntala" to "ಶಕುಂತಲಾ", "shakunthala" to "ಶಕುಂತಲಾ", "shakuntale" to "ಶಕುಂತಲೆ",
+        "padma" to "ಪದ್ಮಾ", "padmavati" to "ಪದ್ಮಾವತಿ", "padmavathi" to "ಪದ್ಮಾವತಿ",
+        "kamala" to "ಕಮಲಾ", "kamalamma" to "ಕಮಲಮ್ಮ",
+        "sarala" to "ಸರಳಾ", "sharada" to "ಶಾರದಾ", "sharda" to "ಶಾರದಾ",
+        "sumitra" to "ಸುಮಿತ್ರಾ", "sumithra" to "ಸುಮಿತ್ರಾ",
+        "kausalya" to "ಕೌಸಲ್ಯಾ", "kousalya" to "ಕೌಸಲ್ಯಾ",
+        "sulochana" to "ಸುಲೋಚನಾ", "anusuya" to "ಅನಸೂಯಾ", "anasuya" to "ಅನಸೂಯಾ",
+        "shanta" to "ಶಾಂತಾ", "shanthi" to "ಶಾಂತಿ", "shanti" to "ಶಾಂತಿ",
+        "leela" to "ಲೀಲಾ", "leelavathi" to "ಲೀಲಾವತಿ", "leelavati" to "ಲೀಲಾವತಿ",
+        "geetha" to "ಗೀತಾ", "geeta" to "ಗೀತಾ", "kalyani" to "ಕಲ್ಯಾಣಿ",
+
+        // Common Surnames & Family Names (with all spelling variations)
+        "kulkarni" to "ಕುಲಕರ್ಣಿ", "kulakarni" to "ಕುಲಕರ್ಣಿ", "koolkarni" to "ಕುಲಕರ್ಣಿ",
+        "kulkarny" to "ಕುಲಕರ್ಣಿ", "kulakarny" to "ಕುಲಕರ್ಣಿ",
+        "rao" to "ರಾವ್", "rava" to "ರಾವ್",
+        "joshi" to "ಜೋಷಿ", "jyoshi" to "ಜೋಷಿ", "josi" to "ಜೋಶಿ",
+        "deshpande" to "ದೇಶಪಾಂಡೆ", "deshapande" to "ದೇಶಪಾಂಡೆ", "despande" to "ದೇಶಪಾಂಡೆ",
+        "bhat" to "ಭಟ್", "bhatta" to "ಭಟ್ಟ", "bhatt" to "ಭಟ್",
+        "sharma" to "ಶರ್ಮಾ", "shastri" to "ಶಾಸ್ತ್ರಿ",
+        "pai" to "ಪೈ", "kamath" to "ಕಾಮತ್", "kamat" to "ಕಾಮತ್",
+        "shenoy" to "ಶೆಣೈ", "prabhu" to "ಪ್ರಭು",
+        "hegde" to "ಹೆಗಡೆ", "shetty" to "ಶೆಟ್ಟಿ", "gowda" to "ಗೌಡ", "gauda" to "ಗೌಡ",
+        "patil" to "ಪಾಟೀಲ್", "patila" to "ಪಾಟೀಲ",
+        "deshmukh" to "ದೇಶಮುಖ್", "deshamukha" to "ದೇಶಮುಖ",
+        "mutalik" to "ಮುತಾಲಿಕ್", "muthalik" to "ಮುತಾಲಿಕ್", "mutalika" to "ಮುತಾಲಿಕ",
+        "inamdar" to "ಇನಾಂದಾರ್", "eenaamdar" to "ಇನಾಂದಾರ್",
+        "diwan" to "ದಿವಾನ್", "pujari" to "ಪೂಜಾರಿ", "poojari" to "ಪೂಜಾರಿ", "archak" to "ಅರ್ಚಕ",
+        "karanth" to "ಕಾರಂತ್", "adiga" to "ಅಡಿಗ", "holla" to "ಹೊಳ್ಳ",
+        "upadhyaya" to "ಉಪಾಧ್ಯಾಯ", "upadhyay" to "ಉಪಾಧ್ಯಾಯ",
+        "puranik" to "ಪುರಾಣಿಕ್", "puraanik" to "ಪುರಾಣಿಕ್",
 
         // Indian Cities & States
         "bengaluru" to "ಬೆಂಗಳೂರು", "bangalore" to "ಬೆಂಗಳೂರು", "karnataka" to "ಕರ್ನಾಟಕ", "india" to "ಭಾರತ",
-        "mysuru" to "ಮೈಸೂರು", "mysore" to "ಮೈಸೂರು", "udupi" to "ಉಡುಪಿ", "mantralayam" to "ಮಂತ್ರಾಲಯ",
+        "mysuru" to "ಮೈಸೂರು", "mysore" to "ಮೈಸೂರು", "udupi" to "ಉಡುಪಿ",
         "hubballi" to "ಹುಬ್ಬಳ್ಳಿ", "hubli" to "ಹುಬ್ಬಳ್ಳಿ", "dharwad" to "ಧಾರವಾಡ", "belagavi" to "ಬೆಳಗಾವಿ",
         "belgaum" to "ಬೆಳಗಾವಿ", "mangaluru" to "ಮಂಗಳೂರು", "mangalore" to "ಮಂಗಳೂರು", "shivamogga" to "ಶಿವಮೊಗ್ಗ",
         "shimoga" to "ಶಿವಮೊಗ್ಗ", "kalaburagi" to "ಕಲಬುರಗಿ", "gulbarga" to "ಕಲಬುರಗಿ", "bagalkote" to "ಬಾಗಲಕೋಟೆ",
@@ -99,7 +178,8 @@ object IndicTransliterator {
         "mr" to "श्रीमान्", "mrs" to "श्रीमती", "miss" to "कुमारी", "master" to "चि.",
         "pandit" to "पण्डित", "vidwan" to "विद्वान्", "acharya" to "आचार्य",
         "shastri" to "शास्त्री", "bhatta" to "भट्ट", "swamy" to "स्वामी", "swami" to "स्वामी",
-        "theertha" to "तीर्थ", "tirtha" to "तीर्थ",
+        "theertha" to "तीर्थ", "tirtha" to "तीर्थ", "guru" to "गुरु", "gurubhyo" to "गुरुभ्यो",
+        "namaha" to "नमः", "namah" to "नमः",
 
         // Parampara & Spiritual Names
         "satyatmatheertha" to "सत्यात्मतीर्थ", "satyatma" to "सत्यात्म", "satyatmatirtha" to "सत्यात्मतीर्थ",
@@ -109,9 +189,10 @@ object IndicTransliterator {
         "raghavendra" to "राघवेंद्र", "raghavendrateertha" to "राघवेंद्रतीर्थ", "rayaru" to "राघवेंद्रस्वामिनः",
         "vadiraja" to "वादिराज", "vyasatheertha" to "व्यासतीर्थ", "vyasatirtha" to "व्यासतीर्थ",
         "purandaradasa" to "पुरन्दरदास", "kanakadasa" to "कनकदास", "vijayadasa" to "विजयदास",
-        "uttaradi" to "उत्तरादि", "math" to "मठ", "matha" to "मठ",
+        "uttaradi" to "उत्तरादि", "mantralaya" to "मन्त्रालयम्", "mantralayam" to "मन्त्रालयम्",
+        "math" to "मठ", "matha" to "मठ",
 
-        // Common First Names
+        // Common Names & Surnames
         "pranesh" to "प्राणेश", "gururaj" to "गुरुराज", "ramachandra" to "रामचन्द्र",
         "anand" to "आनन्द", "ananda" to "आनन्द", "narayana" to "नारायण", "krishna" to "कृष्ण",
         "venkatesh" to "व्यङ्कटेश", "venkataramana" to "वेङ्कटरमण", "vijay" to "विजय",
@@ -129,9 +210,13 @@ object IndicTransliterator {
         "janardana" to "जनार्दन", "padmanabha" to "पद्मनाभ", "achyuta" to "अच्युत",
         "lakshmi" to "लक्ष्मी", "saraswati" to "सरस्वती", "parvati" to "पार्वती", "radha" to "राधा",
         "rukmini" to "रुक्मिणी", "sita" to "सीता", "gayatri" to "गायत्री", "savithri" to "सावित्री",
+        "shakuntala" to "शकुन्तला", "shakunthala" to "शकुन्तला",
 
-        // Common Surnames
-        "kulkarni" to "कुलकर्णी", "rao" to "राव", "joshi" to "जोशी", "deshpande" to "देशपाण्डे",
+        // Surnames
+        "kulkarni" to "कुलकर्णी", "kulakarni" to "कुलकर्णी", "koolkarni" to "कुलकर्णी",
+        "kulkarny" to "कुलकर्णी", "kulakarny" to "कुलकर्णी",
+        "rao" to "राव", "joshi" to "जोशी",
+        "deshpande" to "देशपाण्डे", "deshapande" to "देशपाण्डे", "despande" to "देशपाण्डे",
         "bhat" to "भट्ट", "bhatta" to "भट्ट", "sharma" to "शर्मा", "shastri" to "शास्त्री",
         "pai" to "पै", "kamath" to "कामथ", "shenoy" to "शणै", "prabhu" to "प्रभु",
         "hegde" to "हेगडे", "shetty" to "शेट्टी", "gowda" to "गौडा", "patil" to "पाटील",
@@ -141,7 +226,7 @@ object IndicTransliterator {
 
         // Locations
         "bengaluru" to "बेङ्गळूरु", "bangalore" to "बेङ्गळूरु", "karnataka" to "कर्णाटकम्", "india" to "भारतम्",
-        "mysuru" to "मैसूरु", "mysore" to "मैसूरु", "udupi" to "उडुपी", "mantralayam" to "मन्त्रालयम्",
+        "mysuru" to "मैसूरु", "mysore" to "मैसूरु", "udupi" to "उडुपी",
         "hubballi" to "हुब्बळ्ळी", "hubli" to "हुब्बळ्ळी", "dharwad" to "धारवाड", "belagavi" to "बेळगावी",
         "mangaluru" to "मङ्गळूरु", "shivamogga" to "शिवमोग्गा", "kalaburagi" to "कलबुरगी",
         "mumbai" to "मुम्बई", "pune" to "पुणे", "chennai" to "चेन्नै", "hyderabad" to "हैदराबाद",
@@ -165,7 +250,8 @@ object IndicTransliterator {
         "mr" to "శ్రీ", "mrs" to "శ్రీమతి", "miss" to "కుమారి", "master" to "చి.",
         "pandit" to "పండిత", "vidwan" to "విద్వాన్", "acharya" to "ఆచార్య",
         "shastri" to "శాస్త్రి", "bhatta" to "భట్", "swamy" to "స్వామి", "swami" to "స్వామి",
-        "theertha" to "తీర్థ", "tirtha" to "తీర్థ",
+        "theertha" to "తీర్థ", "tirtha" to "తీర్థ", "guru" to "గురు", "gurubhyo" to "గురుభ్యో",
+        "namaha" to "నమః", "namah" to "నమః",
 
         // Parampara & Spiritual Names
         "satyatmatheertha" to "సత్యాత్మతీర్థ", "satyatma" to "సత్యాత్మ", "satyatmatirtha" to "సత్యాత్మతీర్థ",
@@ -175,13 +261,14 @@ object IndicTransliterator {
         "raghavendra" to "రాఘవేంద్ర", "raghavendrateertha" to "రాఘవేంద్రతీర్థ", "rayaru" to "రాయరు",
         "vadiraja" to "వాదిరాజ", "vyasatheertha" to "వ్యాసతీర్థ", "vyasatirtha" to "వ్యాసతీర్థ",
         "purandaradasa" to "పురందరదాస", "kanakadasa" to "కనకదాస", "vijayadasa" to "విజయదాస",
-        "uttaradi" to "ఉత్తరాది", "math" to "మఠం", "matha" to "మఠం",
+        "uttaradi" to "ఉత్తరాది", "mantralaya" to "మంత్రాలయం", "mantralayam" to "మంత్రాలయం",
+        "math" to "మఠం", "matha" to "మఠం",
 
-        // Common First Names
+        // Common Names & Surnames
         "pranesh" to "ప్రాణేష్", "gururaj" to "గురురాజ్", "ramachandra" to "రామచంద్ర",
         "anand" to "ఆనంద్", "ananda" to "ఆనంద", "narayana" to "నారాయణ", "krishna" to "కృష్ణ",
         "venkatesh" to "వెంకటేష్", "venkataramana" to "వెంకటరమణ", "vijay" to "విజయ్",
-        "srinivas" to "శ్రీనివాస్", "srinivasa" to "శ్రీనివాస", "tanmay" to "తన్మయ్", "tammay" to "తమ్మయ్",
+        "srinivas" to "శ్రీనిவாస్", "srinivasa" to "శ్రీనివాస", "tanmay" to "తన్మయ్", "tammay" to "తమ్మయ్",
         "raghav" to "రాఘవ్", "raghava" to "రాఘవ", "keshava" to "కేశవ", "govinda" to "గోవింద",
         "madhava" to "మాధవ", "vishnu" to "విష్ణు", "prahlad" to "ప్రహ్లాద్", "prahlada" to "ప్రహ్లాద",
         "ganesh" to "గణేష్", "ganesha" to "గణేశ", "subrahmanya" to "సుబ్రహ్మణ్య", "surya" to "సూర్య",
@@ -195,9 +282,13 @@ object IndicTransliterator {
         "janardana" to "జనార్దన", "padmanabha" to "పద్మనాభ", "achyuta" to "అచ్యుత",
         "lakshmi" to "లక్ష్మి", "saraswati" to "సరస్వతి", "parvati" to "పార్వతి", "radha" to "రాధా",
         "rukmini" to "రుక్మిణి", "sita" to "సీతా", "gayatri" to "గాయత్రి", "savithri" to "సావిత్రి",
+        "shakuntala" to "శకుంతల", "shakunthala" to "శకుంతల",
 
         // Surnames
-        "kulkarni" to "కులకర్ణి", "rao" to "రావు", "joshi" to "జోషి", "deshpande" to "దేశ్‌పాండే",
+        "kulkarni" to "కులకర్ణి", "kulakarni" to "కులకర్ణి", "koolkarni" to "కులకర్ణి",
+        "kulkarny" to "కులకర్ణి", "kulakarny" to "కులకర్ణి",
+        "rao" to "రావు", "joshi" to "జోషి",
+        "deshpande" to "దేశ్‌పాండే", "deshapande" to "దేశ్‌పాండే", "despande" to "దేశ్‌పాండే",
         "bhat" to "భట్", "bhatta" to "భట్", "sharma" to "శర్మ", "shastri" to "శాస్త్రి",
         "pai" to "పై", "kamath" to "కామత్", "shenoy" to "శెణై", "prabhu" to "ప్రభు",
         "hegde" to "హెగ్డే", "shetty" to "శెట్టి", "gowda" to "గౌడ", "patil" to "పాటీల్",
@@ -207,7 +298,7 @@ object IndicTransliterator {
 
         // Locations
         "bengaluru" to "బెంగళూరు", "bangalore" to "బెంగళూరు", "karnataka" to "కర్ణాటక", "india" to "భారతదేశం",
-        "mysuru" to "మైసూరు", "mysore" to "మైసూరు", "udupi" to "ఉడుపి", "mantralayam" to "మంత్రాలయం",
+        "mysuru" to "మైసూరు", "mysore" to "మైసూరు", "udupi" to "ఉడుపి",
         "hubballi" to "హుబ్బళ్ళి", "hubli" to "హుబ్బళ్ళి", "dharwad" to "ధార్వాడ్", "belagavi" to "బెళగావి",
         "mangaluru" to "మంగళూరు", "shivamogga" to "శివమొగ్గ", "kalaburagi" to "కలబురగి",
         "mumbai" to "ముంబై", "pune" to "పుణె", "chennai" to "చెన్నై", "hyderabad" to "హైదరాబాద్",
@@ -231,7 +322,8 @@ object IndicTransliterator {
         "mr" to "திரு", "mrs" to "திருமதி", "miss" to "செல்வி", "master" to "செல்வன்",
         "pandit" to "பண்டிதர்", "vidwan" to "வித்வான்", "acharya" to "ஆச்சார்யா",
         "shastri" to "சாஸ்திரி", "bhatta" to "பட்டர்", "swamy" to "ஸ்வாமி", "swami" to "ஸ்வாமி",
-        "theertha" to "தீர்த்த", "tirtha" to "தீர்த்த",
+        "theertha" to "தீர்த்த", "tirtha" to "தீர்த்த", "guru" to "குரு", "gurubhyo" to "குருப்யோ",
+        "namaha" to "நமஹ", "namah" to "நமஹ",
 
         // Parampara & Spiritual Names
         "satyatmatheertha" to "ஸத்யாத்மதீர்த்த", "satyatma" to "ஸத்யாத்ம", "satyatmatirtha" to "ஸத்யாத்மதீர்த்த",
@@ -241,9 +333,10 @@ object IndicTransliterator {
         "raghavendra" to "ராகவேந்திரா", "raghavendrateertha" to "ராகவேந்திரதீர்த்த", "rayaru" to "ராயரு",
         "vadiraja" to "வாதிராஜ", "vyasatheertha" to "வ்யாஸதீர்த்த", "vyasatirtha" to "வ்யாஸதீர்த்த",
         "purandaradasa" to "புரந்தரதாஸ", "kanakadasa" to "கனகதாஸ", "vijayadasa" to "விஜயதாஸ",
-        "uttaradi" to "உத்தரதி", "math" to "மடம்", "matha" to "மடம்",
+        "uttaradi" to "உத்தரதி", "mantralaya" to "மந்த்ராலயம்", "mantralayam" to "மந்த்ராலயம்",
+        "math" to "மடம்", "matha" to "மடம்",
 
-        // Common First Names
+        // Common Names & Surnames
         "pranesh" to "பிராணேஷ்", "gururaj" to "குருராஜ்", "ramachandra" to "ராமசந்த்ர",
         "anand" to "ஆனந்த்", "ananda" to "ஆனந்த", "narayana" to "நாராயண", "krishna" to "கிருஷ்ணா",
         "venkatesh" to "வெங்கடேஷ்", "venkataramana" to "வெங்கடரமணா", "vijay" to "விஜய்",
@@ -261,9 +354,13 @@ object IndicTransliterator {
         "janardana" to "ஜனார்தனா", "padmanabha" to "பத்மநாபா", "achyuta" to "அச்யுதா",
         "lakshmi" to "லக்ஷ்மி", "saraswati" to "சரஸ்வதி", "parvati" to "பார்வதி", "radha" to "ராதா",
         "rukmini" to "ருக்மிணி", "sita" to "சீதா", "gayatri" to "காயத்ரி", "savithri" to "சாவித்ரி",
+        "shakuntala" to "சகுந்தலா", "shakunthala" to "சகுந்தலா",
 
         // Surnames
-        "kulkarni" to "குல்கர்னி", "rao" to "ராவ்", "joshi" to "ஜோஷி", "deshpande" to "தேஷ்பாண்டே",
+        "kulkarni" to "குல்கர்னி", "kulakarni" to "குல்கர்னி", "koolkarni" to "குல்கர்னி",
+        "kulkarny" to "குல்கர்னி", "kulakarny" to "குல்கர்னி",
+        "rao" to "ராவ்", "joshi" to "ஜோஷி",
+        "deshpande" to "தேஷ்பாண்டே", "deshapande" to "தேஷ்பாண்டே", "despande" to "தேஷ்பாண்டே",
         "bhat" to "பட்", "bhatta" to "பட்டர்", "sharma" to "சர்மா", "shastri" to "சாஸ்திரி",
         "pai" to "பை", "kamath" to "காமத்", "shenoy" to "ஷெனாய்", "prabhu" to "பிரபு",
         "hegde" to "ஹெக்டே", "shetty" to "ஷெட்டி", "gowda" to "கௌடா", "patil" to "பாட்டீல்",
@@ -273,7 +370,7 @@ object IndicTransliterator {
 
         // Locations
         "bengaluru" to "பெங்களூரு", "bangalore" to "பெங்களூரு", "karnataka" to "கர்நாடகா", "india" to "இந்தியா",
-        "mysuru" to "மைசூரு", "mysore" to "மைசூரு", "udupi" to "உடுப்பி", "mantralayam" to "மந்த்ராலயம்",
+        "mysuru" to "மைசூரு", "mysore" to "மைசூரு", "udupi" to "உடுப்பி",
         "hubballi" to "ஹுப்பள்ளி", "hubli" to "ஹுப்பள்ளி", "dharwad" to "தார்வாட்", "belagavi" to "பெலகாவி",
         "mangaluru" to "மங்களூரு", "shivamogga" to "சிவமொக்கா", "kalaburagi" to "கலபுரகி",
         "mumbai" to "மும்பை", "pune" to "புனே", "chennai" to "சென்னை", "hyderabad" to "ஹைதராபாத்",
@@ -314,6 +411,10 @@ object IndicTransliterator {
             AppLanguage.ENGLISH -> emptyMap()
         }
 
+        // Direct whole-phrase dictionary match (e.g. "New York", "San Francisco", "Sri Raghavendra Swami")
+        val wholeMatch = dictionary[text.trim().lowercase()]
+        if (wholeMatch != null) return wholeMatch
+
         // Tokenize text while preserving separators (spaces, commas, periods, hyphens, parentheses)
         val tokens = text.split(Regex("(?<=[\\s,.-/()&])|(?=[\\s,.-/()&])"))
 
@@ -332,12 +433,25 @@ object IndicTransliterator {
                 continue
             }
 
-            // 2. Universal phonetic transliteration for any word
+            // 2. Universal phonetic transliteration with Paninian Natva rules
             val phonetic = transliteratePhoneticWord(cleanLower, language)
             result.append(phonetic)
         }
 
         return result.toString()
+    }
+
+    /**
+     * Official Unicode Consortium ICU Transliterator for inter-script conversion
+     * (e.g. "Devanagari-Kannada", "Devanagari-Telugu", "Kannada-Devanagari").
+     */
+    fun icuTransliterate(text: String, id: String): String {
+        return try {
+            val transliterator = com.ibm.icu.text.Transliterator.getInstance(id)
+            transliterator.transliterate(text)
+        } catch (t: Throwable) {
+            text
+        }
     }
 
     // ==========================================
@@ -352,20 +466,29 @@ object IndicTransliterator {
         while (i < len) {
             val rem = len - i
 
-            // Multi-char consonant patterns
+            // Multi-char consonant patterns (longest match first)
+            val sub5 = if (rem >= 5) word.substring(i, i + 5) else ""
             val sub4 = if (rem >= 4) word.substring(i, i + 4) else ""
             val sub3 = if (rem >= 3) word.substring(i, i + 3) else ""
             val sub2 = if (rem >= 2) word.substring(i, i + 2) else ""
             val sub1 = word.substring(i, i + 1)
 
             val (consLen, consKey) = when {
+                sub5 == "shhtt" -> 5 to "shhtt"
+                sub5 == "rshna" -> 5 to "rshna"
                 sub4 == "shht" -> 4 to "shht"
                 sub4 == "ksht" -> 4 to "ksht"
+                sub4 == "rshn" -> 4 to "rshn"
+                sub4 == "rsha" -> 4 to "rsha"
+                sub4 == "cchh" -> 4 to "cchh"
+                sub4 == "chhh" -> 4 to "chhh"
                 sub3 == "ksh" -> 3 to "ksh"
                 sub3 == "shh" -> 3 to "shh"
                 sub3 == "chh" -> 3 to "chh"
                 sub3 == "gny" || sub3 == "jny" -> 3 to "jny"
                 sub3 == "shr" -> 3 to "shr"
+                sub3 == "shl" -> 3 to "shl"
+                sub3 == "shn" -> 3 to "shn" // Retroflex ष्ण / ಷ್ಣ / ష్ణ / ஷ்ண
                 sub3 == "dhr" -> 3 to "dhr"
                 sub3 == "thr" -> 3 to "thr"
                 sub3 == "bhr" -> 3 to "bhr"
@@ -379,6 +502,33 @@ object IndicTransliterator {
                 sub3 == "ndr" -> 3 to "ndr"
                 sub3 == "ntr" -> 3 to "ntr"
                 sub3 == "mpr" -> 3 to "mpr"
+                sub3 == "mbh" -> 3 to "mbh"
+                sub3 == "ndh" -> 3 to "ndh"
+                sub3 == "nth" -> 3 to "nth"
+                sub3 == "nch" -> 3 to "nch"
+                sub3 == "rth" -> 3 to "rth"
+                sub3 == "rdh" -> 3 to "rdh"
+                sub3 == "rbh" -> 3 to "rbh"
+                sub3 == "rsh" -> 3 to "rsh"
+                sub3 == "rgh" -> 3 to "rgh"
+                sub3 == "rkh" -> 3 to "rkh"
+                sub3 == "dhy" -> 3 to "dhy"
+                sub3 == "thy" -> 3 to "thy"
+                sub3 == "bhy" -> 3 to "bhy"
+                sub3 == "shy" -> 3 to "shy"
+                sub2 == "rn" -> 2 to "rn" // Retroflex Repha + Na (ರ್ಣ / र्ण / ర్ణ / ர்ண)
+                sub2 == "rk" -> 2 to "rk"
+                sub2 == "rg" -> 2 to "rg"
+                sub2 == "rc" || sub2 == "rch" -> 2 to "rch"
+                sub2 == "rj" -> 2 to "rj"
+                sub2 == "rt" -> 2 to "rt"
+                sub2 == "rd" -> 2 to "rd"
+                sub2 == "rp" -> 2 to "rp"
+                sub2 == "rb" -> 2 to "rb"
+                sub2 == "rm" -> 2 to "rm"
+                sub2 == "ry" -> 2 to "ry"
+                sub2 == "rv" || sub2 == "rw" -> 2 to "rv"
+                sub2 == "rl" -> 2 to "rl"
                 sub2 == "kh" -> 2 to "kh"
                 sub2 == "gh" -> 2 to "gh"
                 sub2 == "ch" -> 2 to "ch"
@@ -407,8 +557,34 @@ object IndicTransliterator {
                 sub2 == "nd" -> 2 to "nd"
                 sub2 == "nt" -> 2 to "nt"
                 sub2 == "nk" -> 2 to "nk"
+                sub2 == "nj" -> 2 to "nj"
                 sub2 == "mb" -> 2 to "mb"
                 sub2 == "mp" -> 2 to "mp"
+                sub2 == "kk" -> 2 to "kk"
+                sub2 == "gg" -> 2 to "gg"
+                sub2 == "cc" -> 2 to "cc"
+                sub2 == "jj" -> 2 to "jj"
+                sub2 == "tt" -> 2 to "tt"
+                sub2 == "dd" -> 2 to "dd"
+                sub2 == "nn" -> 2 to "nn"
+                sub2 == "pp" -> 2 to "pp"
+                sub2 == "bb" -> 2 to "bb"
+                sub2 == "mm" -> 2 to "mm"
+                sub2 == "yy" -> 2 to "yy"
+                sub2 == "ll" -> 2 to "ll"
+                sub2 == "vv" || sub2 == "ww" -> 2 to "vv"
+                sub2 == "ss" -> 2 to "ss"
+                sub2 == "ky" -> 2 to "ky"
+                sub2 == "gy" -> 2 to "gy"
+                sub2 == "ty" -> 2 to "ty"
+                sub2 == "dy" -> 2 to "dy"
+                sub2 == "py" -> 2 to "py"
+                sub2 == "by" -> 2 to "by"
+                sub2 == "my" -> 2 to "my"
+                sub2 == "ly" -> 2 to "ly"
+                sub2 == "vy" -> 2 to "vy"
+                sub2 == "sy" -> 2 to "sy"
+                sub2 == "hy" -> 2 to "hy"
                 "kgcjtdnpbmyrvlshfzqwx".contains(sub1) -> 1 to sub1
                 else -> 0 to null
             }
@@ -432,7 +608,6 @@ object IndicTransliterator {
                     i += vLen
                 }
 
-                // If at end of word and no trailing vowel: apply virama / halant if consonant
                 val isEndOfWord = (i >= len)
                 out.append(renderConsonantCluster(consKey, vowelKey, isEndOfWord, language))
             } else {
@@ -498,11 +673,19 @@ object IndicTransliterator {
         isEndOfWord: Boolean,
         language: AppLanguage
     ): String {
-        // Base mapping breakdown
+        // Base mapping breakdown into atomic phonetic components
         val parts = when (consKey) {
+            "shhtt" -> listOf("shh", "t", "t")
+            "rshna" -> listOf("r", "shh", "N")
             "shht" -> listOf("shh", "t")
             "ksht" -> listOf("ksh", "t")
+            "rshn" -> listOf("r", "shh", "N")
+            "rsha" -> listOf("r", "shh")
+            "cchh" -> listOf("ch", "chh")
+            "chhh" -> listOf("ch", "chh")
             "shr" -> listOf("sh", "r")
+            "shl" -> listOf("sh", "l")
+            "shn" -> listOf("shh", "N") // Retroflex ಷ್ಣ / ष्ण / ష్ణ
             "dhr" -> listOf("dh", "r")
             "thr" -> listOf("th", "r")
             "bhr" -> listOf("bh", "r")
@@ -516,6 +699,33 @@ object IndicTransliterator {
             "ndr" -> listOf("n", "d", "r")
             "ntr" -> listOf("n", "t", "r")
             "mpr" -> listOf("m", "p", "r")
+            "mbh" -> listOf("m", "bh")
+            "ndh" -> listOf("n", "dh")
+            "nth" -> listOf("n", "th")
+            "nch" -> listOf("n", "ch")
+            "rth" -> listOf("r", "th")
+            "rdh" -> listOf("r", "dh")
+            "rbh" -> listOf("r", "bh")
+            "rsh" -> listOf("r", "shh")
+            "rgh" -> listOf("r", "gh")
+            "rkh" -> listOf("r", "kh")
+            "dhy" -> listOf("dh", "y")
+            "thy" -> listOf("th", "y")
+            "bhy" -> listOf("bh", "y")
+            "shy" -> listOf("sh", "y")
+            "rn" -> listOf("r", "N") // Natva: r + Retroflex Na (ರ್ಣ / र्ण / ర్ణ)
+            "rk" -> listOf("r", "k")
+            "rg" -> listOf("r", "g")
+            "rch" -> listOf("r", "ch")
+            "rj" -> listOf("r", "j")
+            "rt" -> listOf("r", "t")
+            "rd" -> listOf("r", "d")
+            "rp" -> listOf("r", "p")
+            "rb" -> listOf("r", "b")
+            "rm" -> listOf("r", "m")
+            "ry" -> listOf("r", "y")
+            "rv" -> listOf("r", "v")
+            "rl" -> listOf("r", "l")
             "kr" -> listOf("k", "r")
             "pr" -> listOf("p", "r")
             "tr" -> listOf("t", "r")
@@ -533,8 +743,34 @@ object IndicTransliterator {
             "nd" -> listOf("n", "d")
             "nt" -> listOf("n", "t")
             "nk" -> listOf("n", "k")
+            "nj" -> listOf("n", "j")
             "mb" -> listOf("m", "b")
             "mp" -> listOf("m", "p")
+            "kk" -> listOf("k", "k")
+            "gg" -> listOf("g", "g")
+            "cc" -> listOf("ch", "ch")
+            "jj" -> listOf("j", "j")
+            "tt" -> listOf("t", "t")
+            "dd" -> listOf("d", "d")
+            "nn" -> listOf("n", "n")
+            "pp" -> listOf("p", "p")
+            "bb" -> listOf("b", "b")
+            "mm" -> listOf("m", "m")
+            "yy" -> listOf("y", "y")
+            "ll" -> listOf("l", "l")
+            "vv" -> listOf("v", "v")
+            "ss" -> listOf("s", "s")
+            "ky" -> listOf("k", "y")
+            "gy" -> listOf("g", "y")
+            "ty" -> listOf("t", "y")
+            "dy" -> listOf("d", "y")
+            "py" -> listOf("p", "y")
+            "by" -> listOf("b", "y")
+            "my" -> listOf("m", "y")
+            "ly" -> listOf("l", "y")
+            "vy" -> listOf("v", "y")
+            "sy" -> listOf("s", "y")
+            "hy" -> listOf("h", "y")
             else -> listOf(consKey)
         }
 
@@ -559,9 +795,10 @@ object IndicTransliterator {
             AppLanguage.KANNADA -> when (c) {
                 "k" -> "ಕ"; "kh" -> "ಖ"; "g" -> "ಗ"; "gh" -> "ಘ"; "ng" -> "ಙ"
                 "ch", "c" -> "ಚ"; "chh" -> "ಛ"; "j", "z" -> "ಜ"; "jh" -> "ಝ"; "ny" -> "ಞ"
-                "t" -> "ತ"; "th" -> "ಥ"; "d" -> "ದ"; "dh" -> "ಧ"; "n" -> "ನ"
+                "T" -> "ಟ"; "Th" -> "ಠ"; "D" -> "ಡ"; "Dh" -> "ಢ"; "N" -> "ಣ" // Retroflex series
+                "t" -> "ತ"; "th" -> "ಥ"; "d" -> "ದ"; "dh" -> "ಧ"; "n" -> "ನ" // Dental series
                 "p" -> "ಪ"; "ph", "f" -> "ಫ"; "b" -> "ಬ"; "bh" -> "ಭ"; "m" -> "ಮ"
-                "y" -> "ಯ"; "r" -> "ರ"; "l" -> "ಲ"; "v", "w" -> "ವ"
+                "y" -> "ಯ"; "r" -> "ರ"; "l" -> "ಲ"; "L" -> "ಳ"; "v", "w" -> "ವ"
                 "sh" -> "ಶ"; "shh" -> "ಷ"; "s" -> "ಸ"; "h" -> "ಹ"; "ksh", "x" -> "ಕ್ಷ"; "jny" -> "ಜ್ಞ"
                 "q" -> "ಕ"
                 else -> "ಕ"
@@ -569,9 +806,10 @@ object IndicTransliterator {
             AppLanguage.SANSKRIT -> when (c) {
                 "k" -> "क"; "kh" -> "ख"; "g" -> "ग"; "gh" -> "घ"; "ng" -> "ङ"
                 "ch", "c" -> "च"; "chh" -> "छ"; "j", "z" -> "ज"; "jh" -> "झ"; "ny" -> "ञ"
-                "t" -> "त"; "th" -> "थ"; "d" -> "द"; "dh" -> "ध"; "n" -> "न"
+                "T" -> "ट"; "Th" -> "ठ"; "D" -> "ड"; "Dh" -> "ढ"; "N" -> "ण" // Retroflex series
+                "t" -> "त"; "th" -> "थ"; "d" -> "द"; "dh" -> "ध"; "n" -> "न" // Dental series
                 "p" -> "प"; "ph", "f" -> "फ"; "b" -> "ब"; "bh" -> "भ"; "m" -> "म"
-                "y" -> "य"; "r" -> "र"; "l" -> "ल"; "v", "w" -> "व"
+                "y" -> "य"; "r" -> "र"; "l" -> "ल"; "L" -> "ळ"; "v", "w" -> "व"
                 "sh" -> "श"; "shh" -> "ष"; "s" -> "स"; "h" -> "ह"; "ksh", "x" -> "क्ष"; "jny" -> "ज्ञ"
                 "q" -> "क"
                 else -> "क"
@@ -579,9 +817,10 @@ object IndicTransliterator {
             AppLanguage.TELUGU -> when (c) {
                 "k" -> "క"; "kh" -> "ఖ"; "g" -> "గ"; "gh" -> "ఘ"; "ng" -> "ఙ"
                 "ch", "c" -> "చ"; "chh" -> "ఛ"; "j", "z" -> "జ"; "jh" -> "ఝ"; "ny" -> "ఞ"
-                "t" -> "త"; "th" -> "థ"; "d" -> "ద"; "dh" -> "ధ"; "n" -> "న"
+                "T" -> "ట"; "Th" -> "ఠ"; "D" -> "డ"; "Dh" -> "ఢ"; "N" -> "ణ" // Retroflex series
+                "t" -> "త"; "th" -> "థ"; "d" -> "ద"; "dh" -> "ధ"; "n" -> "న" // Dental series
                 "p" -> "ప"; "ph", "f" -> "ఫ"; "b" -> "బ"; "bh" -> "భ"; "m" -> "మ"
-                "y" -> "య"; "r" -> "ర"; "l" -> "ల"; "v", "w" -> "వ"
+                "y" -> "య"; "r" -> "ర"; "l" -> "ల"; "L" -> "ళ"; "v", "w" -> "వ"
                 "sh" -> "శ"; "shh" -> "ష"; "s" -> "స"; "h" -> "హ"; "ksh", "x" -> "క్ష"; "jny" -> "జ్ఞ"
                 "q" -> "క"
                 else -> "క"
@@ -590,13 +829,15 @@ object IndicTransliterator {
                 "k", "kh", "g", "gh", "q" -> "க"
                 "ch", "chh", "c" -> "ச"
                 "j", "jh", "z" -> "ஜ"
-                "t", "th", "d", "dh" -> "த"
+                "T", "Th", "D", "Dh", "t", "th", "d", "dh" -> "த"
+                "N" -> "ண"
                 "n" -> "ந"
                 "p", "ph", "b", "bh", "f" -> "ப"
                 "m" -> "ம"
                 "y" -> "ய"
                 "r" -> "ர"
                 "l" -> "ல"
+                "L" -> "ள"
                 "v", "w" -> "வ"
                 "sh", "shh" -> "ஷ"
                 "s" -> "ஸ"

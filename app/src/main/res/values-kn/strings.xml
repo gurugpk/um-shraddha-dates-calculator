@@ -1,109 +1,205 @@
 <resources>
-    <string name="app_name">ಯು.ಎಂ. ಶ್ರಾದ್ಧ ದಿನಾಂಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್</string>
-    <string name="app_subtitle">ಶ್ರೀಉತ್ತರಾದಿಮಠ ಪಂಚಾಂಗ ಆಧಾರಿತ ಗಣಕ</string>
+    <string name="app_name">ಪಿತೃ ಪಂಚಾಂಗ</string>
+    <string name="app_subtitle">ಪ್ರಾಮಾಣಿಕ ಮಧ್ವ ಶ್ರಾದ್ಧ ಮತ್ತು ಪಕ್ಷ ಪಂಚಾಂಗ</string>
     
     <!-- Navigation -->
-    <string name="nav_calculator">ಕ್ಯಾಲ್ಕುಲೇಟರ್</string>
+    <string name="nav_calculator">ಗಣನೆ</string>
     <string name="nav_saved">ಸಂಗ್ರಹಿತ</string>
     <string name="nav_recents">ಇತ್ತೀಚಿನವು</string>
     <string name="nav_settings">ಸೆಟ್ಟಿಂಗ್ಸ್</string>
     
+    <!-- Traditions -->
+    <string name="tradition_label">ಪರಂಪರೆ / ಮಠ</string>
+    <string name="tradition_um">ಶ್ರೀ ಉತ್ತರಾದಿ ಮಠ</string>
+    <string name="tradition_srs">ಮಂತ್ರಾಲಯ (ಶ್ರೀ ರಾಘವೇಂದ್ರ ಸ್ವಾಮಿ ಮಠ)</string>
+    <string name="tradition_udupi">ಉಡುಪಿ ಅಷ್ಟ ಮಠಗಳು</string>
+    <string name="onboarding_title">ನಿಮ್ಮ ಮಧ್ವ ಪರಂಪರೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="onboarding_subtitle">ಸರಿಯಾದ ಪಂಚಾಂಗ ಪದ್ಧತಿ, ಆಚಾರ ನಿಯಮಗಳು ಮತ್ತು ಗುರು ಪ್ರಾರ್ಥನೆಯನ್ನು ಅನ್ವಯಿಸಲು ನಿಮ್ಮ ಮಠ ಸಂಪ್ರದಾಯವನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="onboarding_confirm">ಪಂಚಾಂಗಕ್ಕೆ ಮುಂದುವರಿಯಿರಿ</string>
+    
+    <!-- Relationships -->
+    <string name="relationship_label">ಸಂಬಂಧ</string>
+    <string name="rel_father">ತಂದೆ</string>
+    <string name="rel_mother">ತಾಯಿ</string>
+    <string name="rel_grandfather">ಅಜ್ಜ</string>
+    <string name="rel_grandmother">ಅಜ್ಜಿ</string>
+    <string name="rel_husband">ಪತಿ</string>
+    <string name="rel_wife">ಪತ್ನಿ</string>
+    <string name="rel_brother">ಸಹೋದರ</string>
+    <string name="rel_sister">ಸಹೋದರಿ</string>
+    <string name="rel_son">ಮಗ</string>
+    <string name="rel_daughter">ಮಗಳು</string>
+    <string name="rel_uncle">ಚಿಕ್ಕಪ್ಪ / ಮಾವ</string>
+    <string name="rel_aunt">ಚಿಕ್ಕಮ್ಮ / ಅತ್ತೆ</string>
+    <string name="rel_other">ಇತರ / ಸಂಬಂಧಿಕರು</string>
+    
+    <!-- Location Sheet -->
+    <string name="select_location_sheet_title">ಮೃತ್ಯು ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="search_city_hint">ನಗರವನ್ನು ಹುಡುಕಿ (ಉದಾ: ಬೆಂಗಳೂರು, ಮಂತ್ರಾಲಯ, ಉಡುಪಿ)...</string>
+    
     <!-- Saved Profiles Screen -->
-    <string name="saved_title">ಸಂಗ್ರಹಿತ ಶ್ರಾದ್ಧ ವಿವರಗಳು</string>
-    <string name="saved_empty">ಇನ್ನೂ ಯಾವುದೇ ಶ್ರಾದ್ಧಗಳನ್ನು ಸಂಗ್ರಹಿಸಿಲ್ಲ</string>
-    <string name="saved_empty_desc">ನಿಮ್ಮ ಕುಟುಂಬದ ಸದಸ್ಯರ ಶ್ರಾದ್ಧ ವಿವರಗಳನ್ನು ನಿಮ್ಮ ಮೊಬೈಲ್‌ನಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಿ ಸುಲಭವಾಗಿ ವೀಕ್ಷಿಸಿ.</string>
-    <string name="save_profile_btn">ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸಿ</string>
-    <string name="saved_badge">ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</string>
-    <string name="save_profile_subtitle">ಮೊಬೈಲ್‌ನಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಿ</string>
-    <string name="saved_profile_subtitle">ಸಂಗ್ರಹಿತ ವಿಭಾಗದಲ್ಲಿ ಲಭ್ಯವಿದೆ</string>
-    <string name="calendar_sync_subtitle">೨ ದಿನ ಮತ್ತು ೧ ದಿನ ಮುಂಚಿತ ಜ್ಞಾಪನೆ</string>
+    <string name="saved_title">ಸಂಗ್ರಹಿತ ಕುಟುಂಬ ಪ್ರೊಫೈಲ್‌ಗಳು</string>
+    <string name="saved_empty">ಯಾವುದೇ ಪ್ರೊಫೈಲ್ ಉಳಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="saved_empty_desc">ನಿಮ್ಮ ಕುಟುಂಬ ಸದಸ್ಯರ ಶ್ರಾದ್ಧ ಮಾಹಿತಿಯನ್ನು ಫೋನ್‌ನಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಉಳಿಸಿ, ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಸುಲಭವಾಗಿ ವೀಕ್ಷಿಸಿ.</string>
+    <string name="save_profile_btn">ಪ್ರೊಫೈಲ್ ಉಳಿಸಿ</string>
+    <string name="saved_badge">ಶಾಶ್ವತವಾಗಿ ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="save_profile_subtitle">ಫೋನ್ ಮೆಮೊರಿಯಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಉಳಿಸಿ</string>
+    <string name="saved_profile_subtitle">ಸಂಗ್ರಹಿತ ವಿಭಾಗದಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</string>
+    <string name="calendar_sync_subtitle">2 ದಿನ ಮತ್ತು 1 ದಿನ ಮುಂಚಿತ ಜ್ಞಾಪನೆಗಳು</string>
     <string name="remove_saved_btn">ತೆಗೆದುಹಾಕಿ</string>
-    <string name="open_profile">ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="open_profile">ದಿನಾಂಕಗಳನ್ನು ನೋಡಿ</string>
+    <string name="edit_profile">ತಿದ್ದುಪಡಿ</string>
+    <string name="edit_profile_title">ಪ್ರೊಫೈಲ್ ವಿವರ ತಿದ್ದುಪಡಿ</string>
+    <string name="save_changes">ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ</string>
+    <string name="new_calculation_btn">ಹೊಸ ಗಣನೆ</string>
     
     <!-- Input Screen -->
     <string name="person_name_label">ವ್ಯಕ್ತಿಯ ಹೆಸರು</string>
     <string name="person_name_hint">ಉದಾ: ಶ್ರೀ ಪ್ರಾಣೇಶ ಕುಲಕರ್ಣಿ</string>
-    <string name="date_of_death_label">ಮೃತರಾದ ದಿನಾಂಕ</string>
-    <string name="time_of_death_label">ಮೃತರಾದ ಸಮಯ (ಕಡ್ಡಾಯ)</string>
+    <string name="date_of_death_label">ಮೃತ್ಯು ದಿನಾಂಕ</string>
+    <string name="observance_date_label">ಆಚರಣಾ ದಿನಾಂಕ</string>
+    <string name="time_of_death_label">ಮೃತ್ಯು ಸಮಯ (ಕಡ್ಡಾಯ)</string>
     <string name="location_label">ಸ್ಥಳ</string>
     <string name="select_location_btn">ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
-    <string name="calculate_btn">ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳನ್ನು ಲೆಕ್ಕಹಾಕಿ</string>
-    <string name="calculating">ಪಂಚಾಂಗ ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತಿದೆ...</string>
+    <string name="calculate_btn">ಶ್ರಾದ್ಧ ಮತ್ತು ಪಕ್ಷ ದಿನಾಂಕಗಳನ್ನು ಲೆಕ್ಕಹಾಕಿ</string>
+    <string name="calculating">ಪಂಚಾಂಗ ಗಣನೆ ನಡೆಯುತ್ತಿದೆ...</string>
     <string name="input_guidelines_title">ಪ್ರಮುಖ ಸೂಚನೆ</string>
-    <string name="input_guidelines_desc">ಪ್ರಾಣಪ್ರಯಾಣ ಕಾಲದ ನಿಖರ ಮೃತತಿಥಿ ನಿರ್ಣಯಿಸಲು ಮೃತರಾದ ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಎರಡೂ ಅತ್ಯಗತ್ಯ.</string>
+    <string name="input_guidelines_desc">ಪ್ರಾಣಪ್ರಯಾಣ ಕಾಲದ ನಿಖರ ಮೃತ ತಿಥಿಯನ್ನು ನಿರ್ಧರಿಸಲು ಮೃತ್ಯು ದಿನಾಂಕ ಮತ್ತು ನಿಖರ ಸಮಯ ಎರಡೂ ಕಡ್ಡಾಯವಾಗಿ ಬೇಕಾಗುತ್ತದೆ.</string>
     
     <!-- Results Screen -->
-    <string name="results_title">ಲೆಕ್ಕಹಾಕಲಾದ ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳು</string>
-    <string name="death_summary_prefix">ಮೃತ ದಿನಾಂಕ:</string>
-    <string name="death_panchanga_details">ಮೃತ ಪಂಚಾಂಗ ವಿವರಣೆ</string>
-    <string name="add_all_to_calendar">ಎಲ್ಲಾ ಶ್ರಾದ್ಧಗಳನ್ನು ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಸೇರಿಸಿ</string>
+    <string name="results_title">ಶ್ರಾದ್ಧ ಮತ್ತು ಪಕ್ಷ ಕ್ಯಾಲೆಂಡರ್</string>
+    <string name="death_summary_prefix">ಮೃತ್ಯು ವಿವರ:</string>
+    <string name="death_panchanga_details">ಮೃತ ಪಂಚಾಂಗ ನಿರ್ಣಯ</string>
+    <string name="add_all_to_calendar">ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಸೇರಿಸಿ</string>
     <string name="calendar_reminders_header">ಕ್ಯಾಲೆಂಡರ್ ಜ್ಞಾಪನೆಗಳು</string>
-    <string name="calendar_reminder">ಕ್ಯಾಲೆಂಡರ್ ಜ್ಞಾಪನೆ</string>
-    <string name="calendar_reminder_on">ಜ್ಞಾಪನೆ ಚಾಲೂ (೨ ಮತ್ತು ೧ ದಿನದ ಮೊದಲು)</string>
-    <string name="calendar_reminder_off">ಜ್ಞಾಪನೆ ಬಂದ್</string>
-    <string name="next_upcoming_shraddha">ಮುಂಬರುವ ಶ್ರಾದ್ಧ</string>
-    <string name="days_remaining">ದಿನಗಳು ಬಾಕಿ</string>
-    <string name="aparahna_window">ಅಪರಾಹ್ನ ಕಾಲ (ಶ್ರಾದ್ಧ ಕಾಲ)</string>
+    <string name="calendar_reminder">ಕ್ಯಾಲೆಂಡರ್ ರಿಮೈಂಡರ್</string>
+    <string name="calendar_reminder_on">ರಿಮೈಂಡರ್ ಆನ್ (2 ದಿನ &amp; 1 ದಿನ ಮುಂಚೆ)</string>
+    <string name="calendar_reminder_off">ರಿಮೈಂಡರ್ ಆಫ್</string>
+    <string name="next_upcoming_observance">ಮುಂಬರುವ ಮುಂದಿನ ಆಚರಣೆ</string>
+    <string name="next_upcoming_shraddha">ಮುಂಬರುವ ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ</string>
+    <string name="days_remaining">ಉಳಿದಿರುವ ದಿನಗಳು</string>
+    <string name="aparahna_window">ಅಪರಾಹ್ನ ಕಾಲ (ಶ್ರಾದ್ಧ ಸಮಯ)</string>
     <string name="sunrise_sunset">ಸೂರ್ಯೋದಯ / ಸೂರ್ಯಾಸ್ತ</string>
     <string name="dinmana">ದಿನಮಾನ</string>
     <string name="samvatsara">ಸಂವತ್ಸರ</string>
     <string name="masa">ಮಾಸ</string>
     <string name="paksha">ಪಕ್ಷ</string>
     <string name="tithi">ತಿಥಿ</string>
-    <string name="view_astronomical_trace">ಖಗೋಳ ಲೆಕ್ಕಾಚಾರದ ವಿವರ ನೋಡಿ</string>
-    <string name="trace_dialog_title">ಪಂಚಾಂಗ ವ್ಯಾಪ್ತಿ ವಿವರಗಳು</string>
+    <string name="view_astronomical_trace">ಖಗೋಳ ಗಣನೆ ಮತ್ತು ವ್ಯಾಪ್ತಿ ವಿವರಗಳನ್ನು ನೋಡಿ</string>
+    <string name="trace_dialog_title">ಪಂಚಾಂಗ ವಿವರಣೆ ಮತ್ತು ವ್ಯಾಪ್ತಿ</string>
     <string name="close">ಮುಚ್ಚಿ</string>
-    <string name="ceremonies_count">%1$d ಶ್ರಾದ್ಧ ಕರ್ಮಗಳು</string>
+    <string name="ceremonies_count">%1$d ಆಚರಣೆಗಳು</string>
+    
+    <!-- Sub-Tabs within Year Sections -->
+    <string name="tab_masikas">ಮಾಸಿಕಗಳು (1ನೇ ವರ್ಷದ ಕಾರ್ಯಗಳು)</string>
+    <string name="tab_shraddha">ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ</string>
+    <string name="tab_paksha">ಮಹಾಲಯ ಪಕ್ಷ</string>
+    <string name="paksha_not_applicable_y1">1ನೇ ವರ್ಷದಲ್ಲಿ ಅನ್ವಯಿಸುವುದಿಲ್ಲ (ಸಪಿಂಡೀಕರಣ ಪೂರ್ವ ಪ್ರೇತಾವಸ್ಥೆ)</string>
+    <string name="info_btn">ವಿವರಣೆ</string>
+    <string name="scriptural_significance">ಶಾಸ್ತ್ರಾಧಾರ</string>
+    <string name="view_trace_btn">ಗಣನೆ ವೀಕ್ಷಿಸಿ</string>
+    <string name="today_badge">ಇಂದು</string>
+    <string name="days_remaining_fmt">%1$d ದಿನಗಳು ಉಳಿದಿವೆ</string>
+    <string name="date_time_demise_label">ಮೃತ್ಯು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ</string>
+    <string name="mruta_tithi_at_demise">ಮೃತ್ಯು ಕಾಲದ ಖಗೋಳ ಮೃತ ತಿಥಿ:</string>
+    <string name="soul_journey_station_title">ಜೀವನ ನಂತರದ ಪಯಣ ಮತ್ತು ಗಮ್ಯಸ್ಥಾನ</string>
+    <string name="spiritual_impact_title">ಶಾಸ್ತ್ರೀಯ ಹಿನ್ನೆಲೆ ಮತ್ತು ಆಧ್ಯಾತ್ಮಿಕ ಫಲ</string>
+    <string name="canonical_source_title">ಶಾಸ್ತ್ರ ಗ್ರಂಥಾಧಾರ</string>
+    <string name="demise_no_dosha_desc">ಪಂಚಕ ಅಥವಾ ಸಂಧಿ ದೋಷಗಳಿಲ್ಲದೆ ಸಾಮಾನ್ಯ ಜ್ಯೋತಿಷ ನಿಯಮಗಳ ಅಡಿಯಲ್ಲಿ ಮೃತ್ಯು ಸಂಭವಿಸಿದೆ.</string>
+    
+    <!-- Dosha / Traditional Considerations -->
+    <string name="dosha_header">ಶಾಸ್ತ್ರೀಯ ಸ್ಥಿತಿ ಮತ್ತು ದೋಷ ಪರಿಶೀಲನೆ</string>
+    <string name="dosha_clear">✓ ಈ ಮೃತ್ಯು ಸಮಯಕ್ಕೆ ಯಾವುದೇ ವಿಶೇಷ ದೋಷಗಳು ಕಂಡುಬಂದಿಲ್ಲ</string>
+    <string name="dosha_alert">⚠️ ಶಾಸ್ತ್ರೀಯ ಪರಿಗಣನೆ ಗುರುತಿಸಲಾಗಿದೆ</string>
+    <string name="remedy_label">ಶಾಸ್ತ್ರೋಕ್ತ ಪರಿಹಾರ / ಶಾಂತಿ:</string>
+    <string name="source_label">ಗ್ರಂಥಾಧಾರ:</string>
     
     <!-- Recents Screen -->
     <string name="recents_title">ಇತ್ತೀಚಿನ ಹುಡುಕಾಟಗಳು</string>
-    <string name="recents_empty">ಯಾವುದೇ ಇತ್ತೀಚಿನ ದಾಖಲೆಗಳಿಲ್ಲ</string>
-    <string name="recents_empty_sub">ನೀವು ಲೆಕ್ಕಹಾಕಿದ ಶ್ರಾದ್ಧ ವಿವರಗಳು ಇಲ್ಲಿ ಸಂಗ್ರಹವಾಗುತ್ತವೆ (ಗರಿಷ್ಠ ೧೦ ದಾಖಲೆಗಳು).</string>
-    <string name="clear_all_history">ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="recents_empty">ಯಾವುದೇ ಹುಡುಕಾಟವಿಲ್ಲ</string>
+    <string name="recents_empty_sub">ನೀವು ಲೆಕ್ಕಹಾಕಿದ ವಿವರಗಳು ಇಲ್ಲಿ ಸಂಗ್ರಹವಾಗುತ್ತವೆ (ಗರಿಷ್ಠ 10 ದಾಖಲೆಗಳು).</string>
+    <string name="clear_all_history">ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ</string>
     <string name="delete">ಅಳಿಸಿ</string>
-    <string name="reopen_search">ತೆರೆಯಿರಿ</string>
+    <string name="reopen_search">ಮರುತೆರೆಯಿರಿ</string>
     
     <!-- Settings Screen -->
     <string name="settings_title">ಸೆಟ್ಟಿಂಗ್ಸ್</string>
     <string name="language_section">ಭಾಷೆ</string>
     <string name="select_language">ಅಪ್ಲಿಕೇಶನ್ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="tradition_section">ಮಧ್ವ ಪರಂಪರೆ / ಮಠ</string>
     <string name="calendar_section">ಕ್ಯಾಲೆಂಡರ್ ಸೆಟ್ಟಿಂಗ್ಸ್</string>
     <string name="calendar_reminders_rule">ಸ್ವಯಂಚಾಲಿತ ಜ್ಞಾಪನೆಗಳು</string>
-    <string name="calendar_reminders_rule_desc">ಪ್ರತಿ ಕ್ಯಾಲೆಂಡರ್ ಈವೆಂಟ್‌ಗೆ ೨ ಜ್ಞಾಪನೆಗಳು ದೊರೆಯುತ್ತವೆ:\n• ಶ್ರಾದ್ಧ ದಿನಾಂಕಕ್ಕಿಂತ ೨ ದಿನಗಳ ಮೊದಲು (೪೮ ಗಂಟೆ)\n• ಶ್ರಾದ್ಧ ದಿನಾಂಕಕ್ಕಿಂತ ೧ ದಿನದ ಮೊದಲು (೨೪ ಗಂಟೆ)</string>
+    <string name="calendar_reminders_rule_desc">ಪ್ರತಿ ಆಚರಣೆಗೂ 2 ಜ್ಞಾಪನೆಗಳು ದೊರೆಯುತ್ತವೆ:\n• ಕಾರ್ಯದ ದಿನಕ್ಕಿಂತ 2 ದಿನ ಮುಂಚಿತವಾಗಿ\n• ಕಾರ್ಯದ ದಿನಕ್ಕಿಂತ 1 ದಿನ ಮುಂಚಿತವಾಗಿ</string>
     <string name="about_section">ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ</string>
-    <string name="about_description">ಯು.ಎಂ. ಶ್ರಾದ್ಧ ದಿನಾಂಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್ ಶ್ರೀಉತ್ತರಾದಿಮಠ ಪಂಚಾಂಗ ಮತ್ತು ಮಾಧ್ವ ಸ್ಮೃತಿಮುಕ್ತಾವಳಿ ಸಂಪ್ರದಾಯದಂತೆ ಮಾಸಿಕ ಮತ್ತು ಸಾಂವತ್ಸರಿಕ ಶ್ರಾದ್ಧ ದಿನಾಂಕಗಳನ್ನು ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡುತ್ತದೆ.</string>
+    <string name="about_description">ಪಿತೃ ಪಂಚಾಂಗವು ಮಾಸಿಕ, ವಾರ್ಷಿಕ ಶ್ರಾದ್ಧ ಮತ್ತು ಮಹಾಲಯ ಪಕ್ಷ ದಿನಾಂಕಗಳನ್ನು ಪ್ರಾಮಾಣಿಕ ಮಧ್ವ ಧರ್ಮಶಾಸ್ತ್ರ ಮತ್ತು ಮಠ ಪಂಚಾಂಗ ನಿಯಮಗಳ ಪ್ರಕಾರ ಲೆಕ್ಕಾಚಾರ ಮಾಡುತ್ತದೆ.</string>
     <string name="version_label">ಆವೃತ್ತಿ</string>
-    <string name="invocation_header">ಶ್ರೀ ಸತ್ಯಾತ್ಮತೀರ್ಥ ಗುರುಭ್ಯೋ ನಮಃ</string>
-    <string name="dedication_service">ಶ್ರೀ ಹರಿ, ಶ್ರೀ ವಾಯು ಮತ್ತು ಶ್ರೀ ೧೦೮ ಉತ್ತರಾದಿ ಮಠ ಪರಂಪರೆಯ ಸೇವೆಗಾಗಿ ಸಮರ್ಪಿತ</string>
-    <string name="dedication_father">ಪೂಜ್ಯ ತಂದೆಯವರಾದ ದಿವಂಗತ ಶ್ರೀ ಪ್ರಾಣೇಶ ಕುಲಕರ್ಣಿ ಅವರ ಪವಿತ್ರ ಸ್ಮರಣೆಯಲ್ಲಿ ಸಮರ್ಪಿತ</string>
-    <string name="developed_by">ಅಭಿವೃದ್ಧಿ ಮತ್ತು ನಿರ್ವಹಣೆ: ಗುರುರಾಜ್ ಕುಲಕರ್ಣಿ</string>
-    <string name="export_pdf">ಪಿ.ಡಿ.ಎಫ್ ಡೌನ್‌ಲೋಡ್ / ಹಂಚಿಕೊಳ್ಳಿ</string>
-    <string name="pdf_generating">ಪಿ.ಡಿ.ಎಫ್ ಸಿದ್ಧವಾಗುತ್ತಿದೆ...</string>
-    <string name="pdf_share_title">ಶ್ರಾದ್ಧ ಕ್ಯಾಲೆಂಡರ್ ಪಿ.ಡಿ.ಎಫ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="invocation_um">ಶ್ರೀಮದಾನಂದತೀರ್ಥ ಭಗವತ್ಪಾದಾಚಾರ್ಯ ಗುರುಭ್ಯೋ ನಮಃ</string>
+    <string name="invocation_srs">ಶ್ರೀ ರಾಘವೇಂದ್ರ ಗುರುಭ್ಯೋ ನಮಃ</string>
+    <string name="invocation_udupi">ಶ್ರೀ ವಾದಿರಾಜ ಗುರುಭ್ಯೋ ನಮಃ</string>
+    <string name="invocation_header">ಶ್ರೀಮದಾನಂದತೀರ್ಥ ಭಗವತ್ಪಾದಾಚಾರ್ಯ ಗುರುಭ್ಯೋ ನಮಃ</string>
+    <string name="dedication_service">ಶ್ರೀ ಹರಿ, ಶ್ರೀ ವಾಯು ಮತ್ತು ಮಧ್ವ ಗುರು ಪರಂಪರೆಯ ಸೇವೆಗೆ ಸಮರ್ಪಿತ</string>
+    <string name="dedication_father">ಪೂಜ್ಯ ತಂದೆಯವರಾದ ದಿವಂಗತ ಶ್ರೀ ಪ್ರಾಣೇಶ ಕುಲಕರ್ಣಿ ಅವರ ಪಾವನ ಸ್ಮೃತಿಗೆ ಸಮರ್ಪಿತ</string>
+    <string name="developed_by">ಅಭಿವೃದ್ಧಿ ಮತ್ತು ನಿರ್ವಹಣೆ: ಗುರುರಾಜ ಕುಲಕರ್ಣಿ</string>
+    <string name="export_pdf">ಪಿಡಿಎಫ್ ರಫ್ತು / ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="pdf_generating">ಪಿಡಿಎಫ್ ಸಿದ್ಧವಾಗುತ್ತಿದೆ...</string>
+    <string name="pdf_share_title">ಪಿತೃ ಪಂಚಾಂಗ ಪಿಡಿಎಫ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="hari_vayu_footer">॥ ಶ್ರೀ ಹರಿಃ ಸರ್ವೋತ್ತಮಃ • ವಾಯುಃ ಜೀವೋತ್ತಮಃ ॥</string>
     
+    <!-- Disclaimer -->
+    <string name="app_disclaimer">ಹಕ್ಕು ನಿರಾಕರಣೆ: ಈ ಅಪ್ಲಿಕೇಶನ್ ಕೇವಲ ಮಾಹಿತಿ ಉದ್ದೇಶಕ್ಕಾಗಿ ಮಾತ್ರ. ಪಿತೃ ಪಂಚಾಂಗ ಗಣಕವು ಖಗೋಳ ಗಣನೆಯ ಆಧಾರದಲ್ಲಿ ಬದಲಾಗಬಹುದು ಮತ್ತು ಇದು 100% ಅಧಿಕೃತ ತೀರ್ಪಲ್ಲ. ಯಾವುದೇ ದಿನಾಂಕ ನಿರ್ಣಯಕ್ಕೆ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಕುಟುಂಬದ ಆಚಾರ್ಯರು / ವಿದ್ವಾಂಸರನ್ನು ಸಂಪರ್ಕಿಸಿ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.</string>
+    
     <!-- App Notification Strings -->
-    <string name="notif_channel_name">ಶ್ರಾದ್ಧ ದಿನ ಜ್ಞಾಪನೆಗಳು</string>
-    <string name="notif_channel_desc">ಶ್ರಾದ್ಧಕ್ಕಿಂತ ೨ ದಿನ ಮತ್ತು ೧ ದಿನ ಮುಂಚಿತವಾಗಿ ಜ್ಞಾಪನೆ ಸಂದೇಶಗಳು</string>
+    <string name="notif_channel_name">ಶ್ರಾದ್ಧ ಕಾರ್ಯ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="notif_channel_desc">ಶ್ರಾದ್ಧ ಕಾರ್ಯಗಳಿಗೆ 2 ದಿನ ಮತ್ತು 1 ದಿನ ಮುಂಚಿತವಾಗಿ ನೀಡಲಾಗುವ ಜ್ಞಾಪನೆಗಳು</string>
     <string name="notif_upcoming_title">ಮುಂಬರುವ ಶ್ರಾದ್ಧ</string>
     <string name="notif_reminder_title">ಶ್ರಾದ್ಧ ಜ್ಞಾಪನೆ</string>
-    <string name="notif_2days_body">%1$s — %2$s ಇನ್ನೂ ೨ ದಿನಗಳಲ್ಲಿದೆ, %3$s ರಂದು.</string>
-    <string name="notif_1day_body">%1$s — %2$s ನಾಳೆ ಇದೆ, %3$s ರಂದು.</string>
-    <string name="notifications_section">ಅಧಿಸೂಚನೆಗಳು (Notifications)</string>
-    <string name="app_notifications_label">ಆ್ಯಪ್ ಜ್ಞಾಪನೆಗಳು</string>
-    <string name="app_notifications_desc">ಆ್ಯಪ್ ಮೂಲಕ ಮುಂಚಿತವಾಗಿ ಜ್ಞಾಪನೆ ಪಡೆಯಿರಿ (೨ ದಿನ ಮತ್ತು ೧ ದಿನ ಮುಂಚಿತವಾಗಿ ಬೆಳಿಗ್ಗೆ ೮:೦೦ ಗಂಟೆಗೆ)</string>
+    <string name="notif_2days_body">%1$s — %2$s ಕಾರ್ಯವು ಇನ್ನೆರಡು ದಿನಗಳಲ್ಲಿ (%3$s) ಇದೆ.</string>
+    <string name="notif_1day_body">%1$s — %2$s ಕಾರ್ಯವು ನಾಳೆ (%3$s) ಇದೆ.</string>
+    <string name="notifications_section">ಆ್ಯಪ್ ಅಧಿಸೂಚನೆಗಳು</string>
+    <string name="app_notifications_label">ಮುಂಚಿತ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="app_notifications_desc">2 ದಿನ ಮತ್ತು 1 ದಿನ ಮುಂಚಿತವಾಗಿ ಬೆಳಿಗ್ಗೆ 08:00 ಗಂಟೆಗೆ ನಿಮ್ಮ ಫೋನ್‌ಗೆ ಜ್ಞಾಪನೆ ಪಡೆಯಿರಿ</string>
     <string name="notification_permission_required">ಅಧಿಸೂಚನೆ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ</string>
-    <string name="notification_permission_desc">ಶ್ರಾದ್ಧ ಜ್ಞಾಪನೆಗಳನ್ನು ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಕಳುಹಿಸಲು ಅನುಮತಿ ನೀಡಿ.</string>
+    <string name="notification_permission_desc">ಶ್ರಾದ್ಧ ಕಾರ್ಯಗಳಿಗೆ ಸರಿಯಾದ ಸಮಯಕ್ಕೆ ಜ್ಞಾಪನೆ ಕಳುಹಿಸಲು ಅನುಮತಿ ನೀಡಿ.</string>
     
     <!-- Calendar Permissions -->
-    <string name="calendar_permission_title">ಕ್ಯಾಲೆಂಡರ್ ಪ್ರವೇಶಾವಕಾಶ ಅಗತ್ಯವಿದೆ</string>
-    <string name="calendar_permission_desc">ಶ್ರಾದ್ಧ ಜ್ಞಾಪನೆಗಳನ್ನು ನಿಮ್ಮ ಕ್ಯಾಲೆಂಡರ್‌ನಲ್ಲಿ ರಚಿಸಲು ಮತ್ತು ೨ ದಿನ ಹಾಗೂ ೧ ದಿನ ಮುಂಚಿತವಾಗಿ ಸೂಚನೆ ನೀಡಲು ಅನುಮತಿ ನೀಡಿ.</string>
-    <string name="allow">ಅನುಮತಿಸಿ</string>
+    <string name="calendar_permission_title">ಕ್ಯಾಲೆಂಡರ್ ಪ್ರವೇಶ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ</string>
+    <string name="calendar_permission_desc">ನಿಮ್ಮ ಸಾಧನದ ಕ್ಯಾಲೆಂಡರ್‌ನಲ್ಲಿ ಶ್ರಾದ್ಧ ಜ್ಞಾಪನೆಗಳನ್ನು ಸೇರಿಸಲು ಅನುಮತಿ ನೀಡಿ.</string>
+    <string name="grant_permission">ಅನುಮತಿ ನೀಡಿ</string>
     <string name="cancel">ರದ್ದುಮಾಡಿ</string>
+    <string name="tradition_section_subtitle">ಸೂಕ್ತವಾದ ಪಂಚಾಂಗ ವಿಧಾನಗಳು ಮತ್ತು ಪ್ರಾರ್ಥನೆಗಳನ್ನು ಅನ್ವಯಿಸಲು ಮಠ ಪರಂಪರೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
     
-    <!-- Location Picker -->
-    <string name="select_location_sheet_title">ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
-    <string name="search_city_hint">ನಗರ, ಯಾತ್ರಾ ಕ್ಷೇತ್ರ ಅಥವಾ ಜಾಗತಿಕ ನಗರ ಹುಡುಕಿ...</string>
-    <string name="offline_available">ಆಫ್‌ಲೈನ್ ಲಭ್ಯವಿದೆ</string>
-    <string name="custom_location">ಕಸ್ಟಮ್ ಸ್ಥಳ</string>
+    <!-- Calculation Details & Dialogs -->
+    <string name="calculation_details">ಗಣನೆಯ ವಿವರಗಳು</string>
+    <string name="local_astronomical_timings">ಸ್ಥಳೀಯ ಖಗೋಳ ಸಮಯಗಳು</string>
+    <string name="location_label_short">ಸ್ಥಳ</string>
+    <string name="sunrise">ಸೂರ್ಯೋದಯ</string>
+    <string name="sunset">ಸೂರ್ಯಾಸ್ತ</string>
+    <string name="daylight_dinmana">ಹಗಲಿನ ಪ್ರಮಾಣ (ದಿನಮಾನ)</string>
+    <string name="aparahna_kala_4th">ಅಪರಾಹ್ನ ಕಾಲ (4ನೇ ಭಾಗ)</string>
+    <string name="kutapa_muhurta_8th">ಕುತಪ ಮುಹೂರ್ತ (8ನೇ ಭಾಗ)</string>
+    <string name="panchanga_determination_trace">ಪಂಚಾಂಗ ನಿರ್ಣಯ ವಿವರಣೆ</string>
+    <string name="change_btn">ಬದಲಾಯಿಸಿ</string>
+    <string name="remove_profile_confirm_title">ಪ್ರೊಫೈಲ್ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="remove_profile_confirm_msg">%1$s ಅವರ ಪ್ರೊಫೈಲ್ ಅನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?</string>
+    <string name="clear_history_confirm_title">ಇತಿಹಾಸ ಅಳಿಸಿ</string>
+    <string name="clear_history_confirm_msg">ಎಲ್ಲಾ ಇತ್ತೀಚಿನ ಹುಡುಕಾಟಗಳನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?</string>
+    <string name="ok">ಸರಿ</string>
+    <string name="details">ವಿವರಗಳು</string>
+    <string name="expand">ವಿಸ್ತರಿಸಿ</string>
+    <string name="collapse">ಸಂಕುಚಿತಗೊಳಿಸಿ</string>
+    <string name="tradition_um_subtitle">ಅಮಾಂತ • ಅಪರಾಹ್ನ ವ್ಯಾಪ್ತಿ • ಶ್ರೀಮದಾನಂದತೀರ್ಥ ಭಗವತ್ಪಾದಾಚಾರ್ಯ ಪರಂಪರೆ</string>
+    <string name="tradition_srs_subtitle">ಮಂತ್ರಾಲಯ • ಶ್ರೀ ರಾಘವೇಂದ್ರ ಸ್ವಾಮಿಗಳ ಮಠ • ರಾಯರ ಗುರುಭ್ಯೋ ನಮಃ</string>
+    <string name="tradition_udupi_subtitle">ಕರಾವಳಿ ತುಳು ಸಂಪ್ರದಾಯ • ಉಡುಪಿ ಅಷ್ಟ ಮಠಗಳು • ಶ್ರೀ ವಾದಿರಾಜ ಸ್ವಾಮಿಗಳ ಪರಂಪರೆ</string>
+    <string name="edit">ತಿದ್ದುಪಡಿ</string>
+    <string name="export_year_pdf">%1$dನೇ ವರ್ಷದ PDF ಡೌನ್‌ಲೋಡ್</string>
+    <string name="export_year_pdf_short">PDF</string>
+    <string name="pancha_kala_guide_btn">ದಿನದ ೫ ಕಾಲಗಳು</string>
+    <string name="pancha_kala_guide_title">ದಿನದ ೫ ಪವಿತ್ರ ಕಾಲಗಳು (ಪಂಚ ಕಾಲಗಳು)</string>
+    <string name="pancha_kala_guide_desc">ದಿನಮಾನವನ್ನು ೫ ಸಮಾನ ಭಾಗಗಳಾಗಿ ವಿಂಗಡಿಸಿದ ಕಾಲ ವಿಭಾಗ</string>
+    <string name="sunrise_tithi_label">ಸೂರ್ಯೋದಯ ತಿಥಿ</string>
+    <string name="aparahna_tithi_label">ಅಪರಾಹ್ನ ಶ್ರಾದ್ಧ ತಿಥಿ</string>
+    <string name="tithi_transition_badge">ಸೂರ್ಯೋದಯ: %1$s ➔ ಅಪರಾಹ್ನ: %2$s</string>
+    <string name="canonical_injunction_title">ಶಾಸ್ತ್ರೀಯ ಪ್ರಮಾಣ ಶ್ಲೋಕ</string>
+    <string name="layperson_qa_title">ಈ ದಿನಾಂಕ ಮತ್ತು ಸಮಯವನ್ನೇ ಏಕೆ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ?</string>
+    <string name="explore_pancha_kalas">ದಿನದ ೫ ಕಾಲಗಳ ಸಂಪೂರ್ಣ ವಿವರ ನೋಡಿ</string>
 </resources>

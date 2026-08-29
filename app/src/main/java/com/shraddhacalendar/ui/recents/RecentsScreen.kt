@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
@@ -32,7 +33,8 @@ import java.time.format.DateTimeFormatter
 fun RecentsScreen(
     recentSearches: List<RecentSearchItem>,
     currentLanguage: com.shraddhacalendar.core.localization.AppLanguage = com.shraddhacalendar.core.localization.AppLanguage.ENGLISH,
-    onSelectRecent: (PersonDeathRecord) -> Unit,
+    onSelectRecent: (RecentSearchItem) -> Unit,
+    onEditRecent: (RecentSearchItem) -> Unit = {},
     onDeleteRecent: (Long) -> Unit,
     onClearAll: () -> Unit,
     modifier: Modifier = Modifier
@@ -120,13 +122,7 @@ fun RecentsScreen(
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(16.dp))
                                 .clickable {
-                                    val person = PersonDeathRecord(
-                                        name = item.personName,
-                                        deathDate = item.deathDate,
-                                        deathTime = item.deathTime,
-                                        location = item.location
-                                    )
-                                    onSelectRecent(person)
+                                    onSelectRecent(item)
                                 },
                             shape = RoundedCornerShape(16.dp),
                             colors = CardDefaults.cardColors(containerColor = SurfaceCard),
@@ -201,12 +197,21 @@ fun RecentsScreen(
                                     }
                                 }
 
-                                IconButton(onClick = { onDeleteRecent(item.id) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = stringResource(R.string.delete),
-                                        tint = TextTertiary
-                                    )
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    IconButton(onClick = { onEditRecent(item) }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = stringResource(R.string.edit),
+                                            tint = PrimarySaffronDark
+                                        )
+                                    }
+                                    IconButton(onClick = { onDeleteRecent(item.id) }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = stringResource(R.string.delete),
+                                            tint = TextTertiary
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -219,8 +224,8 @@ fun RecentsScreen(
     if (showClearDialog) {
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
-            title = { Text(stringResource(R.string.clear_all_history)) },
-            text = { Text("Are you sure you want to clear all recent searches?") },
+            title = { Text(stringResource(R.string.clear_history_confirm_title)) },
+            text = { Text(stringResource(R.string.clear_history_confirm_msg)) },
             confirmButton = {
                 Button(
                     onClick = {

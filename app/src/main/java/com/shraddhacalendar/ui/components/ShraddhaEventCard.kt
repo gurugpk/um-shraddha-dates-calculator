@@ -89,7 +89,7 @@ fun ShraddhaEventCard(
                 IconButton(onClick = { showDetailsDialog = true }) {
                     Icon(
                         imageVector = Icons.Default.Info,
-                        contentDescription = "Details",
+                        contentDescription = stringResource(R.string.details),
                         tint = PrimarySaffron
                     )
                 }
@@ -104,8 +104,9 @@ fun ShraddhaEventCard(
             ) {
                 // Gregorian Date Row
                 val dateFormatted = event.gregorianDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
+                val localizedDay = PanchangaLocalizer.localizeDayOfWeek(event.dayOfWeek, language)
                 Text(
-                    text = "$dateFormatted (${event.dayOfWeek})",
+                    text = "$dateFormatted ($localizedDay)",
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     color = TextPrimary
@@ -168,12 +169,7 @@ fun ShraddhaEventCard(
                     Switch(
                         checked = isCalendarEnabled,
                         onCheckedChange = onCalendarToggle,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = SurfaceCard,
-                            checkedTrackColor = PrimarySaffron,
-                            uncheckedThumbColor = TextTertiary,
-                            uncheckedTrackColor = SurfaceCardVariant
-                        )
+                        colors = shraddhaSwitchColors()
                     )
                 }
             }
@@ -184,6 +180,7 @@ fun ShraddhaEventCard(
         ExplanationDialog(
             event = event,
             locationName = locationName,
+            currentLanguage = language,
             onDismiss = { showDetailsDialog = false }
         )
     }

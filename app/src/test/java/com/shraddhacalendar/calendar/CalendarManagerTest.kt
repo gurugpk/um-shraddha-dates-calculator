@@ -27,15 +27,25 @@ class CalendarManagerTest {
         val rawCeremonyName = "Masika 1 — Adya Masika"
         val localizedEnglish = PanchangaLocalizer.localizeTraditionalName(rawCeremonyName, AppLanguage.ENGLISH)
         val titleEnglish = "$localizedEnglish — $personName"
-        assertEquals("Masika 1 — Adya Masika — Pranesh Kulkarni", titleEnglish)
+        assertEquals("Masika 1 — Adya Masika (13th Day) — Pranesh Kulkarni", titleEnglish)
 
         val localizedKannada = PanchangaLocalizer.localizeTraditionalName(rawCeremonyName, AppLanguage.KANNADA)
         val titleKannada = "$localizedKannada — $personName"
-        assertEquals("ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ — Pranesh Kulkarni", titleKannada)
+        assertEquals("ಮಾಸಿಕ 1 — ಆದ್ಯ ಮಾಸಿಕ (13ನೇ ದಿನ) — Pranesh Kulkarni", titleKannada)
+
+        val localizedSanskrit = PanchangaLocalizer.localizeTraditionalName(rawCeremonyName, AppLanguage.SANSKRIT)
+        assertEquals("मासिकम् 1 — आद्यमासिकम् (13 तमदिनम्) — Pranesh Kulkarni", "$localizedSanskrit — $personName")
+
+        val localizedTelugu = PanchangaLocalizer.localizeTraditionalName(rawCeremonyName, AppLanguage.TELUGU)
+        assertEquals("మాసికం 1 — ఆద్య మాసికం (13వ రోజు) — Pranesh Kulkarni", "$localizedTelugu — $personName")
+
+        val localizedTamil = PanchangaLocalizer.localizeTraditionalName(rawCeremonyName, AppLanguage.TAMIL)
+        assertEquals("மாஸிகம் 1 — ஆத்ய மாஸிகம் (13ஆம் நாள்) — Pranesh Kulkarni", "$localizedTamil — $personName")
 
         val varshikaName = "Prathama Varshika Shraddha"
-        val titleVarshika = "$varshikaName — $personName"
-        assertEquals("Prathama Varshika Shraddha — Pranesh Kulkarni", titleVarshika)
+        val localizedVarshika = PanchangaLocalizer.localizeTraditionalName(varshikaName, AppLanguage.ENGLISH)
+        val titleVarshika = "$localizedVarshika — $personName"
+        assertEquals("Prathama Varshika Shraddha (1st Death Anniversary) — Pranesh Kulkarni", titleVarshika)
     }
 
     @Test
@@ -74,7 +84,7 @@ class CalendarManagerTest {
 
         val localizedCeremony = PanchangaLocalizer.localizeTraditionalName(event.traditionalName, AppLanguage.ENGLISH)
         val title = "$localizedCeremony — ${person.name}"
-        assertEquals("Masika 1 — Adya Masika — Pranesh Kulkarni", title)
+        assertEquals("Masika 1 — Adya Masika (13th Day) — Pranesh Kulkarni", title)
 
         val localizedMasa = PanchangaLocalizer.localizeMasa(event.tithi.masa, event.tithi.isAdhikaMasa, AppLanguage.ENGLISH)
         val localizedPaksha = PanchangaLocalizer.localizePaksha(event.tithi.tithi.paksha, AppLanguage.ENGLISH)
@@ -90,7 +100,7 @@ class CalendarManagerTest {
         """.trimIndent()
 
         assertTrue(description.contains("Person: Pranesh Kulkarni"))
-        assertTrue(description.contains("Masika 1 — Adya Masika"))
+        assertTrue(description.contains("Masika 1 — Adya Masika (13th Day)"))
         assertTrue(description.contains("Parabhava"))
         assertTrue(description.contains("Bengaluru, Karnataka, India"))
     }

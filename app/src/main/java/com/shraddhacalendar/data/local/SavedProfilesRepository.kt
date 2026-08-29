@@ -2,14 +2,41 @@ package com.shraddhacalendar.data.local
 
 import android.content.ContentValues
 import android.content.Context
+import com.shraddhacalendar.core.models.FamilyRelationship
 import com.shraddhacalendar.core.models.GeoLocation
+import com.shraddhacalendar.core.models.MadhwaTradition
 import com.shraddhacalendar.core.models.PersonDeathRecord
 import java.time.LocalDate
 import java.time.LocalTime
 
+data class SavedProfileItem(
+    val id: Long,
+    val personName: String,
+    val relationship: String?,
+    val deathDate: LocalDate,
+    val deathTime: LocalTime,
+    val location: GeoLocation,
+    val notes: String?,
+    val traditionId: String = "uttaradi_matha",
+    val timestamp: Long
+) {
+    fun toPersonDeathRecord(): PersonDeathRecord {
+        return PersonDeathRecord(
+            id = id,
+            name = personName,
+            deathDate = deathDate,
+            deathTime = deathTime,
+            location = location,
+            relationship = FamilyRelationship.fromId(relationship),
+            tradition = MadhwaTradition.fromId(traditionId),
+            notes = notes ?: ""
+        )
+    }
+}
+
 /**
  * Repository managing permanently saved Shraddha profiles in device memory.
- * Unlike recent searches, saved profiles are permanent and never deleted by FIFO eviction.
+ * Supports insert, in-place edit/update, and full deletion.
  */
 class SavedProfilesRepository(context: Context) {
 
@@ -21,16 +48,18 @@ class SavedProfilesRepository(context: Context) {
      */
     fun saveProfile(
         record: PersonDeathRecord,
-        relationship: String? = null,
-        notes: String? = null
+        relationship: String? = record.relationship.id,
+        notes: String? = record.notes,
+        traditionId: String = record.tradition.id
     ): Long {
         val db = dbHelper.writableDatabase
 
-        // If already exists with same name and death date, update timestamp and optional fields
+        // If already exists with same name and death date, update in-place
         val existing = getProfileByRecord(record.name, record.deathDate)
         if (existing != null) {
             val values = ContentValues().apply {
                 put(ShraddhaDatabaseHelper.COL_RELATIONSHIP, relationship ?: existing.relationship)
+                put(ShraddhaDatabaseHelper.COL_TRADITION_ID, traditionId)
                 put(ShraddhaDatabaseHelper.COL_NOTES, notes ?: existing.notes)
                 put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
             }
@@ -54,11 +83,48 @@ class SavedProfilesRepository(context: Context) {
             put(ShraddhaDatabaseHelper.COL_LATITUDE, record.location.latitude)
             put(ShraddhaDatabaseHelper.COL_LONGITUDE, record.location.longitude)
             put(ShraddhaDatabaseHelper.COL_TIMEZONE, record.location.timezoneId)
+            put(ShraddhaDatabaseHelper.COL_TRADITION_ID, traditionId)
             put(ShraddhaDatabaseHelper.COL_NOTES, notes?.trim())
             put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
         }
 
         return db.insert(ShraddhaDatabaseHelper.TABLE_SAVED_PROFILES, null, values)
+    }
+
+    /**
+     * Updates an existing profile in-place by ID without creating a duplicate.
+     */
+    fun updateProfile(
+        id: Long,
+        record: PersonDeathRecord,
+        relationship: String? = record.relationship.id,
+        notes: String? = record.notes,
+        traditionId: String = record.tradition.id
+    ): Boolean {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(ShraddhaDatabaseHelper.COL_PERSON_NAME, record.name.trim())
+            put(ShraddhaDatabaseHelper.COL_RELATIONSHIP, relationship?.trim())
+            put(ShraddhaDatabaseHelper.COL_DEATH_DATE_EPOCH, record.deathDate.toEpochDay())
+            put(ShraddhaDatabaseHelper.COL_DEATH_TIME_SEC, record.deathTime.toSecondOfDay())
+            put(ShraddhaDatabaseHelper.COL_CITY, record.location.city)
+            put(ShraddhaDatabaseHelper.COL_STATE, record.location.state)
+            put(ShraddhaDatabaseHelper.COL_COUNTRY, record.location.country)
+            put(ShraddhaDatabaseHelper.COL_LATITUDE, record.location.latitude)
+            put(ShraddhaDatabaseHelper.COL_LONGITUDE, record.location.longitude)
+            put(ShraddhaDatabaseHelper.COL_TIMEZONE, record.location.timezoneId)
+            put(ShraddhaDatabaseHelper.COL_TRADITION_ID, traditionId)
+            put(ShraddhaDatabaseHelper.COL_NOTES, notes?.trim())
+            put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
+        }
+
+        val rowsAffected = db.update(
+            ShraddhaDatabaseHelper.TABLE_SAVED_PROFILES,
+            values,
+            "${ShraddhaDatabaseHelper.COL_ID} = ?",
+            arrayOf(id.toString())
+        )
+        return rowsAffected > 0
     }
 
     /**
@@ -91,6 +157,8 @@ class SavedProfilesRepository(context: Context) {
                 val lat = it.getDouble(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_LATITUDE))
                 val lon = it.getDouble(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_LONGITUDE))
                 val tz = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMEZONE))
+                val tradIndex = it.getColumnIndex(ShraddhaDatabaseHelper.COL_TRADITION_ID)
+                val traditionId = if (tradIndex >= 0) it.getString(tradIndex) ?: "uttaradi_matha" else "uttaradi_matha"
                 val notes = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_NOTES))
                 val timestamp = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
 
@@ -103,6 +171,7 @@ class SavedProfilesRepository(context: Context) {
                         deathTime = LocalTime.ofSecondOfDay(deathTimeSec.toLong()),
                         location = GeoLocation(city, state, country, lat, lon, tz),
                         notes = notes,
+                        traditionId = traditionId,
                         timestamp = timestamp
                     )
                 )
@@ -117,6 +186,52 @@ class SavedProfilesRepository(context: Context) {
      */
     fun isProfileSaved(personName: String, deathDate: LocalDate): Boolean {
         return getProfileByRecord(personName, deathDate) != null
+    }
+
+    fun getProfileById(id: Long): SavedProfileItem? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            ShraddhaDatabaseHelper.TABLE_SAVED_PROFILES,
+            null,
+            "${ShraddhaDatabaseHelper.COL_ID} = ?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null
+        )
+
+        cursor.use {
+            if (it.moveToFirst()) {
+                val pId = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_ID))
+                val name = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_PERSON_NAME))
+                val relationship = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_RELATIONSHIP))
+                val deathDateEpoch = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_DEATH_DATE_EPOCH))
+                val deathTimeSec = it.getInt(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_DEATH_TIME_SEC))
+                val city = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_CITY))
+                val state = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_STATE))
+                val country = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_COUNTRY))
+                val lat = it.getDouble(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_LATITUDE))
+                val lon = it.getDouble(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_LONGITUDE))
+                val tz = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMEZONE))
+                val tradIndex = it.getColumnIndex(ShraddhaDatabaseHelper.COL_TRADITION_ID)
+                val traditionId = if (tradIndex >= 0) it.getString(tradIndex) ?: "uttaradi_matha" else "uttaradi_matha"
+                val notes = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_NOTES))
+                val timestamp = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
+
+                return SavedProfileItem(
+                    id = pId,
+                    personName = name,
+                    relationship = relationship,
+                    deathDate = LocalDate.ofEpochDay(deathDateEpoch),
+                    deathTime = LocalTime.ofSecondOfDay(deathTimeSec.toLong()),
+                    location = GeoLocation(city, state, country, lat, lon, tz),
+                    notes = notes,
+                    traditionId = traditionId,
+                    timestamp = timestamp
+                )
+            }
+        }
+        return null
     }
 
     private fun getProfileByRecord(personName: String, deathDate: LocalDate): SavedProfileItem? {
@@ -144,6 +259,8 @@ class SavedProfilesRepository(context: Context) {
                 val lat = it.getDouble(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_LATITUDE))
                 val lon = it.getDouble(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_LONGITUDE))
                 val tz = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMEZONE))
+                val tradIndex = it.getColumnIndex(ShraddhaDatabaseHelper.COL_TRADITION_ID)
+                val traditionId = if (tradIndex >= 0) it.getString(tradIndex) ?: "uttaradi_matha" else "uttaradi_matha"
                 val notes = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_NOTES))
                 val timestamp = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
 
@@ -155,6 +272,7 @@ class SavedProfilesRepository(context: Context) {
                     deathTime = LocalTime.ofSecondOfDay(deathTimeSec.toLong()),
                     location = GeoLocation(city, state, country, lat, lon, tz),
                     notes = notes,
+                    traditionId = traditionId,
                     timestamp = timestamp
                 )
             }

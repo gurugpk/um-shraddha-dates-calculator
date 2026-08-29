@@ -7,8 +7,6 @@ import com.shraddhacalendar.core.panchang.TithiCalculator
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.TextStyle
-import java.util.Locale
 
 /**
  * Calculates the complete Shodasha (16) Shraddha rites for Year 1 following Madhwa tradition
@@ -51,16 +49,19 @@ object MasikaShraddhaCalculator {
         val adyaKala = DinmanaCalculator.calculateDayKala(adyaDate, location)
         val adyaZdt = ZonedDateTime.of(adyaDate, adyaKala.aparahnaStart, zoneId)
         val adyaPanchanga = MasaCalculator.getFullPanchangaTithi(adyaZdt)
+        val adyaSunriseZdt = ZonedDateTime.of(adyaDate, adyaKala.sunrise, zoneId)
+        val adyaSunrisePanchanga = MasaCalculator.getFullPanchangaTithi(adyaSunriseZdt)
 
         val adyaEvent = ShraddhaEvent(
             sequenceNumber = 1,
             type = ShraddhaType.MASIKA,
             traditionalName = "Masika 1 — Adya Masika",
             gregorianDate = adyaDate,
-            dayOfWeek = adyaDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
+            dayOfWeek = adyaDate.dayOfWeek.name,
             tithi = adyaPanchanga,
             kalaDetails = adyaKala,
-            explanation = "Observed on 13th day following death (completion of Ashaucha rites)"
+            explanation = "Observed on 13th day following death (completion of Ashaucha rites)",
+            sunrisePanchanga = adyaSunrisePanchanga
         )
 
         // 2. Unmasika on 27th Day (inclusive counting: deathDate + 26 days)
@@ -68,16 +69,19 @@ object MasikaShraddhaCalculator {
         val unmasikaKala = DinmanaCalculator.calculateDayKala(unmasikaDate, location)
         val unmasikaZdt = ZonedDateTime.of(unmasikaDate, unmasikaKala.aparahnaStart, zoneId)
         val unmasikaPanchanga = MasaCalculator.getFullPanchangaTithi(unmasikaZdt)
+        val unmasikaSunriseZdt = ZonedDateTime.of(unmasikaDate, unmasikaKala.sunrise, zoneId)
+        val unmasikaSunrisePanchanga = MasaCalculator.getFullPanchangaTithi(unmasikaSunriseZdt)
 
         val unmasikaEvent = ShraddhaEvent(
             sequenceNumber = 2,
             type = ShraddhaType.UNA_RITE,
             traditionalName = "Masika 2 — Unmasika",
             gregorianDate = unmasikaDate,
-            dayOfWeek = unmasikaDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
+            dayOfWeek = unmasikaDate.dayOfWeek.name,
             tithi = unmasikaPanchanga,
             kalaDetails = unmasikaKala,
-            explanation = "Traditional interval rite observed on Day 27 following death"
+            explanation = "Traditional interval rite observed on Day 27 following death",
+            sunrisePanchanga = unmasikaSunrisePanchanga
         )
 
         // 3. Traipakshika on 45th Day (inclusive counting: deathDate + 44 days)
@@ -85,16 +89,19 @@ object MasikaShraddhaCalculator {
         val traipakshikaKala = DinmanaCalculator.calculateDayKala(traipakshikaDate, location)
         val traipakshikaZdt = ZonedDateTime.of(traipakshikaDate, traipakshikaKala.aparahnaStart, zoneId)
         val traipakshikaPanchanga = MasaCalculator.getFullPanchangaTithi(traipakshikaZdt)
+        val traipakshikaSunriseZdt = ZonedDateTime.of(traipakshikaDate, traipakshikaKala.sunrise, zoneId)
+        val traipakshikaSunrisePanchanga = MasaCalculator.getFullPanchangaTithi(traipakshikaSunriseZdt)
 
         val traipakshikaEvent = ShraddhaEvent(
             sequenceNumber = 4,
             type = ShraddhaType.UNA_RITE,
             traditionalName = "Masika 4 — Traipakshika",
             gregorianDate = traipakshikaDate,
-            dayOfWeek = traipakshikaDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
+            dayOfWeek = traipakshikaDate.dayOfWeek.name,
             tithi = traipakshikaPanchanga,
             kalaDetails = traipakshikaKala,
-            explanation = "Traditional interval rite observed on Day 45 (three half-months) following death"
+            explanation = "Traditional interval rite observed on Day 45 (three half-months) following death",
+            sunrisePanchanga = traipakshikaSunrisePanchanga
         )
 
         // 4. Una-Shanmasika (with Godana) observed in the 6th month (~Day 163-170)
@@ -102,16 +109,19 @@ object MasikaShraddhaCalculator {
         val unaShanmasikaKala = DinmanaCalculator.calculateDayKala(unaShanmasikaDate, location)
         val unaShanmasikaZdt = ZonedDateTime.of(unaShanmasikaDate, unaShanmasikaKala.aparahnaStart, zoneId)
         val unaShanmasikaPanchanga = MasaCalculator.getFullPanchangaTithi(unaShanmasikaZdt)
+        val unaSunriseZdt = ZonedDateTime.of(unaShanmasikaDate, unaShanmasikaKala.sunrise, zoneId)
+        val unaSunrisePanchanga = MasaCalculator.getFullPanchangaTithi(unaSunriseZdt)
 
         val unaShanmasikaEvent = ShraddhaEvent(
             sequenceNumber = 9,
             type = ShraddhaType.UNA_RITE,
             traditionalName = "Masika 9 — Una-Shanmasika (with Godana)",
             gregorianDate = unaShanmasikaDate,
-            dayOfWeek = unaShanmasikaDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
+            dayOfWeek = unaShanmasikaDate.dayOfWeek.name,
             tithi = unaShanmasikaPanchanga,
             kalaDetails = unaShanmasikaKala,
-            explanation = "Traditional preliminary 6-month interval rite (Una-Shanmasika) with Godana observed before Saptama Masika"
+            explanation = "Traditional preliminary 6-month interval rite (Una-Shanmasika) with Godana observed before Saptama Masika",
+            sunrisePanchanga = unaSunrisePanchanga
         )
 
         // 5. Unabdika (Una-Varshika) on Day 350
@@ -119,51 +129,96 @@ object MasikaShraddhaCalculator {
         val unabdikaKala = DinmanaCalculator.calculateDayKala(unabdikaDate, location)
         val unabdikaZdt = ZonedDateTime.of(unabdikaDate, unabdikaKala.aparahnaStart, zoneId)
         val unabdikaPanchanga = MasaCalculator.getFullPanchangaTithi(unabdikaZdt)
+        val unabdikaSunriseZdt = ZonedDateTime.of(unabdikaDate, unabdikaKala.sunrise, zoneId)
+        val unabdikaSunrisePanchanga = MasaCalculator.getFullPanchangaTithi(unabdikaSunriseZdt)
 
         val unabdikaEvent = ShraddhaEvent(
             sequenceNumber = 16,
             type = ShraddhaType.UNA_RITE,
             traditionalName = "Masika 16 — Unabdika (Una-Varshika)",
             gregorianDate = unabdikaDate,
-            dayOfWeek = unabdikaDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
+            dayOfWeek = unabdikaDate.dayOfWeek.name,
             tithi = unabdikaPanchanga,
             kalaDetails = unabdikaKala,
-            explanation = "Traditional preliminary annual interval rite (Unabdika) observed on Day 350"
+            explanation = "Traditional preliminary annual interval rite (Unabdika) observed on Day 350",
+            sunrisePanchanga = unabdikaSunrisePanchanga
         )
 
         // 6. Calculate Lunar Monthly Masikas (Dwitiya Masika to Prathama Varshika)
-        val lunarNames = listOf(
-            "Dwitiya Masika",       // 1st monthly death tithi (M1)
-            "Tritiya Masika",       // 2nd monthly death tithi (M2)
-            "Chaturtha Masika",     // 3rd monthly death tithi (M3)
-            "Panchama Masika",      // 4th monthly death tithi (M4)
-            "Shashtha Masika (Shanmasika)", // 5th monthly death tithi (M5)
-            "Saptama Masika",       // 6th monthly death tithi (M6)
-            "Ashtama Masika",       // 7th monthly death tithi (M7)
-            "Navama Masika",        // 8th monthly death tithi (M8)
-            "Dashama Masika",       // 9th monthly death tithi (M9)
-            "Ekadasha Masika",      // 10th monthly death tithi (M10)
-            "Dvadasha Masika",      // 11th monthly death tithi (M11)
-            "Prathama Varshika Shraddha" // 12th monthly death tithi (M12 / Annual)
-        )
+        val isDeathInAdhika = mrutaPanchanga.isAdhikaMasa
+        val targetMonthsCount = if (isDeathInAdhika) 13 else 12
+
+        val lunarNames = if (isDeathInAdhika) {
+            listOf(
+                "Dwitiya Masika",       // 1st monthly death tithi (M1)
+                "Tritiya Masika",       // 2nd monthly death tithi (M2)
+                "Chaturtha Masika",     // 3rd monthly death tithi (M3)
+                "Panchama Masika",      // 4th monthly death tithi (M4)
+                "Shanmasika",           // 5th monthly death tithi (M5 / 6th month observance)
+                "Saptama Masika",       // 6th monthly death tithi (M6)
+                "Ashtama Masika",       // 7th monthly death tithi (M7)
+                "Navama Masika",        // 8th monthly death tithi (M8)
+                "Dashama Masika",       // 9th monthly death tithi (M9)
+                "Ekadasha Masika",      // 10th monthly death tithi (M10)
+                "Dvadasha Masika",      // 11th monthly death tithi (M11)
+                "Trayodasha Masika",    // 12th monthly death tithi (M12)
+                "Prathama Varshika Shraddha" // 13th monthly death tithi (M13 / Annual in Nija Masa)
+            )
+        } else {
+            listOf(
+                "Dwitiya Masika",       // 1st monthly death tithi (M1)
+                "Tritiya Masika",       // 2nd monthly death tithi (M2)
+                "Chaturtha Masika",     // 3rd monthly death tithi (M3)
+                "Panchama Masika",      // 4th monthly death tithi (M4)
+                "Shanmasika",           // 5th monthly death tithi (M5 / 6th month observance)
+                "Saptama Masika",       // 6th monthly death tithi (M6)
+                "Ashtama Masika",       // 7th monthly death tithi (M7)
+                "Navama Masika",        // 8th monthly death tithi (M8)
+                "Dashama Masika",       // 9th monthly death tithi (M9)
+                "Ekadasha Masika",      // 10th monthly death tithi (M10)
+                "Dvadasha Masika",      // 11th monthly death tithi (M11)
+                "Prathama Varshika Shraddha" // 12th monthly death tithi (M12 / Annual)
+            )
+        }
 
         val lunarEvents = mutableListOf<ShraddhaEvent>()
         var approxSearchDate = deathDate.plusDays(29)
         var monthIdx = 0
         var totalMonths = 0
+        var lastSelectedDate = deathDate
 
-        while (monthIdx < 12 && totalMonths < 14) {
-            val selected = AparahnaVyaptiEngine.findShraddhaDate(
+        while (monthIdx < targetMonthsCount && totalMonths < 16) {
+            var selected = AparahnaVyaptiEngine.findShraddhaDate(
                 targetTithiNumber = targetTithiNumber,
                 approximateDate = approxSearchDate,
                 location = location
             )
 
+            // Ensure date is strictly advancing by at least 15 days from previous
+            if (!selected.date.isAfter(lastSelectedDate.plusDays(15))) {
+                approxSearchDate = lastSelectedDate.plusDays(29)
+                selected = AparahnaVyaptiEngine.findShraddhaDate(
+                    targetTithiNumber = targetTithiNumber,
+                    approximateDate = approxSearchDate,
+                    location = location
+                )
+            }
+
             val eventZdt = ZonedDateTime.of(selected.date, selected.kalaDetails.aparahnaStart, zoneId)
             val eventPanchanga = MasaCalculator.getFullPanchangaTithi(eventZdt)
+            val sunriseZdt = ZonedDateTime.of(selected.date, selected.kalaDetails.sunrise, zoneId)
+            val sunrisePanchanga = MasaCalculator.getFullPanchangaTithi(sunriseZdt)
+
+            val isEkadashi = eventPanchanga.tithi.pakshaTithiNumber == 11
+            val ritualDate = if (isEkadashi) selected.date.plusDays(1) else selected.date
+            val ritualKala = if (isEkadashi) DinmanaCalculator.calculateDayKala(ritualDate, location) else selected.kalaDetails
+            val ritualSunriseZdt = ZonedDateTime.of(ritualDate, ritualKala.sunrise, zoneId)
+            val ritualSunrisePanchanga = if (isEkadashi) MasaCalculator.getFullPanchangaTithi(ritualSunriseZdt) else sunrisePanchanga
+            val ritualAparahnaZdt = ZonedDateTime.of(ritualDate, ritualKala.aparahnaStart, zoneId)
+            val ritualAparahnaPanchanga = if (isEkadashi) MasaCalculator.getFullPanchangaTithi(ritualAparahnaZdt) else eventPanchanga
 
             val isAdhika = eventPanchanga.isAdhikaMasa
-            val isFinalVarshika = (monthIdx == 11 && !isAdhika)
+            val isFinalVarshika = (monthIdx == targetMonthsCount - 1 && !isAdhika)
 
             val name = if (isAdhika) {
                 "Adhika Masika (${eventPanchanga.masaDisplayName})"
@@ -178,14 +233,22 @@ object MasikaShraddhaCalculator {
                     sequenceNumber = 0,
                     type = type,
                     traditionalName = name,
-                    gregorianDate = selected.date,
-                    dayOfWeek = selected.date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
-                    tithi = eventPanchanga,
-                    kalaDetails = selected.kalaDetails,
-                    explanation = "${selected.evaluationReason} | Aparahna: ${selected.kalaDetails.aparahnaStart} to ${selected.kalaDetails.aparahnaEnd}"
+                    gregorianDate = ritualDate,
+                    dayOfWeek = ritualDate.dayOfWeek.name,
+                    tithi = ritualAparahnaPanchanga,
+                    kalaDetails = ritualKala,
+                    explanation = if (isEkadashi) {
+                        "Ekadashi demise tithi detected on ${selected.date}. Per Shastras (Padma Purana / Nirnaya Sindhu), Anna-Shraddha ritual is observed on Dvadashi ($ritualDate). ${selected.evaluationReason}"
+                    } else {
+                        "${selected.evaluationReason} | Aparahna: ${selected.kalaDetails.aparahnaStart} to ${selected.kalaDetails.aparahnaEnd}"
+                    },
+                    sunrisePanchanga = ritualSunrisePanchanga,
+                    isEkadashiShifted = isEkadashi,
+                    ekadashiDate = if (isEkadashi) selected.date else null
                 )
             )
 
+            lastSelectedDate = selected.date
             if (!isAdhika) {
                 monthIdx++
             }

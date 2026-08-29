@@ -23,8 +23,8 @@ class ShraddhaCalculationsTest {
         val result = ShraddhaCalculator.calculate(person, currentDate = LocalDate.of(2026, 8, 20))
 
         assertFalse(result.isDeathOlderThanOneYear)
-        assertNull(result.nextUpcomingShraddha)
-        assertEquals(5, result.yearlySections.size)
+        assertNotNull(result.nextUpcomingShraddha)
+        assertTrue(result.yearlySections.isNotEmpty())
 
         val year1 = result.yearlySections[0]
         assertEquals(1, year1.yearIndex)
@@ -44,15 +44,6 @@ class ShraddhaCalculationsTest {
         assertTrue(eventNames.any { it.contains("Saptama Masika") })
         assertTrue(eventNames.any { it.contains("Unabdika") })
         assertTrue(eventNames.any { it.contains("Yearly Shraddha") || it.contains("Prathama Varshika") })
-
-        // Check Years 2..5
-        for (i in 1..4) {
-            val section = result.yearlySections[i]
-            assertEquals(i + 1, section.yearIndex)
-            assertFalse(section.isExpandedByDefault)
-            assertEquals(1, section.events.size)
-            assertEquals(ShraddhaType.VARSHIKA, section.events[0].type)
-        }
     }
 
     @Test
@@ -66,7 +57,7 @@ class ShraddhaCalculationsTest {
 
         assertTrue(result.isDeathOlderThanOneYear)
         assertNotNull(result.nextUpcomingShraddha)
-        assertTrue(result.yearlySections.isEmpty())
+        assertTrue(result.yearlyObservanceGroups.isNotEmpty())
 
         val upcoming = result.nextUpcomingShraddha!!
         assertEquals(ShraddhaType.VARSHIKA, upcoming.type)

@@ -1,109 +1,204 @@
 <resources>
-    <string name="app_name">యు.ఎం. శ్రాద్ధ దినాంక గణకం</string>
-    <string name="app_subtitle">శ్రీఉత్తరాదిమఠ పంచాంగ ఆధారితం</string>
+    <string name="app_name">పితృ పంచాంగం</string>
+    <string name="app_subtitle">ప్రామాణిక మధ్వ శ్రాద్ధ &amp; పక్ష పంచాంగం</string>
     
     <!-- Navigation -->
-    <string name="nav_calculator">గణకం</string>
+    <string name="nav_calculator">గణన</string>
     <string name="nav_saved">భద్రపరిచినవి</string>
     <string name="nav_recents">ఇటీవలివి</string>
     <string name="nav_settings">సెట్టింగ్స్</string>
     
+    <!-- Traditions -->
+    <string name="tradition_label">సంప్రదాయం / మఠం</string>
+    <string name="tradition_um">శ్రీ ఉత్తరాది మఠం</string>
+    <string name="tradition_srs">మంత్రాలయం (శ్రీ రాఘవేంద్ర స్వామి మఠం)</string>
+    <string name="tradition_udupi">ఉడుపి అష్ట మఠాలు</string>
+    <string name="onboarding_title">మీ మధ్వ సంప్రదాయాన్ని ఎంచుకోండి</string>
+    <string name="onboarding_subtitle">సరైన పంచాంగ పద్ధతి, ఆచార నియమాలు మరియు గురు ప్రార్థనను వర్తింపజేయడానికి మీ మఠ సంప్రదాయాన్ని ఎంచుకోండి.</string>
+    <string name="onboarding_confirm">పంచాంగానికి కొనసాగండి</string>
+    
+    <!-- Relationships -->
+    <string name="relationship_label">సంబంధం</string>
+    <string name="rel_father">తండ్రి</string>
+    <string name="rel_mother">తల్లి</string>
+    <string name="rel_grandfather">తాతయ్య</string>
+    <string name="rel_grandmother">నానమ్మ / అమ్మమ్మ</string>
+    <string name="rel_husband">భర్త</string>
+    <string name="rel_wife">భార్య</string>
+    <string name="rel_brother">సోదరుడు</string>
+    <string name="rel_sister">సోదరి</string>
+    <string name="rel_son">కుమారుడు</string>
+    <string name="rel_daughter">కుమార్తె</string>
+    <string name="rel_uncle">బాబాయ్ / మామయ్య</string>
+    <string name="rel_aunt">పిన్ని / అత్తయ్య</string>
+    <string name="rel_other">ఇతర / బంధువులు</string>
+    
+    <!-- Location Sheet -->
+    <string name="select_location_sheet_title">మరణించిన స్థలాన్ని ఎంచుకోండి</string>
+    <string name="search_city_hint">నగరాన్ని వెతకండి (ఉదా: బెంగళూరు, మంత్రాలయం, ఉడుపి)...</string>
+    
     <!-- Saved Profiles Screen -->
-    <string name="saved_title">భద్రపరిచిన శ్రాద్ధ వివరాలు</string>
-    <string name="saved_empty">ఇంకా ఏ శ్రాద్ధాలూ భద్రపరచలేదు</string>
-    <string name="saved_empty_desc">మీ కుటుంబ సభ్యుల శ్రాద్ధ వివరాలను మీ ఫోన్‌లో శాశ్వతంగా భద్రపరచుకుని ఎప్పుడైనా సులభంగా చూడండి.</string>
-    <string name="save_profile_btn">భద్రపరచండి</string>
+    <string name="saved_title">భద్రపరిచిన కుటుంబ వివరాలు</string>
+    <string name="saved_empty">ఎటువంటి ప్రొఫైల్ భద్రపరచబడలేదు</string>
+    <string name="saved_empty_desc">మీ కుటుంబ సభ్యుల శ్రాద్ధ వివరాలను ఫోన్‌లో శాశ్వతంగా భద్రపరిచి ఎప్పుడైనా సులభంగా చూడండి.</string>
+    <string name="save_profile_btn">ప్రొఫైల్ భద్రపరచండి</string>
     <string name="saved_badge">శాశ్వతంగా భద్రపరచబడింది</string>
-    <string name="save_profile_subtitle">ఫోన్‌లో శాశ్వతంగా భద్రపరచండి</string>
-    <string name="saved_profile_subtitle">భద్రపరిచిన విభాగంలో అందుబాటులో ఉంది</string>
-    <string name="calendar_sync_subtitle">2 రోజుల ముందు &amp; 1 రోజు ముందు జ్ఞాపిక</string>
-    <string name="remove_saved_btn">తొలగించండి</string>
-    <string name="open_profile">శ్రాద్ధ దినాలను చూడండి</string>
-
+    <string name="save_profile_subtitle">ఫోన్ మెమరీలో శాశ్వతంగా భద్రపరచండి</string>
+    <string name="saved_profile_subtitle">భద్రపరిచిన విభాగంలో శాశ్వతంగా నిల్వ చేయబడింది</string>
+    <string name="calendar_sync_subtitle">2 రోజులు &amp; 1 రోజు ముందుగా రిమైండర్లు</string>
+    <string name="remove_saved_btn">తొలగించు</string>
+    <string name="open_profile">తేదీలను చూడండి</string>
+    <string name="edit_profile">సవరణ</string>
+    <string name="edit_profile_title">ప్రొఫైల్ వివరాల సవరణ</string>
+    <string name="save_changes">మార్పులను భద్రపరచండి</string>
+    <string name="new_calculation_btn">కొత్త గణన</string>
+    
     <!-- Input Screen -->
     <string name="person_name_label">వ్యక్తి పేరు</string>
     <string name="person_name_hint">ఉదా: శ్రీ ప్రాణేశ కులకర్ణి</string>
-    <string name="date_of_death_label">మరణించిన తేదీ</string>
-    <string name="time_of_death_label">మరణించిన సమయం (తప్పనిసరి)</string>
-    <string name="location_label">ప్రాంతం</string>
-    <string name="select_location_btn">ప్రాంతాన్ని ఎంచుకోండి</string>
-    <string name="calculate_btn">శ్రాద్ధ దినాంకాలను లెక్కించండి</string>
-    <string name="calculating">పంచాంగం లెక్కిస్తోంది...</string>
-    <string name="input_guidelines_title">ముఖ్య గమనిక</string>
-    <string name="input_guidelines_desc">ప్రాణప్రయాణ కాలంలో ఖచ్చితమైన మృతతిథి నిర్ణయం కొరకు మరణించిన తేదీ మరియు సమయం రెండూ తప్పనిసరి.</string>
+    <string name="date_of_death_label">మరణ తేదీ</string>
+    <string name="observance_date_label">ఆచరణ తేదీ</string>
+    <string name="time_of_death_label">మరణ సమయం (తప్పనిసరి)</string>
+    <string name="location_label">స్థలం</string>
+    <string name="select_location_btn">స్థలాన్ని ఎంచుకోండి</string>
+    <string name="calculate_btn">శ్రాద్ధ &amp; పక్ష తేదీలను లెక్కించండి</string>
+    <string name="calculating">పంచాంగ గణన జరుగుతోంది...</string>
+    <string name="input_guidelines_title">ముఖ్యమైన గమనిక</string>
+    <string name="input_guidelines_desc">ప్రాణప్రయాణ సమయపు ఖచ్చితమైన మృత తిథిని నిర్ణయించడానికి మరణ తేదీ మరియు ఖచ్చితమైన సమయం రెండూ తప్పనిసరి.</string>
     
     <!-- Results Screen -->
-    <string name="results_title">లెక్కింపబడిన శ్రాద్ధ దినాంకాలు</string>
+    <string name="results_title">శ్రాద్ధ &amp; పక్ష పంచాంగం</string>
     <string name="death_summary_prefix">మరణ వివరాలు:</string>
-    <string name="death_panchanga_details">మృత పంచాంగ వివరణ</string>
-    <string name="add_all_to_calendar">అన్ని శ్రాద్ధాలను క్యాలెండర్‌కు జోడించు</string>
+    <string name="death_panchanga_details">మృత పంచాంగ నిర్ణయం</string>
+    <string name="add_all_to_calendar">క్యాలెండర్‌కు జోడించండి</string>
     <string name="calendar_reminders_header">క్యాలెండర్ రిమైండర్లు</string>
     <string name="calendar_reminder">క్యాలెండర్ రిమైండర్</string>
-    <string name="calendar_reminder_on">రిమైండర్ ఆన్ (2 మరియు 1 రోజు ముందు)</string>
+    <string name="calendar_reminder_on">రిమైండర్ ఆన్ (2 రోజులు &amp; 1 రోజు ముందు)</string>
     <string name="calendar_reminder_off">రిమైండర్ ఆఫ్</string>
-    <string name="next_upcoming_shraddha">రాబోయే శ్రాద్ధం</string>
-    <string name="days_remaining">మిగిలిన రోజులు</string>
-    <string name="aparahna_window">అపరాహ్న కాలం (శ్రాద్ధ కాలం)</string>
+    <string name="next_upcoming_observance">రాబోయే తదుపరి ఆచరణ</string>
+    <string name="next_upcoming_shraddha">రాబోయే వార్షిక శ్రాద్ధం</string>
+    <string name="days_remaining">మిగిలి ఉన్న రోజులు</string>
+    <string name="aparahna_window">అపరాహ్ణ కాలం (శ్రాద్ధ సమయం)</string>
     <string name="sunrise_sunset">సూర్యోదయం / సూర్యాస్తమయం</string>
     <string name="dinmana">దినమానం</string>
     <string name="samvatsara">సంవత్సరం</string>
     <string name="masa">మాసం</string>
     <string name="paksha">పక్షం</string>
     <string name="tithi">తిథి</string>
-    <string name="view_astronomical_trace">ఖగోళ గణన వివరాలు చూడండి</string>
-    <string name="trace_dialog_title">పంచాంగ వ్యాప్తి వివరాలు</string>
+    <string name="view_astronomical_trace">ఖగోళ గణన మరియు వ్యాప్తి వివరాలను చూడండి</string>
+    <string name="trace_dialog_title">పంచాంగ వ్యాప్తి వివరణ</string>
     <string name="close">మూసివేయి</string>
-    <string name="ceremonies_count">%1$d శ్రాద్ధ కర్మలు</string>
+    <string name="ceremonies_count">%1$d ఆచరణలు</string>
+    
+    <string name="tab_masikas">మాసికాలు (1వ సంవత్సరం కార్యాలు)</string>
+    <string name="tab_shraddha">వార్షిక శ్రాద్ధం</string>
+    <string name="tab_paksha">మహాలయ పక్షం</string>
+    <string name="paksha_not_applicable_y1">1వ సంవత్సరంలో వర్తించదు (సపిండీకరణకు పూర్వం ప్రేతావస్థ)</string>
+    <string name="info_btn">వివరణ</string>
+    <string name="scriptural_significance">శాస్త్రాధారం</string>
+    <string name="view_trace_btn">గణన చూడండి</string>
+    <string name="today_badge">ఈ రోజు</string>
+    <string name="days_remaining_fmt">%1$d రోజులు మిగిలి ఉన్నాయి</string>
+    <string name="date_time_demise_label">మరణించిన తేదీ &amp; సమయం</string>
+    <string name="mruta_tithi_at_demise">మరణ సమయపు ఖగోళ మృత తిథి:</string>
+    <string name="soul_journey_station_title">జీవుని పరలోక ప్రయాణ గమ్యస్థానం</string>
+    <string name="spiritual_impact_title">శాస్త్రీయ ప్రాముఖ్యత &amp; ఆధ్యాత్మిక ఫలితం</string>
+    <string name="canonical_source_title">శాస్త్ర ప్రమాణ గ్రంథం</string>
+    <string name="demise_no_dosha_desc">పంచక లేదా సంధి దోషాలు లేకుండా సాధారణ జ్యోతిష నియమాల ప్రకారం మరణం సంభవించింది.</string>
+    
+    <!-- Dosha / Traditional Considerations -->
+    <string name="dosha_header">శాస్త్రీయ స్థితి &amp; దోష పరిశీలన</string>
+    <string name="dosha_clear">✓ ఈ మరణ సమయానికి ఎటువంటి విశేష దోషాలు లేవు</string>
+    <string name="dosha_alert">⚠️ శాస్త్రీయ దోషం గుర్తించబడింది</string>
+    <string name="remedy_label">శాస్త్రోక్త పరిహారం / శాంతి:</string>
+    <string name="source_label">గ్రంథాధారం:</string>
     
     <!-- Recents Screen -->
     <string name="recents_title">ఇటీవలి శోధనలు</string>
-    <string name="recents_empty">ఇటీవలి శోధనలు ఏవీ లేవు</string>
-    <string name="recents_empty_sub">మీరు లెక్కించిన శ్రాద్ధ వివరాలు ఇక్కడ భద్రపరచబడతాయి (గరిష్టంగా 10 వివరాలు).</string>
-    <string name="clear_all_history">చరిత్రను తొలగించు</string>
+    <string name="recents_empty">ఎటువంటి శోధనలు లేవు</string>
+    <string name="recents_empty_sub">మీరు లెక్కించిన వివరాలు ఇక్కడ భద్రపరచబడతాయి (గరిష్టంగా 10).</string>
+    <string name="clear_all_history">అన్నీ తొలగించండి</string>
     <string name="delete">తొలగించు</string>
-    <string name="reopen_search">తెరువు</string>
+    <string name="reopen_search">మళ్ళీ తెరవండి</string>
     
     <!-- Settings Screen -->
     <string name="settings_title">సెట్టింగ్స్</string>
     <string name="language_section">భాష</string>
     <string name="select_language">అప్లికేషన్ భాషను ఎంచుకోండి</string>
+    <string name="tradition_section">మధ్వ సంప్రదాయం / మఠం</string>
     <string name="calendar_section">క్యాలెండర్ సెట్టింగ్స్</string>
-    <string name="calendar_reminders_rule">స్వయంచాలిత రిమైండర్లు</string>
-    <string name="calendar_reminders_rule_desc">ప్రతి క్యాలెండర్ ఈవెంట్‌కు 2 రిమైండర్లు వస్తాయి:\n• శ్రాద్ధ తేదీకి 2 రోజుల ముందు (48 గంటలు)\n• శ్రాద్ధ తేదీకి 1 రోజు ముందు (24 గంటలు)</string>
-    <string name="about_section">యాప్ గురించి</string>
-    <string name="about_description">యు.ఎం. శ్రాద్ధ దినాంక గణకం శ్రీఉత్తరాదిమఠ పంచాంగం మరియు మాధ్వ స్మృతిముక్తావళి సాంప్రదాయం ప్రకారం శ్రాద్ధ దినాంకాలను లెక్కిస్తుంది.</string>
+    <string name="calendar_reminders_rule">ఆటోమేటిక్ రిమైండర్లు</string>
+    <string name="calendar_reminders_rule_desc">ప్రతి ఆచరణకు 2 రిమైండర్లు వస్తాయి:\n• కార్యానికి 2 రోజుల ముందు\n• కార్యానికి 1 రోజు ముందు</string>
+    <string name="about_section">అప్లికేషన్ గురించి</string>
+    <string name="about_description">పితృ పంచాంగం మాసిక, వార్షిక శ్రాద్ధ మరియు మహాలయ పక్ష తేదీలను ప్రామాణిక మధ్వ ధర్మశాస్త్రం మరియు మఠ పంచాంగ నియమాల ప్రకారం లెక్కిస్తుంది.</string>
     <string name="version_label">వెర్షన్</string>
-    <string name="invocation_header">శ్రీ సత్యాత్మతీర్థ గురుభ్యో నమః</string>
-    <string name="dedication_service">శ్రీ హరి, శ్రీ వాయు మరియు శ్రీ 108 ఉత్తరాది మఠం పరంపర సేవలో సమర్పితం</string>
-    <string name="dedication_father">పూజ్య తండ్రిగారైన దివంగత శ్రీ ప్రాణేశ కులకర్ణి వారి పవిత్ర స్మృతిలో సమర్పితం</string>
-    <string name="developed_by">రూపకల్పన మరియు నిర్వహణ: గురురాజ్ కులకర్ణి</string>
-    <string name="export_pdf">పి.డి.ఎఫ్ డౌన్‌లోడ్ / షేర్ చేయండి</string>
-    <string name="pdf_generating">పి.డి.ఎఫ్ సిద్ధమవుతోంది...</string>
-    <string name="pdf_share_title">శ్రాద్ధ క్యాలెండర్ పి.డి.ఎఫ్ షేర్ చేయండి</string>
+    <string name="invocation_um">శ్రీమదానందతీర్థ భగవత్పాదాచార్య గురుభ్యో నమః</string>
+    <string name="invocation_srs">శ్రీ రాఘవేంద్ర గురుభ్యో నమః</string>
+    <string name="invocation_udupi">శ్రీ వాదిరాజ గురుభ్యో నమః</string>
+    <string name="invocation_header">శ్రీమదానందతీర్థ భగవత్పాదాచార్య గురుభ్యో నమః</string>
+    <string name="dedication_service">శ్రీ హరి, శ్రీ వాయు మరియు మధ్వ గురు పరంపర సేవకు అంకితం</string>
+    <string name="dedication_father">పూజ్య తండ్రిగారైన దివంగత శ్రీ ప్రాణేశ కులకర్ణి గారి పవిత్ర స్మృతికి అంకితం</string>
+    <string name="developed_by">రూపకల్పన &amp; నిర్వహణ: గురురాజ్ కులకర్ణి</string>
+    <string name="export_pdf">పి.డి.ఎఫ్. ఎగుమతి / పంపండి</string>
+    <string name="pdf_generating">పి.డి.ఎఫ్. సిద్ధమవుతోంది...</string>
+    <string name="pdf_share_title">పితృ పంచాంగం పి.డి.ఎఫ్. పంపండి</string>
     <string name="hari_vayu_footer">॥ శ్రీ హరిః సర్వోత్తమః • వాయుః జీవోత్తమః ॥</string>
     
+    <!-- Disclaimer -->
+    <string name="app_disclaimer">గమనిక: ఈ అప్లికేషన్ కేవలం సమాచార ప్రయోజనం కోసం మాత్రమే. పితృ పంచాంగ గణన ఖగోళ ఆధారంగా మారవచ్చు. ఎటువంటి తేదీ నిర్ధారణకైనా దయచేసి మీ కుటుంబ ఆచార్యులు / పండితులను సంప్రదించి నిర్ధారించుకోండి.</string>
+    
     <!-- App Notification Strings -->
-    <string name="notif_channel_name">శ్రాద్ధ దిన రిమైండర్లు</string>
-    <string name="notif_channel_desc">శ్రాద్ధానికి 2 రోజులు మరియు 1 రోజు ముందుగా నోటిఫికేషన్లు</string>
+    <string name="notif_channel_name">శ్రాద్ధ కార్య రిమైండర్లు</string>
+    <string name="notif_channel_desc">శ్రాద్ధ కార్యాలకు 2 రోజులు మరియు 1 రోజు ముందు అందించే రిమైండర్లు</string>
     <string name="notif_upcoming_title">రాబోయే శ్రాద్ధం</string>
     <string name="notif_reminder_title">శ్రాద్ధ రిమైండర్</string>
-    <string name="notif_2days_body">%1$s — %2$s మరో 2 రోజుల్లో ఉంది, %3$s తేదీన.</string>
-    <string name="notif_1day_body">%1$s — %2$s రేపు ఉంది, %3$s తేదీన.</string>
-    <string name="notifications_section">నోటిఫికేషన్లు</string>
-    <string name="app_notifications_label">యాప్ రిమైండర్లు</string>
-    <string name="app_notifications_desc">యాప్ ద్వారా ముందస్తు రిమైండర్లు పొందండి (2 రోజులు మరియు 1 రోజు ముందుగా ఉదయం 8:00 గంటలకు)</string>
+    <string name="notif_2days_body">%1$s — %2$s కార్యం ఇంకా రెండు రోజుల్లో (%3$s) ఉంది.</string>
+    <string name="notif_1day_body">%1$s — %2$s కార్యం రేపు (%3$s) ఉంది.</string>
+    <string name="notifications_section">యాప్ నోటిఫికేషన్లు</string>
+    <string name="app_notifications_label">ముందస్తు రిమైండర్లు</string>
+    <string name="app_notifications_desc">2 రోజులు మరియు 1 రోజు ముందు ఉదయం 08:00 గంటలకు మీ ఫోన్‌కు రిమైండర్ పొందండి</string>
     <string name="notification_permission_required">నోటిఫికేషన్ అనుమతి అవసరం</string>
-    <string name="notification_permission_desc">సమయానికి శ్రాద్ధ రిమైండర్లు పంపడానికి అనుమతించండి.</string>
+    <string name="notification_permission_desc">శ్రాద్ధ కార్యాలకు సమయానికి రిమైండర్ పంపడానికి అనుమతి ఇవ్వండి.</string>
     
     <!-- Calendar Permissions -->
-    <string name="calendar_permission_title">క్యాలెండర్ అనుమతి అవసరం</string>
-    <string name="calendar_permission_desc">శ్రాద్ధ రిమైండర్లను మీ పరికర క్యాలెండర్‌లో సృష్టించడానికి మరియు 2 రోజులు, 1 రోజు ముందుగా నోటిఫికేషన్ ఇవ్వడానికి అనుమతించండి.</string>
-    <string name="allow">అనుమతించు</string>
-    <string name="cancel">రద్దు చేయి</string>
+    <string name="calendar_permission_title">క్యాలెండర్ యాక్సెస్ అనుమతి అవసరం</string>
+    <string name="calendar_permission_desc">మీ పరికర క్యాలెండర్‌లో శ్రాద్ధ రిమైండర్లను చేర్చడానికి అనుమతి ఇవ్వండి.</string>
+    <string name="grant_permission">అనుమతి ఇవ్వండి</string>
+    <string name="cancel">రద్దు చేయండి</string>
+    <string name="tradition_section_subtitle">తగిన పంచాంగ పద్ధతులు మరియు ప్రార్థనలను వర్తింపజేయడానికి మఠ సంప్రదాయాన్ని ఎంచుకోండి.</string>
     
-    <!-- Location Picker -->
-    <string name="select_location_sheet_title">ప్రాంతాన్ని ఎంచుకోండి</string>
-    <string name="search_city_hint">నగరం, తీర్థక్షేత్రం లేదా గ్లోబల్ నగరం వెతకండి...</string>
-    <string name="offline_available">ఆఫ్‌లైన్ లభ్యం</string>
-    <string name="custom_location">కస్టమ్ ప్రాంతం</string>
+    <!-- Calculation Details & Dialogs -->
+    <string name="calculation_details">లెక్కల వివరాలు</string>
+    <string name="local_astronomical_timings">స్థానిక ఖగోళ సమయాలు</string>
+    <string name="location_label_short">స్థలము</string>
+    <string name="sunrise">సూర్యోదయము</string>
+    <string name="sunset">సూర్యాస్తమయము</string>
+    <string name="daylight_dinmana">దినమానము</string>
+    <string name="aparahna_kala_4th">అపరాహ్ణ కాలము (4వ భాగం)</string>
+    <string name="kutapa_muhurta_8th">కుతప ముహూర్తము (8వ భాగం)</string>
+    <string name="panchanga_determination_trace">పంచాంగ నిర్ణయ వివరణ</string>
+    <string name="change_btn">మార్చండి</string>
+    <string name="remove_profile_confirm_title">ప్రొఫైల్ తొలగించు</string>
+    <string name="remove_profile_confirm_msg">మీరు ఖచ్చితంగా %1$s ప్రొఫైల్‌ను తొలగించాలనుకుంటున్నారా?</string>
+    <string name="clear_history_confirm_title">చరిత్రను తొలగించండి</string>
+    <string name="clear_history_confirm_msg">మీరు ఇటీవలి శోధనలన్నింటినీ తొలగించాలనుకుంటున్నారా?</string>
+    <string name="ok">సరే</string>
+    <string name="details">వివరాలు</string>
+    <string name="expand">విస్తరించండి</string>
+    <string name="collapse">కుదించండి</string>
+    <string name="tradition_um_subtitle">అమాంత పద్ధతి • అపరాహ్ణ వ్యాప్తి • శ్రీమదానందతీర్థ భగవత్పాదాచార్య పరంపర</string>
+    <string name="tradition_srs_subtitle">మంత్రాలయము • శ్రీ రాఘవేంద్ర స్వామి మఠం • రాయర గురుభ్యో నమః</string>
+    <string name="tradition_udupi_subtitle">తీరప్రాంత తుళువ సాంప్రదాయం • ఉడుపి అష్ట మఠాలు • శ్రీ వాదిరాజ స్వామి పరంపర</string>
+    <string name="edit">సవరించు</string>
+    <string name="export_year_pdf">%1$dవ సంవత్సరం PDF డౌన్‌లోడ్</string>
+    <string name="export_year_pdf_short">PDF</string>
+    <string name="pancha_kala_guide_btn">దినంలోని 5 కాలాలు</string>
+    <string name="pancha_kala_guide_title">దినంలోని 5 పవిత్ర కాలాలు (పంచ కాలాలు)</string>
+    <string name="pancha_kala_guide_desc">దినమానం 5 సమాన భాగాలుగా విభజించబడింది</string>
+    <string name="sunrise_tithi_label">సూర్యోదయ తిథి</string>
+    <string name="aparahna_tithi_label">అపరాహ్ణ శ్రాద్ధ తిథి</string>
+    <string name="tithi_transition_badge">సూర్యోదయం: %1$s ➔ అపరాహ్ణం: %2$s</string>
+    <string name="canonical_injunction_title">శాస్త్ర ప్రమాణ శ్లోకం</string>
+    <string name="layperson_qa_title">ఈ దినం మరియు సమయం ఎందుకు ఎంపిక చేయబడింది?</string>
+    <string name="explore_pancha_kalas">5 కాలాల పూర్తి వివరాలు చూడండి</string>
 </resources>
