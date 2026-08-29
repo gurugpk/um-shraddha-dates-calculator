@@ -20,13 +20,20 @@ data class GeoLocation(
 data class PersonDeathRecord(
     val id: Long = 0,
     val name: String,
-    val deathDate: LocalDate,
-    val deathTime: LocalTime, // Mandatory: exact time of death
+    val deathDate: LocalDate = LocalDate.now(),
+    val deathTime: LocalTime = LocalTime.NOON, // Mandatory: exact time of death (for confirmed demise)
     val location: GeoLocation,
     val relationship: FamilyRelationship = FamilyRelationship.OTHER,
     val tradition: MadhwaTradition = MadhwaTradition.UTTARADI_MATHA,
-    val notes: String = ""
-)
+    val notes: String = "",
+    val demiseStatus: PersonDemiseStatus = PersonDemiseStatus.CONFIRMED_DEMISE,
+    val demiseCircumstance: DemiseCircumstance = DemiseCircumstance.NATURAL,
+    val lastSeenDate: LocalDate? = null,
+    val ageAtDisappearance: Int? = null
+) {
+    val isMissingUnconfirmed: Boolean
+        get() = demiseStatus == PersonDemiseStatus.MISSING_UNCONFIRMED
+}
 
 enum class Paksha(val displayName: String) {
     SHUKLA("Shukla Paksha"),
@@ -166,5 +173,7 @@ data class ShraddhaCalculationResult(
     val nextUpcomingObservance: ShraddhaEvent? = nextUpcomingShraddha,
     val nextUpcomingCategory: ObservanceCategory? = nextUpcomingShraddha?.observanceCategory,
     val doshaEvaluation: DoshaEvaluationResult = DoshaEvaluationResult(false, emptyList(), "No exceptional dosha detected."),
-    val tradition: MadhwaTradition = personRecord.tradition
+    val tradition: MadhwaTradition = personRecord.tradition,
+    val circumstanceGuidance: CircumstanceGuidance? = null,
+    val missingPersonGuidance: MissingPersonGuidance? = null
 )

@@ -9,6 +9,9 @@ import com.shraddhacalendar.core.models.PersonDeathRecord
 import java.time.LocalDate
 import java.time.LocalTime
 
+import com.shraddhacalendar.core.models.DemiseCircumstance
+import com.shraddhacalendar.core.models.PersonDemiseStatus
+
 data class SavedProfileItem(
     val id: Long,
     val personName: String,
@@ -18,7 +21,11 @@ data class SavedProfileItem(
     val location: GeoLocation,
     val notes: String?,
     val traditionId: String = "uttaradi_matha",
-    val timestamp: Long
+    val timestamp: Long,
+    val demiseStatus: PersonDemiseStatus = PersonDemiseStatus.CONFIRMED_DEMISE,
+    val demiseCircumstance: DemiseCircumstance = DemiseCircumstance.NATURAL,
+    val lastSeenDate: LocalDate? = null,
+    val ageAtDisappearance: Int? = null
 ) {
     fun toPersonDeathRecord(): PersonDeathRecord {
         return PersonDeathRecord(
@@ -29,7 +36,11 @@ data class SavedProfileItem(
             location = location,
             relationship = FamilyRelationship.fromId(relationship),
             tradition = MadhwaTradition.fromId(traditionId),
-            notes = notes ?: ""
+            notes = notes ?: "",
+            demiseStatus = demiseStatus,
+            demiseCircumstance = demiseCircumstance,
+            lastSeenDate = lastSeenDate,
+            ageAtDisappearance = ageAtDisappearance
         )
     }
 }
@@ -60,6 +71,10 @@ class SavedProfilesRepository(context: Context) {
             val values = ContentValues().apply {
                 put(ShraddhaDatabaseHelper.COL_RELATIONSHIP, relationship ?: existing.relationship)
                 put(ShraddhaDatabaseHelper.COL_TRADITION_ID, traditionId)
+                put(ShraddhaDatabaseHelper.COL_DEMISE_STATUS, record.demiseStatus.id)
+                put(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE, record.demiseCircumstance.id)
+                put(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH, record.lastSeenDate?.toEpochDay())
+                put(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE, record.ageAtDisappearance)
                 put(ShraddhaDatabaseHelper.COL_NOTES, notes ?: existing.notes)
                 put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
             }
@@ -84,6 +99,10 @@ class SavedProfilesRepository(context: Context) {
             put(ShraddhaDatabaseHelper.COL_LONGITUDE, record.location.longitude)
             put(ShraddhaDatabaseHelper.COL_TIMEZONE, record.location.timezoneId)
             put(ShraddhaDatabaseHelper.COL_TRADITION_ID, traditionId)
+            put(ShraddhaDatabaseHelper.COL_DEMISE_STATUS, record.demiseStatus.id)
+            put(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE, record.demiseCircumstance.id)
+            put(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH, record.lastSeenDate?.toEpochDay())
+            put(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE, record.ageAtDisappearance)
             put(ShraddhaDatabaseHelper.COL_NOTES, notes?.trim())
             put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
         }
@@ -114,6 +133,10 @@ class SavedProfilesRepository(context: Context) {
             put(ShraddhaDatabaseHelper.COL_LONGITUDE, record.location.longitude)
             put(ShraddhaDatabaseHelper.COL_TIMEZONE, record.location.timezoneId)
             put(ShraddhaDatabaseHelper.COL_TRADITION_ID, traditionId)
+            put(ShraddhaDatabaseHelper.COL_DEMISE_STATUS, record.demiseStatus.id)
+            put(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE, record.demiseCircumstance.id)
+            put(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH, record.lastSeenDate?.toEpochDay())
+            put(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE, record.ageAtDisappearance)
             put(ShraddhaDatabaseHelper.COL_NOTES, notes?.trim())
             put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
         }
@@ -162,6 +185,25 @@ class SavedProfilesRepository(context: Context) {
                 val notes = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_NOTES))
                 val timestamp = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
 
+                val statusIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_STATUS)
+                val statusStr = if (statusIdx >= 0) it.getString(statusIdx) else null
+                val demiseStatus = if (statusStr == "missing_unconfirmed") {
+                    PersonDemiseStatus.MISSING_UNCONFIRMED
+                } else {
+                    PersonDemiseStatus.CONFIRMED_DEMISE
+                }
+
+                val circIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE)
+                val circStr = if (circIdx >= 0) it.getString(circIdx) else null
+                val demiseCircumstance = DemiseCircumstance.fromId(circStr)
+
+                val lastSeenIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH)
+                val lastSeenEpoch = if (lastSeenIdx >= 0 && !it.isNull(lastSeenIdx)) it.getLong(lastSeenIdx) else null
+                val lastSeenDate = lastSeenEpoch?.let { ep -> LocalDate.ofEpochDay(ep) }
+
+                val ageIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE)
+                val age = if (ageIdx >= 0 && !it.isNull(ageIdx)) it.getInt(ageIdx) else null
+
                 list.add(
                     SavedProfileItem(
                         id = id,
@@ -172,7 +214,11 @@ class SavedProfilesRepository(context: Context) {
                         location = GeoLocation(city, state, country, lat, lon, tz),
                         notes = notes,
                         traditionId = traditionId,
-                        timestamp = timestamp
+                        timestamp = timestamp,
+                        demiseStatus = demiseStatus,
+                        demiseCircumstance = demiseCircumstance,
+                        lastSeenDate = lastSeenDate,
+                        ageAtDisappearance = age
                     )
                 )
             }
@@ -218,6 +264,25 @@ class SavedProfilesRepository(context: Context) {
                 val notes = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_NOTES))
                 val timestamp = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
 
+                val statusIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_STATUS)
+                val statusStr = if (statusIdx >= 0) it.getString(statusIdx) else null
+                val demiseStatus = if (statusStr == "missing_unconfirmed") {
+                    PersonDemiseStatus.MISSING_UNCONFIRMED
+                } else {
+                    PersonDemiseStatus.CONFIRMED_DEMISE
+                }
+
+                val circIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE)
+                val circStr = if (circIdx >= 0) it.getString(circIdx) else null
+                val demiseCircumstance = DemiseCircumstance.fromId(circStr)
+
+                val lastSeenIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH)
+                val lastSeenEpoch = if (lastSeenIdx >= 0 && !it.isNull(lastSeenIdx)) it.getLong(lastSeenIdx) else null
+                val lastSeenDate = lastSeenEpoch?.let { ep -> LocalDate.ofEpochDay(ep) }
+
+                val ageIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE)
+                val age = if (ageIdx >= 0 && !it.isNull(ageIdx)) it.getInt(ageIdx) else null
+
                 return SavedProfileItem(
                     id = pId,
                     personName = name,
@@ -227,7 +292,11 @@ class SavedProfilesRepository(context: Context) {
                     location = GeoLocation(city, state, country, lat, lon, tz),
                     notes = notes,
                     traditionId = traditionId,
-                    timestamp = timestamp
+                    timestamp = timestamp,
+                    demiseStatus = demiseStatus,
+                    demiseCircumstance = demiseCircumstance,
+                    lastSeenDate = lastSeenDate,
+                    ageAtDisappearance = age
                 )
             }
         }
@@ -264,6 +333,25 @@ class SavedProfilesRepository(context: Context) {
                 val notes = it.getString(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_NOTES))
                 val timestamp = it.getLong(it.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
 
+                val statusIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_STATUS)
+                val statusStr = if (statusIdx >= 0) it.getString(statusIdx) else null
+                val demiseStatus = if (statusStr == "missing_unconfirmed") {
+                    PersonDemiseStatus.MISSING_UNCONFIRMED
+                } else {
+                    PersonDemiseStatus.CONFIRMED_DEMISE
+                }
+
+                val circIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE)
+                val circStr = if (circIdx >= 0) it.getString(circIdx) else null
+                val demiseCircumstance = DemiseCircumstance.fromId(circStr)
+
+                val lastSeenIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH)
+                val lastSeenEpoch = if (lastSeenIdx >= 0 && !it.isNull(lastSeenIdx)) it.getLong(lastSeenIdx) else null
+                val lastSeenDate = lastSeenEpoch?.let { ep -> LocalDate.ofEpochDay(ep) }
+
+                val ageIdx = it.getColumnIndex(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE)
+                val age = if (ageIdx >= 0 && !it.isNull(ageIdx)) it.getInt(ageIdx) else null
+
                 return SavedProfileItem(
                     id = id,
                     personName = name,
@@ -273,7 +361,11 @@ class SavedProfilesRepository(context: Context) {
                     location = GeoLocation(city, state, country, lat, lon, tz),
                     notes = notes,
                     traditionId = traditionId,
-                    timestamp = timestamp
+                    timestamp = timestamp,
+                    demiseStatus = demiseStatus,
+                    demiseCircumstance = demiseCircumstance,
+                    lastSeenDate = lastSeenDate,
+                    ageAtDisappearance = age
                 )
             }
         }

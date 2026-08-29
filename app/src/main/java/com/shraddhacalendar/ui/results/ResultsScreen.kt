@@ -36,6 +36,10 @@ import com.shraddhacalendar.core.models.*
 import com.shraddhacalendar.core.pdf.ShraddhaPdfExporter
 import com.shraddhacalendar.core.shraddha.EducationalContentRepository
 import com.shraddhacalendar.core.shraddha.TimingExplanationGenerator
+import com.shraddhacalendar.core.shraddha.MissingPersonGuidanceRepository
+import com.shraddhacalendar.core.shraddha.ShastricCircumstanceRepository
+import com.shraddhacalendar.ui.components.CircumstanceGuidanceCard
+import com.shraddhacalendar.ui.components.MissingPersonAdvisoryCard
 import com.shraddhacalendar.ui.components.CeremonyDetailDialog
 import com.shraddhacalendar.ui.components.EkadashiGuidanceDialog
 import com.shraddhacalendar.ui.components.PanchaKalaGuideDialog
@@ -97,12 +101,14 @@ fun ResultsScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { isPanchaKalaGuideOpen = true }) {
-                        Icon(
-                            imageVector = Icons.Default.MenuBook,
-                            contentDescription = stringResource(R.string.pancha_kala_guide_btn),
-                            tint = PrimarySaffronDark
-                        )
+                    if (!result.personRecord.isMissingUnconfirmed) {
+                        IconButton(onClick = { isPanchaKalaGuideOpen = true }) {
+                            Icon(
+                                imageVector = Icons.Default.MenuBook,
+                                contentDescription = stringResource(R.string.pancha_kala_guide_btn),
+                                tint = PrimarySaffronDark
+                            )
+                        }
                     }
                     IconButton(onClick = onNewCalculationClick) {
                         Icon(Icons.Default.Add, contentDescription = stringResource(R.string.new_calculation_btn), tint = PrimarySaffronDark)
@@ -126,100 +132,139 @@ fun ResultsScreen(
                 TopDedicationBanner(tradition = result.tradition)
             }
 
-            // 2. Demise & Panchanga Summary Card
-            item {
-                DemiseSummaryCard(
-                    result = result,
-                    language = currentLanguage,
-                    onOpenPanchaKalaGuide = { isPanchaKalaGuideOpen = true }
-                )
-            }
-
-            // 3. Dosha / Traditional Considerations Alert Card
-            item {
-                DoshaStatusCard(doshaResult = PanchangaLocalizer.localizeDoshaResult(result.doshaEvaluation, currentLanguage))
-            }
-
-            // 4. Highlighted Next Upcoming Observance Banner
-            // 4. Highlighted Next Upcoming Observance Banner
-            item {
-                val nextEvent = result.nextUpcomingObservance
-                if (nextEvent != null) {
-                    NextUpcomingObservanceCard(
-                        event = nextEvent,
-                        personRecord = result.personRecord,
+            if (result.personRecord.isMissingUnconfirmed) {
+                // Missing Person Shastric Advisory Flow
+                item {
+                    val missingGuidance = MissingPersonGuidanceRepository.getGuidance(
+                        ageAtDisappearance = result.personRecord.ageAtDisappearance,
+                        lastSeenDate = result.personRecord.lastSeenDate,
                         language = currentLanguage,
-                        isCalendarScheduled = activeCalendarEntities.contains(
-                            "${result.personRecord.name}_${nextEvent.gregorianDate}_${nextEvent.traditionalName}"
-                        ),
-                        onToggleCalendar = { onToggleEventCalendar(nextEvent) },
-                        onViewTrace = { selectedTraceEvent = nextEvent },
-                        onViewInfo = {
-                            selectedCeremonyInfo = EducationalContentRepository.findInfoForEvent(nextEvent)
-                        },
-                        onViewEkadashiGuidance = { selectedEkadashiEvent = nextEvent }
+                        tradition = result.tradition
+                    )
+                    MissingPersonAdvisoryCard(
+                        guidance = missingGuidance,
+                        onConfirmDemiseClick = onNewCalculationClick
                     )
                 }
-            }
 
-            // 5. Master Action Bar (Save Profile Toggle + Add All to Calendar)
-            item {
-                MasterActionsCard(
-                    isSaved = isCurrentResultSaved,
-                    isAllCalendarActive = isAllCalendarActive,
-                    onToggleSave = onToggleSaveProfile,
-                    onToggleAllCalendar = onToggleAllCalendar
-                )
-            }
-
-            // 6. Chronological Year Groups (Year 1 with Masikas drill-down, Year 2+ with Shraddha & Paksha)
-            items(result.yearlyObservanceGroups, key = { it.yearIndex }) { group ->
-                YearlyObservanceAccordion(
-                    group = group,
-                    personRecord = result.personRecord,
-                    language = currentLanguage,
-                    activeCalendarEntities = activeCalendarEntities,
-                    initialExpanded = group.yearIndex == upcomingYearIndex,
-                    onToggleCalendar = onToggleEventCalendar,
-                    onViewTrace = { selectedTraceEvent = it },
-                    onViewInfo = { event ->
-                        selectedCeremonyInfo = EducationalContentRepository.findInfoForEvent(event)
-                    },
-                    onViewEkadashiGuidance = { selectedEkadashiEvent = it },
-                    onExportYearPdf = { yearIndex ->
-                        try {
-                            ShraddhaPdfExporter.generateAndSharePdf(context, result, currentLanguage, targetYearIndex = yearIndex)
-                        } catch (e: Exception) {
-                            Toast.makeText(context, "Error generating PDF: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                )
-            }
-
-            // 7. PDF Export Button
-            item {
-                Button(
-                    onClick = {
-                        try {
-                            ShraddhaPdfExporter.generateAndSharePdf(context, result, currentLanguage)
-                        } catch (e: Exception) {
-                            Toast.makeText(context, "Error generating PDF: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = PrimarySaffron)
-                ) {
-                    Icon(Icons.Default.PictureAsPdf, contentDescription = null, tint = SurfaceCard)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(R.string.export_pdf),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
-                        color = SurfaceCard
+                // Save Profile action for Missing Person
+                item {
+                    MasterActionsCard(
+                        isSaved = isCurrentResultSaved,
+                        isAllCalendarActive = false,
+                        onToggleSave = onToggleSaveProfile,
+                        onToggleAllCalendar = {},
+                        showCalendarOption = false
                     )
+                }
+            } else {
+                // Confirmed Demise Standard Flow
+                // 2. Demise & Panchanga Summary Card
+                item {
+                    DemiseSummaryCard(
+                        result = result,
+                        language = currentLanguage,
+                        onOpenPanchaKalaGuide = { isPanchaKalaGuideOpen = true }
+                    )
+                }
+
+                // 3. Dosha / Traditional Considerations Alert Card
+                item {
+                    DoshaStatusCard(doshaResult = PanchangaLocalizer.localizeDoshaResult(result.doshaEvaluation, currentLanguage))
+                }
+
+                // 4. Durmarana / Circumstance Shastric Guidance Card (if unnatural demise or special circumstance)
+                if (result.personRecord.demiseCircumstance != DemiseCircumstance.NATURAL) {
+                    item {
+                        val circumstanceGuidance = ShastricCircumstanceRepository.getGuidance(
+                            circumstance = result.personRecord.demiseCircumstance,
+                            language = currentLanguage,
+                            tradition = result.tradition
+                        )
+                        CircumstanceGuidanceCard(guidance = circumstanceGuidance)
+                    }
+                }
+
+                // 5. Highlighted Next Upcoming Observance Banner
+                item {
+                    val nextEvent = result.nextUpcomingObservance
+                    if (nextEvent != null) {
+                        NextUpcomingObservanceCard(
+                            event = nextEvent,
+                            personRecord = result.personRecord,
+                            language = currentLanguage,
+                            isCalendarScheduled = activeCalendarEntities.contains(
+                                "${result.personRecord.name}_${nextEvent.gregorianDate}_${nextEvent.traditionalName}"
+                            ),
+                            onToggleCalendar = { onToggleEventCalendar(nextEvent) },
+                            onViewTrace = { selectedTraceEvent = nextEvent },
+                            onViewInfo = {
+                                selectedCeremonyInfo = EducationalContentRepository.findInfoForEvent(nextEvent)
+                            },
+                            onViewEkadashiGuidance = { selectedEkadashiEvent = nextEvent }
+                        )
+                    }
+                }
+
+                // 6. Master Action Bar (Save Profile Toggle + Add All to Calendar)
+                item {
+                    MasterActionsCard(
+                        isSaved = isCurrentResultSaved,
+                        isAllCalendarActive = isAllCalendarActive,
+                        onToggleSave = onToggleSaveProfile,
+                        onToggleAllCalendar = onToggleAllCalendar
+                    )
+                }
+
+                // 6. Chronological Year Groups (Year 1 with Masikas drill-down, Year 2+ with Shraddha & Paksha)
+                items(result.yearlyObservanceGroups, key = { it.yearIndex }) { group ->
+                    YearlyObservanceAccordion(
+                        group = group,
+                        personRecord = result.personRecord,
+                        language = currentLanguage,
+                        activeCalendarEntities = activeCalendarEntities,
+                        initialExpanded = group.yearIndex == upcomingYearIndex,
+                        onToggleCalendar = onToggleEventCalendar,
+                        onViewTrace = { selectedTraceEvent = it },
+                        onViewInfo = { event ->
+                            selectedCeremonyInfo = EducationalContentRepository.findInfoForEvent(event)
+                        },
+                        onViewEkadashiGuidance = { selectedEkadashiEvent = it },
+                        onExportYearPdf = { yearIndex ->
+                            try {
+                                ShraddhaPdfExporter.generateAndSharePdf(context, result, currentLanguage, targetYearIndex = yearIndex)
+                            } catch (e: Exception) {
+                                Toast.makeText(context, "Error generating PDF: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    )
+                }
+
+                // 7. PDF Export Button
+                item {
+                    Button(
+                        onClick = {
+                            try {
+                                ShraddhaPdfExporter.generateAndSharePdf(context, result, currentLanguage)
+                            } catch (e: Exception) {
+                                Toast.makeText(context, "Error generating PDF: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = PrimarySaffron)
+                    ) {
+                        Icon(Icons.Default.PictureAsPdf, contentDescription = null, tint = SurfaceCard)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.export_pdf),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp,
+                            color = SurfaceCard
+                        )
+                    }
                 }
             }
 
@@ -627,7 +672,8 @@ private fun MasterActionsCard(
     isSaved: Boolean,
     isAllCalendarActive: Boolean,
     onToggleSave: () -> Unit,
-    onToggleAllCalendar: () -> Unit
+    onToggleAllCalendar: () -> Unit,
+    showCalendarOption: Boolean = true
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -678,43 +724,45 @@ private fun MasterActionsCard(
                 )
             }
 
-            HorizontalDivider(color = CardBorder.copy(alpha = 0.5f))
+            if (showCalendarOption) {
+                HorizontalDivider(color = CardBorder.copy(alpha = 0.5f))
 
-            // Calendar Reminders Switch
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onToggleAllCalendar() },
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = if (isAllCalendarActive) Icons.Default.NotificationsActive else Icons.Default.NotificationAdd,
-                        contentDescription = null,
-                        tint = if (isAllCalendarActive) PrimarySaffron else TextSecondary,
-                        modifier = Modifier.size(22.dp)
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column {
-                        Text(
-                            text = stringResource(R.string.add_all_to_calendar),
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = TextPrimary
+                // Calendar Reminders Switch
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onToggleAllCalendar() },
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = if (isAllCalendarActive) Icons.Default.NotificationsActive else Icons.Default.NotificationAdd,
+                            contentDescription = null,
+                            tint = if (isAllCalendarActive) PrimarySaffron else TextSecondary,
+                            modifier = Modifier.size(22.dp)
                         )
-                        Text(
-                            text = stringResource(R.string.calendar_sync_subtitle),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = TextSecondary
-                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column {
+                            Text(
+                                text = stringResource(R.string.add_all_to_calendar),
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = TextPrimary
+                            )
+                            Text(
+                                text = stringResource(R.string.calendar_sync_subtitle),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = TextSecondary
+                            )
+                        }
                     }
+                    Switch(
+                        checked = isAllCalendarActive,
+                        onCheckedChange = { onToggleAllCalendar() },
+                        colors = shraddhaSwitchColors()
+                    )
                 }
-                Switch(
-                    checked = isAllCalendarActive,
-                    onCheckedChange = { onToggleAllCalendar() },
-                    colors = shraddhaSwitchColors()
-                )
             }
         }
     }

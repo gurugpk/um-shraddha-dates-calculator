@@ -255,6 +255,10 @@ class MainActivity : ComponentActivity() {
                                                 onDeathTimeChange = { viewModel.onDeathTimeChange(it) },
                                                 onLocationChange = { viewModel.onLocationChange(it) },
                                                 onTraditionChange = { viewModel.setTradition(it) },
+                                                onDemiseStatusChange = { viewModel.onDemiseStatusChange(it) },
+                                                onDemiseCircumstanceChange = { viewModel.onDemiseCircumstanceChange(it) },
+                                                onLastSeenDateChange = { viewModel.onLastSeenDateChange(it) },
+                                                onAgeAtDisappearanceChange = { viewModel.onAgeAtDisappearanceChange(it) },
                                                 onCalculateClick = { viewModel.calculateShraddha() }
                                             )
                                         }

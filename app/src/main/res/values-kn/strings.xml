@@ -202,4 +202,36 @@
     <string name="canonical_injunction_title">ಶಾಸ್ತ್ರೀಯ ಪ್ರಮಾಣ ಶ್ಲೋಕ</string>
     <string name="layperson_qa_title">ಈ ದಿನಾಂಕ ಮತ್ತು ಸಮಯವನ್ನೇ ಏಕೆ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ?</string>
     <string name="explore_pancha_kalas">ದಿನದ ೫ ಕಾಲಗಳ ಸಂಪೂರ್ಣ ವಿವರ ನೋಡಿ</string>
+
+    <!-- Durmarana & Missing Person Feature -->
+    <string name="scriptural_basis_label">ಶಾಸ್ತ್ರಾಧಾರ ಹಾಗೂ ಮಾರ್ಗದರ್ಶನ</string>
+    <string name="close_button">ಮುಚ್ಚಿ</string>
+    <string name="sanskrit_classification_label">ಸಂಸ್ಕೃತ ಶಾಸ್ತ್ರೀಯ ವರ್ಗೀಕರಣ</string>
+    <string name="applicable_shastric_remedy_label">ಶಾಸ್ತ್ರೋಕ್ತ ಪ್ರಾಯಶ್ಚಿತ್ತ / ಪರಿಹಾರ</string>
+    <string name="tradition_and_acharya_note_title">ಸಂಪ್ರದಾಯ ಹಾಗೂ ಆಚಾರ್ಯ ಸಮಾಲೋಚನೆ</string>
+    <string name="acharya_consultation_reminder">ವಿಶೇಷ ವಿಧಿಗಳನ್ನು ಆಚರಿಸುವ ಮೊದಲು ನಿಮ್ಮ ಕುಟುಂಬದ ಪುರೋಹಿತರು ಅಥವಾ ಶ್ರೀ ಉತ್ತರಾದಿ ಮಠದ ವಿದ್ವಾಂಸರನ್ನು ಸಂಪರ್ಕಿಸಿ ಮಾರ್ಗದರ್ಶನ ಪಡೆಯಿರಿ.</string>
+    <string name="shastric_injunction_label">ಕಟ್ಟುನಿಟ್ಟಾದ ಶಾಸ್ತ್ರೀಯ ನಿಯಮ</string>
+    <string name="waiting_period_title">ವಯೋಮಾನ ಆಧಾರಿತ ಶಾಸ್ತ್ರೋಕ್ತ ಕಾಯುವಿಕೆ ಅವಧಿ</string>
+    <string name="prescribed_waiting_label">ಶಾಸ್ತ್ರೋಕ್ತ ಅವಧಿ</string>
+    <string name="years_unit">ವರ್ಷಗಳು</string>
+    <string name="elapsed_time_label">ಕಳೆದ ಸಮಯ</string>
+    <string name="period_elapsed_badge">ಅವಧಿ ಪೂರ್ಣಗೊಂಡಿದೆ</string>
+    <string name="remaining_unit">ಉಳಿದಿದೆ</string>
+    <string name="prayers_for_safe_return_title">ಆರೋಗ್ಯ, ಆಯುಷ್ಯ ಹಾಗೂ ಸುರಕ್ಷಿತ ವಾಪಸಾತಿಗಾಗಿ ಪ್ರಾರ್ಥನೆಗಳು</string>
+    <string name="hide_shastric_protocols">ಶಾಸ್ತ್ರೀಯ ವಿಧಿಗಳನ್ನು ಮರೆಮಾಡಿ</string>
+    <string name="view_shastric_protocols">ಶಾಸ್ತ್ರೀಯ ವಿಧಿಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="protocol_if_period_expires_title">ಕಾಯುವಿಕೆ ಅವಧಿ ಮುಗಿದ ನಂತರದ ವಿಧಿ (ಪಲಾಶವಿಧಿ &amp; ನಾರಾಯಣ ಬಲಿ)</string>
+    <string name="if_returned_alive_title">ಜೀವಂತರಾಗಿ ಹಿಂದಿರುಗಿದರೆ (ಘಟಪ್ರಸೂತಿ ಪುನರುಜ್ಜೀವನ ವಿಧಿ)</string>
+    <string name="classical_sources_title">ಪ್ರಾಮಾಣಿಕ ಶಾಸ್ತ್ರ ಗ್ರಂಥಗಳು</string>
+    <string name="confirm_demise_date_cta">ಮರಣ ದಿನಾಂಕವನ್ನು ದೃಢೀಕರಿಸಿ ಪಂಚಾಂಗ ಪಡೆಯಿರಿ</string>
+    <string name="shastric_circumstance_guidance_title">ದುರ್ಮರಣ / ಸಂದರ್ಭ ಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶನ</string>
+    <string name="prescribed_remedy_label">ಶಾಸ್ತ್ರೋಕ್ತ ಪರಿಹಾರ ವಿಧಿ</string>
+    <string name="view_shastra_verse_button">ಶಾಸ್ತ್ರ ಪ್ರಮಾಣ ಶ್ಲೋಕ ನೋಡಿ</string>
+    <string name="demise_status_label">ಮರಣದ ಸ್ಥಿತಿ</string>
+    <string name="status_confirmed_demise">ದೃಢಪಟ್ಟ ಮರಣ</string>
+    <string name="status_missing_unconfirmed">ಕಾಣೆಯಾಗಿದ್ದಾರೆ / ಮರಣ ದೃಢಪಟ್ಟಿಲ್ಲ</string>
+    <string name="demise_circumstance_label">ಮರಣದ ಸಂದರ್ಭ / ವಿಧ</string>
+    <string name="last_seen_date_label">ಕೊನೆಯ ಬಾರಿ ಕಂಡ ದಿನಾಂಕ (ಐಚ್ಛಿಕ)</string>
+    <string name="age_at_disappearance_label">ಕಾಣೆಯಾದಾಗ ಇದ್ದ ವಯಸ್ಸು (ಐಚ್ಛಿಕ)</string>
+    <string name="missing_person_banner_text">ಕಾಣೆಯಾದ ವ್ಯಕ್ತಿಯ ಪ್ರಕರಣ. ಧರ್ಮಶಾಸ್ತ್ರದಂತೆ ವ್ಯಕ್ತಿಯು ಜೀವಂತವಾಗಿರುವ ಸಾಧ್ಯತೆಯಿರುವಾಗ ಶ್ರಾದ್ಧ ಮಾಡಬಾರದು. ಕೆಳಗಿನ ಶಾಸ್ತ್ರೀಯ ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಕಾಯುವಿಕೆ ಅವಧಿಯನ್ನು ಪರಿಶೀಲಿಸಿ.</string>
 </resources>

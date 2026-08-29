@@ -39,6 +39,10 @@ data class ShraddhaUiState(
     val deathDate: LocalDate = LocalDate.now(),
     val deathTime: LocalTime = LocalTime.of(12, 0),
     val selectedLocation: GeoLocation = CityDatabase.CITIES.first(),
+    val demiseStatus: PersonDemiseStatus = PersonDemiseStatus.CONFIRMED_DEMISE,
+    val demiseCircumstance: DemiseCircumstance = DemiseCircumstance.NATURAL,
+    val lastSeenDate: LocalDate? = null,
+    val ageAtDisappearance: Int? = null,
     val isCalculating: Boolean = false,
     val calculationResult: ShraddhaCalculationResult? = null,
     val validationError: String? = null,
@@ -116,6 +120,10 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
                     deathDate = LocalDate.now(),
                     deathTime = LocalTime.of(12, 0),
                     selectedLocation = CityDatabase.CITIES.first(),
+                    demiseStatus = PersonDemiseStatus.CONFIRMED_DEMISE,
+                    demiseCircumstance = DemiseCircumstance.NATURAL,
+                    lastSeenDate = null,
+                    ageAtDisappearance = null,
                     calculationResult = null,
                     validationError = null,
                     isCurrentResultSaved = false
@@ -139,6 +147,10 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
                 deathDate = LocalDate.now(),
                 deathTime = LocalTime.of(12, 0),
                 selectedLocation = CityDatabase.CITIES.first(),
+                demiseStatus = PersonDemiseStatus.CONFIRMED_DEMISE,
+                demiseCircumstance = DemiseCircumstance.NATURAL,
+                lastSeenDate = null,
+                ageAtDisappearance = null,
                 calculationResult = null,
                 validationError = null,
                 isCurrentResultSaved = false
@@ -171,6 +183,22 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
         _uiState.update { it.copy(selectedLocation = location, validationError = null) }
     }
 
+    fun onDemiseStatusChange(status: PersonDemiseStatus) {
+        _uiState.update { it.copy(demiseStatus = status, validationError = null) }
+    }
+
+    fun onDemiseCircumstanceChange(circumstance: DemiseCircumstance) {
+        _uiState.update { it.copy(demiseCircumstance = circumstance, validationError = null) }
+    }
+
+    fun onLastSeenDateChange(date: LocalDate?) {
+        _uiState.update { it.copy(lastSeenDate = date, validationError = null) }
+    }
+
+    fun onAgeAtDisappearanceChange(age: Int?) {
+        _uiState.update { it.copy(ageAtDisappearance = age, validationError = null) }
+    }
+
     fun calculateShraddha() {
         val currentState = _uiState.value
         if (currentState.personName.isBlank()) {
@@ -184,7 +212,11 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
             deathTime = currentState.deathTime,
             location = currentState.selectedLocation,
             relationship = currentState.relationship,
-            tradition = currentState.selectedTradition
+            tradition = currentState.selectedTradition,
+            demiseStatus = currentState.demiseStatus,
+            demiseCircumstance = currentState.demiseCircumstance,
+            lastSeenDate = currentState.lastSeenDate,
+            ageAtDisappearance = currentState.ageAtDisappearance
         )
 
         calculateForRecord(record)
@@ -215,7 +247,11 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
                         calculationResult = result,
                         isCurrentResultSaved = isSaved,
                         selectedTradition = record.tradition,
-                        relationship = record.relationship
+                        relationship = record.relationship,
+                        demiseStatus = record.demiseStatus,
+                        demiseCircumstance = record.demiseCircumstance,
+                        lastSeenDate = record.lastSeenDate,
+                        ageAtDisappearance = record.ageAtDisappearance
                     )
                 }
 
@@ -242,6 +278,10 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
                 deathTime = record.deathTime,
                 selectedLocation = record.location,
                 selectedTradition = record.tradition,
+                demiseStatus = record.demiseStatus,
+                demiseCircumstance = record.demiseCircumstance,
+                lastSeenDate = record.lastSeenDate,
+                ageAtDisappearance = record.ageAtDisappearance,
                 selectedTab = AppTab.CALCULATOR
             )
         }
@@ -254,7 +294,11 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
             deathDate = recent.deathDate,
             deathTime = recent.deathTime,
             location = recent.location,
-            tradition = _uiState.value.selectedTradition
+            tradition = _uiState.value.selectedTradition,
+            demiseStatus = recent.demiseStatus,
+            demiseCircumstance = recent.demiseCircumstance,
+            lastSeenDate = recent.lastSeenDate,
+            ageAtDisappearance = recent.ageAtDisappearance
         )
         _uiState.update {
             it.copy(
@@ -262,6 +306,10 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
                 deathDate = record.deathDate,
                 deathTime = record.deathTime,
                 selectedLocation = record.location,
+                demiseStatus = record.demiseStatus,
+                demiseCircumstance = record.demiseCircumstance,
+                lastSeenDate = record.lastSeenDate,
+                ageAtDisappearance = record.ageAtDisappearance,
                 selectedTab = AppTab.CALCULATOR
             )
         }
@@ -277,6 +325,10 @@ class ShraddhaViewModel(application: Application) : AndroidViewModel(application
                 deathDate = recent.deathDate,
                 deathTime = recent.deathTime,
                 selectedLocation = recent.location,
+                demiseStatus = recent.demiseStatus,
+                demiseCircumstance = recent.demiseCircumstance,
+                lastSeenDate = recent.lastSeenDate,
+                ageAtDisappearance = recent.ageAtDisappearance,
                 calculationResult = null,
                 validationError = null,
                 isCurrentResultSaved = false

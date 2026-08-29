@@ -33,6 +33,10 @@ class RecentSearchRepository(context: Context) {
                 put(ShraddhaDatabaseHelper.COL_LATITUDE, person.location.latitude)
                 put(ShraddhaDatabaseHelper.COL_LONGITUDE, person.location.longitude)
                 put(ShraddhaDatabaseHelper.COL_TIMEZONE, person.location.timezoneId)
+                put(ShraddhaDatabaseHelper.COL_DEMISE_STATUS, person.demiseStatus.id)
+                put(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE, person.demiseCircumstance.id)
+                put(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH, person.lastSeenDate?.toEpochDay())
+                put(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE, person.ageAtDisappearance)
                 put(ShraddhaDatabaseHelper.COL_TIMESTAMP, System.currentTimeMillis())
             }
             val insertedId = db.insert(ShraddhaDatabaseHelper.TABLE_RECENTS, null, values)
@@ -83,6 +87,25 @@ class RecentSearchRepository(context: Context) {
                 val tz = c.getString(c.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMEZONE))
                 val ts = c.getLong(c.getColumnIndexOrThrow(ShraddhaDatabaseHelper.COL_TIMESTAMP))
 
+                val statusIdx = c.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_STATUS)
+                val statusStr = if (statusIdx >= 0) c.getString(statusIdx) else null
+                val demiseStatus = if (statusStr == "missing_unconfirmed") {
+                    com.shraddhacalendar.core.models.PersonDemiseStatus.MISSING_UNCONFIRMED
+                } else {
+                    com.shraddhacalendar.core.models.PersonDemiseStatus.CONFIRMED_DEMISE
+                }
+
+                val circIdx = c.getColumnIndex(ShraddhaDatabaseHelper.COL_DEMISE_CIRCUMSTANCE)
+                val circStr = if (circIdx >= 0) c.getString(circIdx) else null
+                val demiseCircumstance = com.shraddhacalendar.core.models.DemiseCircumstance.fromId(circStr)
+
+                val lastSeenIdx = c.getColumnIndex(ShraddhaDatabaseHelper.COL_LAST_SEEN_DATE_EPOCH)
+                val lastSeenEpoch = if (lastSeenIdx >= 0 && !c.isNull(lastSeenIdx)) c.getLong(lastSeenIdx) else null
+                val lastSeenDate = lastSeenEpoch?.let { LocalDate.ofEpochDay(it) }
+
+                val ageIdx = c.getColumnIndex(ShraddhaDatabaseHelper.COL_AGE_AT_DISAPPEARANCE)
+                val age = if (ageIdx >= 0 && !c.isNull(ageIdx)) c.getInt(ageIdx) else null
+
                 list.add(
                     RecentSearchItem(
                         id = id,
@@ -97,7 +120,11 @@ class RecentSearchRepository(context: Context) {
                             longitude = lon,
                             timezoneId = tz
                         ),
-                        timestamp = ts
+                        timestamp = ts,
+                        demiseStatus = demiseStatus,
+                        demiseCircumstance = demiseCircumstance,
+                        lastSeenDate = lastSeenDate,
+                        ageAtDisappearance = age
                     )
                 )
             }

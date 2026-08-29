@@ -202,4 +202,36 @@
     <string name="canonical_injunction_title">Canonical Scriptural Injunction</string>
     <string name="layperson_qa_title">Why This Date &amp; Time Was Selected</string>
     <string name="explore_pancha_kalas">Explore All 5 Divisions of Day (Pancha Kalas)</string>
+
+    <!-- Durmarana & Missing Person Feature -->
+    <string name="scriptural_basis_label">Scriptural Basis &amp; Guidance</string>
+    <string name="close_button">Close</string>
+    <string name="sanskrit_classification_label">Sanskrit Classification</string>
+    <string name="applicable_shastric_remedy_label">Prescribed Shastric Remedy</string>
+    <string name="tradition_and_acharya_note_title">Tradition &amp; Acharya Consultation</string>
+    <string name="acharya_consultation_reminder">Please consult your family Purohita or Sri Uttaradi Matha Acharya before performing any special rites.</string>
+    <string name="shastric_injunction_label">Strict Shastric Injunction</string>
+    <string name="waiting_period_title">Age-Tiered Shastric Waiting Period</string>
+    <string name="prescribed_waiting_label">Prescribed Waiting</string>
+    <string name="years_unit">Years</string>
+    <string name="elapsed_time_label">Elapsed Time</string>
+    <string name="period_elapsed_badge">Period Elapsed</string>
+    <string name="remaining_unit">remaining</string>
+    <string name="prayers_for_safe_return_title">Ordained Prayers for Protection &amp; Safe Return</string>
+    <string name="hide_shastric_protocols">Hide Shastric Protocols</string>
+    <string name="view_shastric_protocols">View Shastric Protocols</string>
+    <string name="protocol_if_period_expires_title">Protocol if Waiting Period Expires (Palasha-vidhi &amp; Narayana Bali)</string>
+    <string name="if_returned_alive_title">If Returned Alive (Ghata-Prasuti Reversal Protocol)</string>
+    <string name="classical_sources_title">Classical Scriptural Authorities</string>
+    <string name="confirm_demise_date_cta">Confirm Demise Date &amp; Generate Calendar</string>
+    <string name="shastric_circumstance_guidance_title">Circumstance / Durmarana Guidance</string>
+    <string name="prescribed_remedy_label">Prescribed Shastric Remedy</string>
+    <string name="view_shastra_verse_button">View Shastra Authority &amp; Verses</string>
+    <string name="demise_status_label">Demise Status</string>
+    <string name="status_confirmed_demise">Confirmed Demise</string>
+    <string name="status_missing_unconfirmed">Missing / Death Unconfirmed</string>
+    <string name="demise_circumstance_label">Circumstance / Type of Demise</string>
+    <string name="last_seen_date_label">Date Last Seen (Optional)</string>
+    <string name="age_at_disappearance_label">Age at Disappearance (Optional)</string>
+    <string name="missing_person_banner_text">Missing person detected. In Dharma Shastra, Shraddha cannot be performed while life status remains unknown. Review Shastric guidance and waiting periods below.</string>
 </resources>

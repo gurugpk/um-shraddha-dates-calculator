@@ -201,4 +201,36 @@
     <string name="canonical_injunction_title">शास्त्रप्रमाणश्लोकः</string>
     <string name="layperson_qa_title">कथम् अयमेव दिवसः स्वीकृतः?</string>
     <string name="explore_pancha_kalas">पञ्चकालविभागं पश्यतु</string>
+
+    <!-- Durmarana & Missing Person Feature -->
+    <string name="scriptural_basis_label">शास्त्रप्रमाणं मार्गदर्शनं च</string>
+    <string name="close_button">पिधानम्</string>
+    <string name="sanskrit_classification_label">शास्त्रीय-वर्गीकरणम्</string>
+    <string name="applicable_shastric_remedy_label">शास्त्रोक्त-प्रायश्चित्त-विधिः</string>
+    <string name="tradition_and_acharya_note_title">सम्प्रदायः आचार्याणां सम्मतिश्च</string>
+    <string name="acharya_consultation_reminder">विशेषाधिकारानुष्ठानात् पूर्वं कुलपुरोहितानां श्रीमदुत्तरादिमठाचार्याणां वा मार्गदर्शनं स्वीकुर्वन्तु।</string>
+    <string name="shastric_injunction_label">कठिन-शास्त्रनियमः</string>
+    <string name="waiting_period_title">वयोऽनुसारं शास्त्रविहितः प्रतीक्षाकालः</string>
+    <string name="prescribed_waiting_label">विहित-प्रतीक्षाकालः</string>
+    <string name="years_unit">वर्षाणि</string>
+    <string name="elapsed_time_label">व्यतीतकालः</string>
+    <string name="period_elapsed_badge">कालः समाप्तः</string>
+    <string name="remaining_unit">अवशिष्टम्</string>
+    <string name="prayers_for_safe_return_title">आयुष्यार्थं कुशलप्रत्यागमनाय च विहितप्रार्थनाः</string>
+    <string name="hide_shastric_protocols">शास्त्रविधीन् गोपायतु</string>
+    <string name="view_shastric_protocols">शास्त्रविधीन् पश्यतु</string>
+    <string name="protocol_if_period_expires_title">प्रतीक्षाकाले समाप्ते संस्कारविधिः (पलाशविधिः नारायणबलिः)</string>
+    <string name="if_returned_alive_title">जीवन्नेव प्रत्यागमने (घटप्रसूति-संस्कारविधिः)</string>
+    <string name="classical_sources_title">प्रामाणिकशास्त्रग्रन्थाः</string>
+    <string name="confirm_demise_date_cta">मरणतिथिं निश्चित्य पञ्चाङ्गं प्राप्नोतु</string>
+    <string name="shastric_circumstance_guidance_title">दुर्मरण-शास्त्रनिर्णयः</string>
+    <string name="prescribed_remedy_label">शास्त्रविहित-प्रायश्चित्तम्</string>
+    <string name="view_shastra_verse_button">शास्त्रप्रमाणश्लोकान् पश्यतु</string>
+    <string name="demise_status_label">मरणस्थितिः</string>
+    <string name="status_confirmed_demise">निश्चितमरणम्</string>
+    <string name="status_missing_unconfirmed">नष्टवार्तिकः / मरणम् अनिश्चितम्</string>
+    <string name="demise_circumstance_label">मरणप्रकारः / प्रसङ्गः</string>
+    <string name="last_seen_date_label">अन्तिमदर्शनदिनाङ्कः (ऐच्छिकः)</string>
+    <string name="age_at_disappearance_label">अन्तर्धानकाले वयः (ऐच्छिकम्)</string>
+    <string name="missing_person_banner_text">नष्टवार्तिक-प्रसङ्गः। धर्मशास्त्ररीत्या जीवत्सम्भवे श्राद्धं प्रतिषिद्धम्। अधस्तात् शास्त्रनिर्णयं प्रतीक्षाकालं च परिशीलयन्तु।</string>
 </resources>

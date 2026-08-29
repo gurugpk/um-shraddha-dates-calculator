@@ -16,6 +16,37 @@ object ShraddhaCalculator {
         val tradition = personRecord.tradition
         val engine = TraditionEngineFactory.getEngine(tradition)
 
+        // If Person is Missing / Demise Unconfirmed, do NOT generate speculative Shraddha calendar
+        if (personRecord.isMissingUnconfirmed) {
+            val dummyTithiInfo = TithiInfo.fromNumber(1)
+            val dummyPanchanga = PanchangaTithi(
+                tithi = dummyTithiInfo,
+                masa = LunarMonth.CHAITRA,
+                isAdhikaMasa = false,
+                samvatsara = "N/A"
+            )
+            val missingGuidance = MissingPersonGuidanceRepository.getGuidance(
+                ageAtDisappearance = personRecord.ageAtDisappearance,
+                lastSeenDate = personRecord.lastSeenDate,
+                language = com.shraddhacalendar.core.localization.AppLanguage.ENGLISH,
+                tradition = tradition
+            )
+            return ShraddhaCalculationResult(
+                personRecord = personRecord,
+                mrutaTithi = dummyPanchanga,
+                isDeathOlderThanOneYear = false,
+                nextUpcomingShraddha = null,
+                yearlySections = emptyList(),
+                yearlyObservanceGroups = emptyList(),
+                nextUpcomingObservance = null,
+                nextUpcomingCategory = null,
+                doshaEvaluation = DoshaEvaluationResult(false, emptyList(), "Missing person: No dosha evaluation applicable."),
+                tradition = tradition,
+                circumstanceGuidance = null,
+                missingPersonGuidance = missingGuidance
+            )
+        }
+
         // 1. Calculate astronomical Mruta Panchanga Tithi at moment of death
         val mrutaPanchanga = engine.calculateMrutaTithi(
             deathDate = personRecord.deathDate,
@@ -71,6 +102,14 @@ object ShraddhaCalculator {
             )
         }
 
+        val circumstanceGuidance = if (personRecord.demiseCircumstance != DemiseCircumstance.NATURAL) {
+            ShastricCircumstanceRepository.getGuidance(
+                circumstance = personRecord.demiseCircumstance,
+                language = com.shraddhacalendar.core.localization.AppLanguage.ENGLISH,
+                tradition = tradition
+            )
+        } else null
+
         return ShraddhaCalculationResult(
             personRecord = personRecord,
             mrutaTithi = mrutaPanchanga,
@@ -81,7 +120,9 @@ object ShraddhaCalculator {
             nextUpcomingObservance = nextUpcomingObservance,
             nextUpcomingCategory = nextUpcomingObservance?.observanceCategory,
             doshaEvaluation = doshaResult,
-            tradition = tradition
+            tradition = tradition,
+            circumstanceGuidance = circumstanceGuidance,
+            missingPersonGuidance = null
         )
     }
 }

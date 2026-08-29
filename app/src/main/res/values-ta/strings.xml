@@ -201,4 +201,36 @@
     <string name="canonical_injunction_title">சாஸ்திர பிரமாண ஸ்லோகம்</string>
     <string name="layperson_qa_title">இந்த நாள் ஏன் தேர்ந்தெடுக்கப்பட்டது?</string>
     <string name="explore_pancha_kalas">5 காலங்களின் முழு விவரத்தை காண்க</string>
+
+    <!-- Durmarana & Missing Person Feature -->
+    <string name="scriptural_basis_label">சாஸ்திர ஆதாரம் மற்றும் வழிகாட்டுதல்</string>
+    <string name="close_button">மூடுக</string>
+    <string name="sanskrit_classification_label">சமஸ்கிருத சாஸ்திர வகைப்பாடு</string>
+    <string name="applicable_shastric_remedy_label">சாஸ்திர பிராயச்சித்தம் / பரிகாரம்</string>
+    <string name="tradition_and_acharya_note_title">சம்பிரதாயம் மற்றும் ஆசார்யர் ஆலோசனை</string>
+    <string name="acharya_consultation_reminder">சிறப்பு சடங்குகளை செய்வதற்கு முன் உங்கள் குடும்ப புரோகிதர் அல்லது ஸ்ரீ உத்தரflowதி மட ஆசார்யர்களை அணுகி வழிகாட்டுதல் பெறவும்.</string>
+    <string name="shastric_injunction_label">கடுமையான சாஸ்திர விதி</string>
+    <string name="waiting_period_title">வயது அடிப்படையிலான சாஸ்திர காத்திருப்பு காலம்</string>
+    <string name="prescribed_waiting_label">சாஸ்திர காலம்</string>
+    <string name="years_unit">ஆண்டுகள்</string>
+    <string name="elapsed_time_label">கடந்த காலம்</string>
+    <string name="period_elapsed_badge">காலம் முடிந்தது</string>
+    <string name="remaining_unit">மீதம் உள்ளது</string>
+    <string name="prayers_for_safe_return_title">ஆயுளுக்கும் நலம் பெறவும் திரும்புவதற்கும் பிரார்த்தனைகள்</string>
+    <string name="hide_shastric_protocols">சாஸ்திர விதிகளை மறைக்க</string>
+    <string name="view_shastric_protocols">சாஸ்திர விதிகளை காண்க</string>
+    <string name="protocol_if_period_expires_title">காத்திருப்பு காலம் முடிந்த பின் விதி (பலாசவிதி &amp; நாராயண பலி)</string>
+    <string name="if_returned_alive_title">உயிருடன் திரும்பினால் (கடப்ரஸூதி மறுபிறவி சடங்கு)</string>
+    <string name="classical_sources_title">பிரமாண சாஸ்திர நூல்கள்</string>
+    <string name="confirm_demise_date_cta">மரணம் உறுதிசெய்து பஞ்சாங்கம் பெறுக</string>
+    <string name="shastric_circumstance_guidance_title">துர்மரண / சூழ்நிலை சாஸ்திர வழிகாட்டுதல்</string>
+    <string name="prescribed_remedy_label">சாஸ்திர பரிகார விதி</string>
+    <string name="view_shastra_verse_button">சாஸ்திர பிரமாண ஸ்லோகத்தை காண்க</string>
+    <string name="demise_status_label">மரண நிலை</string>
+    <string name="status_confirmed_demise">உறுதிசெய்யப்பட்ட மரணம்</string>
+    <string name="status_missing_unconfirmed">காணாமல் போயுள்ளார் / மரணம் உறுதிசெய்யப்படவில்லை</string>
+    <string name="demise_circumstance_label">மரண சூழ்நிலை / வகை</string>
+    <string name="last_seen_date_label">கடைசியாக பார்த்த தேதி (விருப்பத்தேர்வு)</string>
+    <string name="age_at_disappearance_label">காணாமல் போன போது வயது (விருப்பத்தேர்வு)</string>
+    <string name="missing_person_banner_text">காணாமல் போன நபர். தர்மசாஸ்திரப்படி உயிருடன் இருக்க வாய்ப்புள்ள போது ச்ராத்தம் செய்யக்கூடாது. கீழே உள்ள சாஸ்திர வழிகாட்டுதலை காண்க.</string>
 </resources>

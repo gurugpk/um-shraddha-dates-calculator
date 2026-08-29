@@ -201,4 +201,36 @@
     <string name="canonical_injunction_title">శాస్త్ర ప్రమాణ శ్లోకం</string>
     <string name="layperson_qa_title">ఈ దినం మరియు సమయం ఎందుకు ఎంపిక చేయబడింది?</string>
     <string name="explore_pancha_kalas">5 కాలాల పూర్తి వివరాలు చూడండి</string>
+
+    <!-- Durmarana & Missing Person Feature -->
+    <string name="scriptural_basis_label">శాస్త్రాధారం మరియు మార్గదర్శనం</string>
+    <string name="close_button">మూసివేయి</string>
+    <string name="sanskrit_classification_label">సంస్కృత శాస్త్రీయ వర్గీకరణ</string>
+    <string name="applicable_shastric_remedy_label">శాస్త్రోక్త ప్రాయశ్చిత్తం / పరిహారం</string>
+    <string name="tradition_and_acharya_note_title">సాంప్రదాయం మరియు ఆచార్యుల సలహా</string>
+    <string name="acharya_consultation_reminder">ప్రత్యేక విధులను ఆచరించే ముందు మీ కుటుంబ పురోహితులు లేదా శ్రీ ఉత్తరాది మఠం విద్వాంసులను సంప్రదించి మార్గదర్శనం పొందండి.</string>
+    <string name="shastric_injunction_label">ఖచ్చితమైన శాస్త్ర నియమం</string>
+    <string name="waiting_period_title">వయస్సు ఆధారిత శాస్త్రోక్త నిరీక్షణ కాలం</string>
+    <string name="prescribed_waiting_label">శాస్త్రోక్త కాలం</string>
+    <string name="years_unit">సంవత్సరాలు</string>
+    <string name="elapsed_time_label">గడిచిన సమయం</string>
+    <string name="period_elapsed_badge">సమయం ముగిసింది</string>
+    <string name="remaining_unit">మిగిలి ఉంది</string>
+    <string name="prayers_for_safe_return_title">ఆరోగ్యం, ఆయుష్షు మరియు క్షేమంగా తిరిగి రావడం కోసం ప్రార్థనలు</string>
+    <string name="hide_shastric_protocols">శాస్త్రీయ విధులను దాచు</string>
+    <string name="view_shastric_protocols">శాస్త్రీయ విధులను చూడండి</string>
+    <string name="protocol_if_period_expires_title">నిరీక్షణ కాలం ముగిసిన తర్వాత విధి (పలాశవిధి &amp; నారాయణ బలి)</string>
+    <string name="if_returned_alive_title">సజీవంగా తిరిగి వస్తే (ఘటప్రసూతి పునర్జీవన విధి)</string>
+    <string name="classical_sources_title">ప్రామాణిక శాస్త్ర గ్రంథాలు</string>
+    <string name="confirm_demise_date_cta">మరణ తేదీని ధృవీకరించి పంచాంగం పొందండి</string>
+    <string name="shastric_circumstance_guidance_title">దుర్మరణ / సందర్భ శాస్త్రీయ మార్గదర్శనం</string>
+    <string name="prescribed_remedy_label">శాస్త్రోక్త పరిహార విధి</string>
+    <string name="view_shastra_verse_button">శాస్త్ర ప్రమాణ శ్లోకాలు చూడండి</string>
+    <string name="demise_status_label">మరణ స్థితి</string>
+    <string name="status_confirmed_demise">ధృవీకరించబడిన మరణం</string>
+    <string name="status_missing_unconfirmed">కనిపించకుండా పోయారు / మరణం ఖాయం కాలేదు</string>
+    <string name="demise_circumstance_label">మరణ సందర్భం / రకం</string>
+    <string name="last_seen_date_label">చివరిగా చూసిన తేదీ (ఐచ్ఛికం)</string>
+    <string name="age_at_disappearance_label">కనిపించకుండా పోయినప్పుడు ఉన్న వయస్సు (ఐచ్ఛికం)</string>
+    <string name="missing_person_banner_text">కనిపించని వ్యక్తి కేసు. ధర్మశాస్త్రం ప్రకారం వ్యక్తి సజీవంగా ఉండే అవకాశం ఉన్నప్పుడు శ్రాద్ధం చేయరాదు. క్రింది శాస్త్రీయ మార్గదర్శనం మరియు నిరీక్షణ కాలాన్ని పరిశీలించండి.</string>
 </resources>
