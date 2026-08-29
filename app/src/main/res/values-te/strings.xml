@@ -102,6 +102,9 @@
     <string name="date_time_demise_label">మరణించిన తేదీ &amp; సమయం</string>
     <string name="mruta_tithi_at_demise">మరణ సమయపు ఖగోళ మృత తిథి:</string>
     <string name="soul_journey_station_title">జీవుని పరలోక ప్రయాణ గమ్యస్థానం</string>
+    <string name="yatana_sharira_section_title">పరలోక ప్రయాణం &amp; యాతనా శరీర స్థితి</string>
+    <string name="pinda_pradana_section_title">పిండ ప్రదాన ప్రాముఖ్యత &amp; శాంతి</string>
+    <string name="classical_verse_title">శాస్త్రోక్త సంస్కృత శ్లోకం</string>
     <string name="spiritual_impact_title">శాస్త్రీయ ప్రాముఖ్యత &amp; ఆధ్యాత్మిక ఫలితం</string>
     <string name="canonical_source_title">శాస్త్ర ప్రమాణ గ్రంథం</string>
     <string name="demise_no_dosha_desc">పంచక లేదా సంధి దోషాలు లేకుండా సాధారణ జ్యోతిష నియమాల ప్రకారం మరణం సంభవించింది.</string>

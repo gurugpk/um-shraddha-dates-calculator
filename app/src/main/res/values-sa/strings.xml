@@ -102,6 +102,9 @@
     <string name="date_time_demise_label">मृत्युदिनाङ्कः समयश्च</string>
     <string name="mruta_tithi_at_demise">मृत्युकालिकं पञ्चाङ्गम्:</string>
     <string name="soul_journey_station_title">जीवात्मनः मार्गस्थानम्</string>
+    <string name="yatana_sharira_section_title">परलोकमार्गः यातनादेहस्थितिः च</string>
+    <string name="pinda_pradana_section_title">पिण्डप्रदानस्य महत्त्वं तृप्तिः च</string>
+    <string name="classical_verse_title">शास्त्रोक्तः संस्कृतश्लोकः</string>
     <string name="spiritual_impact_title">अध्यात्मिकमहत्त्वं शास्त्रप्रयोजनं च</string>
     <string name="canonical_source_title">प्रमाणग्रन्थः</string>
     <string name="demise_no_dosha_desc">पञ्चकसन्धिदोषाणां विना शुभज्योतिषनियमानुसारं कालः वर्तते।</string>

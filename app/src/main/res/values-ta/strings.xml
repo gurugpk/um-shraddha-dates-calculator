@@ -102,6 +102,9 @@
     <string name="date_time_demise_label">இறந்த தேதி &amp; நேரம்</string>
     <string name="mruta_tithi_at_demise">இறப்பு நேரத்து மிருத திதி:</string>
     <string name="soul_journey_station_title">ஆன்மாவின் பயண நிலை</string>
+    <string name="yatana_sharira_section_title">பரலோக பயணம் &amp; யாதனா சரீர நிலை</string>
+    <string name="pinda_pradana_section_title">பிண்ட பிரதானத்தின் முக்கியத்துவம் &amp; நிவாரணம்</string>
+    <string name="classical_verse_title">சாஸ்திரோக்த சமஸ்கிருத ஸ்லோகம்</string>
     <string name="spiritual_impact_title">ஆன்மீக முக்கியத்துவம் &amp; பலன்</string>
     <string name="canonical_source_title">சாஸ்திர ஆதார நூல்</string>
     <string name="demise_no_dosha_desc">பஞ்சகம் அல்லது சந்தி தோஷங்கள் இல்லாமல் மர்ம மரண நிலை பதிவாகியுள்ளது.</string>

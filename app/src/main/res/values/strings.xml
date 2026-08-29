@@ -103,6 +103,9 @@
     <string name="date_time_demise_label">Date &amp; Time of Demise</string>
     <string name="mruta_tithi_at_demise">Astronomical Mruta Tithi at Demise:</string>
     <string name="soul_journey_station_title">Soul\'s Journey Station</string>
+    <string name="yatana_sharira_section_title">Stage in Afterlife Journey &amp; Yātanā Śarīra</string>
+    <string name="pinda_pradana_section_title">Role of Piṇḍa Pradāna &amp; Relief</string>
+    <string name="classical_verse_title">Classical Shastra Shloka</string>
     <string name="spiritual_impact_title">Spiritual Significance &amp; Impact</string>
     <string name="canonical_source_title">Canonical Scriptural Source</string>
     <string name="demise_no_dosha_desc">Demise occurred under standard astrological parameters without Panchaka or Sandhi afflictions.</string>

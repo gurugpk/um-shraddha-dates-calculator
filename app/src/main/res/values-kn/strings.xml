@@ -103,6 +103,9 @@
     <string name="date_time_demise_label">ಮೃತ್ಯು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ</string>
     <string name="mruta_tithi_at_demise">ಮೃತ್ಯು ಕಾಲದ ಖಗೋಳ ಮೃತ ತಿಥಿ:</string>
     <string name="soul_journey_station_title">ಜೀವನ ನಂತರದ ಪಯಣ ಮತ್ತು ಗಮ್ಯಸ್ಥಾನ</string>
+    <string name="yatana_sharira_section_title">ಪರಲೋಕ ಪಯಣ ಮತ್ತು ಯಾತನಾ ದೇಹದ ಸ್ಥಿತಿ</string>
+    <string name="pinda_pradana_section_title">ಪಿಂಡ ಪ್ರದಾನದ ಮಹತ್ವ ಮತ್ತು ಪರಿಹಾರ</string>
+    <string name="classical_verse_title">ಶಾಸ್ತ್ರೋಕ್ತ ಸಂಸ್ಕೃತ ಶ್ಲೋಕ</string>
     <string name="spiritual_impact_title">ಶಾಸ್ತ್ರೀಯ ಹಿನ್ನೆಲೆ ಮತ್ತು ಆಧ್ಯಾತ್ಮಿಕ ಫಲ</string>
     <string name="canonical_source_title">ಶಾಸ್ತ್ರ ಗ್ರಂಥಾಧಾರ</string>
     <string name="demise_no_dosha_desc">ಪಂಚಕ ಅಥವಾ ಸಂಧಿ ದೋಷಗಳಿಲ್ಲದೆ ಸಾಮಾನ್ಯ ಜ್ಯೋತಿಷ ನಿಯಮಗಳ ಅಡಿಯಲ್ಲಿ ಮೃತ್ಯು ಸಂಭವಿಸಿದೆ.</string>

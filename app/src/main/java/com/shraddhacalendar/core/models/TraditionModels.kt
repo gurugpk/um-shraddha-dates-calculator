@@ -121,9 +121,12 @@ data class EducationalCeremonyInfo(
     val dayTiming: String,
     val soulJourneyStation: String,
     val stationDescription: String,
+    val pretaConditionAndYatanaDeha: String = "",
+    val pindaSignificanceAndRelief: String = "",
     val spiritualSignificance: String,
     val whyNeeded: String,
-    val scripturalCitation: String
+    val scripturalCitation: String,
+    val classicalVerse: String? = null
 )
 
 /**

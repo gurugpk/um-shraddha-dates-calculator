@@ -105,15 +105,29 @@ fun CeremonyDetailDialog(
                     }
                 }
 
-                // 1. Stage in the Soul's Afterlife Journey
+                // 1. Stage in the Soul's Afterlife Journey & Yatana Sharira
                 DetailSection(
                     icon = "🚶‍♂️",
-                    title = stringResource(R.string.soul_journey_station_title),
+                    title = stringResource(R.string.yatana_sharira_section_title),
                     subtitle = localizedInfo.soulJourneyStation,
-                    description = localizedInfo.stationDescription
+                    description = if (localizedInfo.pretaConditionAndYatanaDeha.isNotBlank()) {
+                        "${localizedInfo.stationDescription}\n\n${localizedInfo.pretaConditionAndYatanaDeha}"
+                    } else {
+                        localizedInfo.stationDescription
+                    }
                 )
 
-                // 2. Spiritual Impact & Why It Is Needed
+                // 2. Role of Pinda Pradana & Relief
+                if (localizedInfo.pindaSignificanceAndRelief.isNotBlank()) {
+                    DetailSection(
+                        icon = "🌾",
+                        title = stringResource(R.string.pinda_pradana_section_title),
+                        subtitle = "",
+                        description = localizedInfo.pindaSignificanceAndRelief
+                    )
+                }
+
+                // 3. Spiritual Impact & Why It Is Needed
                 DetailSection(
                     icon = "✨",
                     title = stringResource(R.string.spiritual_impact_title),
@@ -121,7 +135,41 @@ fun CeremonyDetailDialog(
                     description = localizedInfo.whyNeeded
                 )
 
-                // 3. Scriptural Canonical Source
+                // 4. Classical Sanskrit Verse (if present)
+                if (!localizedInfo.classicalVerse.isNullOrBlank()) {
+                    Surface(
+                        shape = RoundedCornerShape(10.dp),
+                        color = PrimarySaffron.copy(alpha = 0.07f),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, PrimarySaffron.copy(alpha = 0.35f)),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(text = "🕉️", fontSize = 13.sp)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = stringResource(R.string.classical_verse_title),
+                                    style = MaterialTheme.typography.labelMedium.copy(fontSize = 11.5.sp),
+                                    fontWeight = FontWeight.Bold,
+                                    color = PrimarySaffronDark
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = localizedInfo.classicalVerse,
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontSize = 12.sp,
+                                    lineHeight = 18.sp,
+                                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
+                                ),
+                                fontWeight = FontWeight.Medium,
+                                color = PrimarySaffronDark
+                            )
+                        }
+                    }
+                }
+
+                // 5. Scriptural Canonical Source
                 Surface(
                     shape = RoundedCornerShape(10.dp),
                     color = SurfaceBackground,
@@ -193,12 +241,14 @@ private fun DetailSection(
             )
         }
 
-        Text(
-            text = subtitle,
-            style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp),
-            fontWeight = FontWeight.SemiBold,
-            color = TextPrimary
-        )
+        if (subtitle.isNotBlank()) {
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp),
+                fontWeight = FontWeight.SemiBold,
+                color = TextPrimary
+            )
+        }
 
         Text(
             text = description,
